@@ -8,22 +8,26 @@
     http://pyscaffold.readthedocs.org/
 """
 
+import inspect
 import os
 import sys
-import inspect
 from distutils.cmd import Command
 
-import versioneer
 import setuptools
-from setuptools.command.test import test as TestCommand
 from setuptools import setup
+from setuptools.command.test import test as TestCommand
+
+import versioneer
 
 __location__ = os.path.join(os.getcwd(), os.path.dirname(
     inspect.getfile(inspect.currentframe())))
 
 # Change these settings according to your needs
 MAIN_PACKAGE = "devs"
-DESCRIPTION = "A Python implementation of the Discrete Event System Specification (DEVS) based on adevs"
+DESCRIPTION = (
+    "A Python implementation of the Discrete Event System Specification (DEVS)"
+    " based on adevs"
+)
 LICENSE = "apache"
 URL = "http://github.com/andsor/pydevs"
 AUTHOR = "Andreas Sorge"
@@ -87,7 +91,6 @@ class ToxAutoDocs(Tox):
 def sphinx_builder():
     try:
         from sphinx.setup_command import BuildDoc
-        from sphinx import apidoc
     except ImportError:
         class NoSphinx(Command):
             user_options = []
@@ -196,7 +199,7 @@ def setup_package():
           command_options=command_options,
           entry_points={'console_scripts': CONSOLE_SCRIPTS},
           extras_require={
-              'doc': extra_doc_reqs,
+              'docs': extra_doc_reqs,
           },
           include_package_data=True,  # include everything in source control
           # but exclude these files

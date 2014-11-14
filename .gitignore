@@ -49,6 +49,11 @@ coverage.xml
 
 # Sphinx documentation
 docs/_build/
+docs/_rst/
 
 # PyBuilder
 target/
+
+# Local stuff
+.devenv*
+MANIFEST
