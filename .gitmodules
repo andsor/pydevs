@@ -1,0 +1,3 @@
+[submodule "vendor/adevs"]
+	path = vendor/adevs
+	url = http://github.com/smiz/adevs.git
