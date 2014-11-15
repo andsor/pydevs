@@ -3,10 +3,14 @@
 #include "adevs/adevs.h"
 
 namespace pydevs {
-	typedef adevs::PortValue<PyObject*> PortValue;
+	typedef PyObject* Value;
+	typedef int Port;
+	typedef adevs::PortValue<Value, Port> PortValue;
 	typedef adevs::Bag<PortValue> IOBag;
 	typedef double Time;
 	typedef adevs::Atomic<PortValue, Time> AtomicBase;
+	typedef adevs::Digraph<Value, Port, Time> DigraphBase;
+	typedef adevs::Devs<PortValue, Time> Devs;
 
 	typedef void (*DeltaIntFunc)(PyObject*);
 	typedef void (*DeltaExtFunc)(PyObject*, Time, const IOBag&);
@@ -14,6 +18,10 @@ namespace pydevs {
 	typedef void (*OutputFunc)(PyObject*, IOBag&);
 	typedef Time (*TaFunc)(PyObject*);
 
+	/*
+		C++ wrapper class which implements the virtual functions
+		of the adevs Atomic model
+	*/
 	class Atomic: public AtomicBase {
 	public:
 		Atomic(
@@ -85,6 +93,10 @@ namespace pydevs {
 			}
 		}
 
+		PyObject* get_python_object() {
+			return this->object_;
+		}
+
 	private:
 		PyObject* object_;
 		DeltaIntFunc delta_int_func_;
@@ -92,5 +104,41 @@ namespace pydevs {
 		DeltaConfFunc delta_conf_func_;
 		OutputFunc output_func_;
 		TaFunc ta_func_;
+	};
+
+	/*
+		C++ wrapper class for Digraph
+	*/
+	class Digraph {
+	public:
+		/*
+			Constructor
+		*/
+		Digraph() : digraph_base_() {}
+
+		DigraphBase& get_digraph() {
+			return this->digraph_base_;
+		}
+
+		void add(Devs* model) {
+			this->digraph_base_.add(model);
+		}
+
+		void couple(
+			Devs* source, Port source_port, 
+			Devs* destination, Port destination_port
+		) {
+			this->couple(
+				source, source_port,
+				destination, destination_port
+			);
+		}
+
+		void getComponents(adevs::Set<Devs*>& c) {
+			this->digraph_base_.getComponents(c);
+		}
+			
+	private:
+		DigraphBase digraph_base_;
 	};
 }

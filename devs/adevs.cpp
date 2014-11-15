@@ -424,12 +424,21 @@ static const char *__pyx_f[] = {
   "devs/adevs.pyx",
 };
 
-/* "cadevs.pxd":38
+/* "cadevs.pxd":47
+ * 
+ * 
+ * ctypedef int Port             # <<<<<<<<<<<<<<
+ * ctypedef PortValue[PythonObject, Port] CPortValue
+ * ctypedef Bag[CPortValue] IOBag
+ */
+typedef int __pyx_t_4devs_6cadevs_Port;
+
+/* "cadevs.pxd":51
  * ctypedef Bag[CPortValue] IOBag
  * ctypedef Bag[CPortValue].iterator IOBagIterator
  * ctypedef double Time             # <<<<<<<<<<<<<<
- * 
- * 
+ * ctypedef Devs[CPortValue, Time] CDevs
+ * ctypedef Set[CDevs*] Components
  */
 typedef double __pyx_t_4devs_6cadevs_Time;
 
@@ -437,17 +446,28 @@ typedef double __pyx_t_4devs_6cadevs_Time;
  * 
  * ctypedef cadevs.PythonObject PythonObject
  * ctypedef cadevs.Time Time             # <<<<<<<<<<<<<<
+ * ctypedef cadevs.Port Port
+ * ctypedef cadevs.CPortValue CPortValue
+ */
+typedef __pyx_t_4devs_6cadevs_Time __pyx_t_4devs_5adevs_Time;
+
+/* "devs/adevs.pyx":8
+ * ctypedef cadevs.PythonObject PythonObject
+ * ctypedef cadevs.Time Time
+ * ctypedef cadevs.Port Port             # <<<<<<<<<<<<<<
  * ctypedef cadevs.CPortValue CPortValue
  * ctypedef cadevs.IOBag CIOBag
  */
-typedef __pyx_t_4devs_6cadevs_Time __pyx_t_4devs_5adevs_Time;
+typedef __pyx_t_4devs_6cadevs_Port __pyx_t_4devs_5adevs_Port;
 
 /*--- Type declarations ---*/
 struct __pyx_obj_4devs_5adevs_IOBag;
 struct __pyx_obj_4devs_5adevs_OutputBag;
 struct __pyx_obj_4devs_5adevs_InputBag;
 struct __pyx_obj_4devs_5adevs_AtomicBase;
+struct __pyx_obj_4devs_5adevs_Digraph;
 struct __pyx_obj_4devs_5adevs___pyx_scope_struct____iter__;
+struct __pyx_obj_4devs_5adevs___pyx_scope_struct_1___iter__;
 
 /* "cadevs.pxd":4
  * 
@@ -458,35 +478,62 @@ struct __pyx_obj_4devs_5adevs___pyx_scope_struct____iter__;
  */
 typedef PyObject *__pyx_t_4devs_6cadevs_PythonObject;
 
-/* "cadevs.pxd":35
+/* "cadevs.pxd":48
  * 
- * 
- * ctypedef PortValue[PythonObject, int] CPortValue             # <<<<<<<<<<<<<<
+ * ctypedef int Port
+ * ctypedef PortValue[PythonObject, Port] CPortValue             # <<<<<<<<<<<<<<
  * ctypedef Bag[CPortValue] IOBag
  * ctypedef Bag[CPortValue].iterator IOBagIterator
  */
-typedef adevs::PortValue<__pyx_t_4devs_6cadevs_PythonObject,int>  __pyx_t_4devs_6cadevs_CPortValue;
+typedef adevs::PortValue<__pyx_t_4devs_6cadevs_PythonObject,__pyx_t_4devs_6cadevs_Port>  __pyx_t_4devs_6cadevs_CPortValue;
 
-/* "cadevs.pxd":36
- * 
- * ctypedef PortValue[PythonObject, int] CPortValue
+/* "cadevs.pxd":49
+ * ctypedef int Port
+ * ctypedef PortValue[PythonObject, Port] CPortValue
  * ctypedef Bag[CPortValue] IOBag             # <<<<<<<<<<<<<<
  * ctypedef Bag[CPortValue].iterator IOBagIterator
  * ctypedef double Time
  */
 typedef adevs::Bag<__pyx_t_4devs_6cadevs_CPortValue>  __pyx_t_4devs_6cadevs_IOBag;
 
-/* "cadevs.pxd":37
- * ctypedef PortValue[PythonObject, int] CPortValue
+/* "cadevs.pxd":50
+ * ctypedef PortValue[PythonObject, Port] CPortValue
  * ctypedef Bag[CPortValue] IOBag
  * ctypedef Bag[CPortValue].iterator IOBagIterator             # <<<<<<<<<<<<<<
  * ctypedef double Time
- * 
+ * ctypedef Devs[CPortValue, Time] CDevs
  */
 typedef adevs::Bag<__pyx_t_4devs_6cadevs_CPortValue> ::iterator __pyx_t_4devs_6cadevs_IOBagIterator;
 
-/* "cadevs.pxd":41
+/* "cadevs.pxd":52
+ * ctypedef Bag[CPortValue].iterator IOBagIterator
+ * ctypedef double Time
+ * ctypedef Devs[CPortValue, Time] CDevs             # <<<<<<<<<<<<<<
+ * ctypedef Set[CDevs*] Components
+ * ctypedef Set[CDevs*].iterator ComponentsIterator
+ */
+typedef adevs::Devs<__pyx_t_4devs_6cadevs_CPortValue,__pyx_t_4devs_6cadevs_Time>  __pyx_t_4devs_6cadevs_CDevs;
+
+/* "cadevs.pxd":53
+ * ctypedef double Time
+ * ctypedef Devs[CPortValue, Time] CDevs
+ * ctypedef Set[CDevs*] Components             # <<<<<<<<<<<<<<
+ * ctypedef Set[CDevs*].iterator ComponentsIterator
  * 
+ */
+typedef adevs::Set<__pyx_t_4devs_6cadevs_CDevs *>  __pyx_t_4devs_6cadevs_Components;
+
+/* "cadevs.pxd":54
+ * ctypedef Devs[CPortValue, Time] CDevs
+ * ctypedef Set[CDevs*] Components
+ * ctypedef Set[CDevs*].iterator ComponentsIterator             # <<<<<<<<<<<<<<
+ * 
+ * ctypedef void (*DeltaIntFunc)(PyObject*)
+ */
+typedef adevs::Set<__pyx_t_4devs_6cadevs_CDevs *> ::iterator __pyx_t_4devs_6cadevs_ComponentsIterator;
+
+/* "cadevs.pxd":56
+ * ctypedef Set[CDevs*].iterator ComponentsIterator
  * 
  * ctypedef void (*DeltaIntFunc)(PyObject*)             # <<<<<<<<<<<<<<
  * ctypedef void (*DeltaExtFunc)(PyObject*, Time, const IOBag&)
@@ -494,7 +541,7 @@ typedef adevs::Bag<__pyx_t_4devs_6cadevs_CPortValue> ::iterator __pyx_t_4devs_6c
  */
 typedef void (*__pyx_t_4devs_6cadevs_DeltaIntFunc)(PyObject *);
 
-/* "cadevs.pxd":42
+/* "cadevs.pxd":57
  * 
  * ctypedef void (*DeltaIntFunc)(PyObject*)
  * ctypedef void (*DeltaExtFunc)(PyObject*, Time, const IOBag&)             # <<<<<<<<<<<<<<
@@ -503,7 +550,7 @@ typedef void (*__pyx_t_4devs_6cadevs_DeltaIntFunc)(PyObject *);
  */
 typedef void (*__pyx_t_4devs_6cadevs_DeltaExtFunc)(PyObject *, __pyx_t_4devs_6cadevs_Time, __pyx_t_4devs_6cadevs_IOBag const &);
 
-/* "cadevs.pxd":43
+/* "cadevs.pxd":58
  * ctypedef void (*DeltaIntFunc)(PyObject*)
  * ctypedef void (*DeltaExtFunc)(PyObject*, Time, const IOBag&)
  * ctypedef void (*DeltaConfFunc)(PyObject*, const IOBag&)             # <<<<<<<<<<<<<<
@@ -512,7 +559,7 @@ typedef void (*__pyx_t_4devs_6cadevs_DeltaExtFunc)(PyObject *, __pyx_t_4devs_6ca
  */
 typedef void (*__pyx_t_4devs_6cadevs_DeltaConfFunc)(PyObject *, __pyx_t_4devs_6cadevs_IOBag const &);
 
-/* "cadevs.pxd":44
+/* "cadevs.pxd":59
  * ctypedef void (*DeltaExtFunc)(PyObject*, Time, const IOBag&)
  * ctypedef void (*DeltaConfFunc)(PyObject*, const IOBag&)
  * ctypedef void (*OutputFunc)(PyObject*, IOBag&)             # <<<<<<<<<<<<<<
@@ -521,12 +568,12 @@ typedef void (*__pyx_t_4devs_6cadevs_DeltaConfFunc)(PyObject *, __pyx_t_4devs_6c
  */
 typedef void (*__pyx_t_4devs_6cadevs_OutputFunc)(PyObject *, __pyx_t_4devs_6cadevs_IOBag &);
 
-/* "cadevs.pxd":45
+/* "cadevs.pxd":60
  * ctypedef void (*DeltaConfFunc)(PyObject*, const IOBag&)
  * ctypedef void (*OutputFunc)(PyObject*, IOBag&)
  * ctypedef Time (*TaFunc)(PyObject*)             # <<<<<<<<<<<<<<
  * 
- * cdef extern from "adevs_python.hpp" namespace "pydevs":
+ * 
  */
 typedef __pyx_t_4devs_6cadevs_Time (*__pyx_t_4devs_6cadevs_TaFunc)(PyObject *);
 
@@ -535,39 +582,66 @@ typedef __pyx_t_4devs_6cadevs_Time (*__pyx_t_4devs_6cadevs_TaFunc)(PyObject *);
  * 
  * ctypedef cadevs.PythonObject PythonObject             # <<<<<<<<<<<<<<
  * ctypedef cadevs.Time Time
- * ctypedef cadevs.CPortValue CPortValue
+ * ctypedef cadevs.Port Port
  */
 typedef __pyx_t_4devs_6cadevs_PythonObject __pyx_t_4devs_5adevs_PythonObject;
 
-/* "devs/adevs.pyx":8
- * ctypedef cadevs.PythonObject PythonObject
+/* "devs/adevs.pyx":9
  * ctypedef cadevs.Time Time
+ * ctypedef cadevs.Port Port
  * ctypedef cadevs.CPortValue CPortValue             # <<<<<<<<<<<<<<
  * ctypedef cadevs.IOBag CIOBag
  * ctypedef cadevs.IOBagIterator CIOBagIterator
  */
 typedef __pyx_t_4devs_6cadevs_CPortValue __pyx_t_4devs_5adevs_CPortValue;
 
-/* "devs/adevs.pyx":9
- * ctypedef cadevs.Time Time
+/* "devs/adevs.pyx":10
+ * ctypedef cadevs.Port Port
  * ctypedef cadevs.CPortValue CPortValue
  * ctypedef cadevs.IOBag CIOBag             # <<<<<<<<<<<<<<
  * ctypedef cadevs.IOBagIterator CIOBagIterator
- * 
+ * ctypedef cadevs.CDevs CDevs
  */
 typedef __pyx_t_4devs_6cadevs_IOBag __pyx_t_4devs_5adevs_CIOBag;
 
-/* "devs/adevs.pyx":10
+/* "devs/adevs.pyx":11
  * ctypedef cadevs.CPortValue CPortValue
  * ctypedef cadevs.IOBag CIOBag
  * ctypedef cadevs.IOBagIterator CIOBagIterator             # <<<<<<<<<<<<<<
- * 
- * cdef class IOBag:
+ * ctypedef cadevs.CDevs CDevs
+ * ctypedef cadevs.Components CComponents
  */
 typedef __pyx_t_4devs_6cadevs_IOBagIterator __pyx_t_4devs_5adevs_CIOBagIterator;
 
 /* "devs/adevs.pyx":12
+ * ctypedef cadevs.IOBag CIOBag
  * ctypedef cadevs.IOBagIterator CIOBagIterator
+ * ctypedef cadevs.CDevs CDevs             # <<<<<<<<<<<<<<
+ * ctypedef cadevs.Components CComponents
+ * ctypedef cadevs.ComponentsIterator CComponentsIterator
+ */
+typedef __pyx_t_4devs_6cadevs_CDevs __pyx_t_4devs_5adevs_CDevs;
+
+/* "devs/adevs.pyx":13
+ * ctypedef cadevs.IOBagIterator CIOBagIterator
+ * ctypedef cadevs.CDevs CDevs
+ * ctypedef cadevs.Components CComponents             # <<<<<<<<<<<<<<
+ * ctypedef cadevs.ComponentsIterator CComponentsIterator
+ * 
+ */
+typedef __pyx_t_4devs_6cadevs_Components __pyx_t_4devs_5adevs_CComponents;
+
+/* "devs/adevs.pyx":14
+ * ctypedef cadevs.CDevs CDevs
+ * ctypedef cadevs.Components CComponents
+ * ctypedef cadevs.ComponentsIterator CComponentsIterator             # <<<<<<<<<<<<<<
+ * 
+ * 
+ */
+typedef __pyx_t_4devs_6cadevs_ComponentsIterator __pyx_t_4devs_5adevs_CComponentsIterator;
+
+/* "devs/adevs.pyx":17
+ * 
  * 
  * cdef class IOBag:             # <<<<<<<<<<<<<<
  *     """
@@ -582,7 +656,7 @@ struct __pyx_obj_4devs_5adevs_IOBag {
 };
 
 
-/* "devs/adevs.pyx":64
+/* "devs/adevs.pyx":69
  * 
  * 
  * cdef class OutputBag(IOBag):             # <<<<<<<<<<<<<<
@@ -594,7 +668,7 @@ struct __pyx_obj_4devs_5adevs_OutputBag {
 };
 
 
-/* "devs/adevs.pyx":92
+/* "devs/adevs.pyx":97
  * 
  * 
  * cdef class InputBag(IOBag):             # <<<<<<<<<<<<<<
@@ -606,7 +680,7 @@ struct __pyx_obj_4devs_5adevs_InputBag {
 };
 
 
-/* "devs/adevs.pyx":99
+/* "devs/adevs.pyx":104
  * 
  * 
  * cdef class AtomicBase:             # <<<<<<<<<<<<<<
@@ -619,7 +693,21 @@ struct __pyx_obj_4devs_5adevs_AtomicBase {
 };
 
 
-/* "devs/adevs.pyx":30
+/* "devs/adevs.pyx":243
+ * 
+ * 
+ * cdef class Digraph:             # <<<<<<<<<<<<<<
+ *     """
+ *     Python extension type that wraps the C++ wrapper class for the adevs
+ */
+struct __pyx_obj_4devs_5adevs_Digraph {
+  PyObject_HEAD
+  struct __pyx_vtabstruct_4devs_5adevs_Digraph *__pyx_vtab;
+  pydevs::Digraph *_thisptr;
+};
+
+
+/* "devs/adevs.pyx":35
  *         return self._thisconstptr.empty()
  * 
  *     def __iter__(self):             # <<<<<<<<<<<<<<
@@ -635,9 +723,26 @@ struct __pyx_obj_4devs_5adevs___pyx_scope_struct____iter__ {
 };
 
 
+/* "devs/adevs.pyx":280
+ *         )
+ * 
+ *     def __iter__(self):             # <<<<<<<<<<<<<<
+ *         """
+ *         Generator to iterate over components of the digraph
+ */
+struct __pyx_obj_4devs_5adevs___pyx_scope_struct_1___iter__ {
+  PyObject_HEAD
+  pydevs::Atomic *__pyx_v_component;
+  __pyx_t_4devs_5adevs_CComponents __pyx_v_components;
+  __pyx_t_4devs_5adevs_CComponentsIterator __pyx_v_end;
+  __pyx_t_4devs_5adevs_CComponentsIterator __pyx_v_it;
+  struct __pyx_obj_4devs_5adevs_Digraph *__pyx_v_self;
+};
 
-/* "devs/adevs.pyx":12
- * ctypedef cadevs.IOBagIterator CIOBagIterator
+
+
+/* "devs/adevs.pyx":17
+ * 
  * 
  * cdef class IOBag:             # <<<<<<<<<<<<<<
  *     """
@@ -651,7 +756,7 @@ struct __pyx_vtabstruct_4devs_5adevs_IOBag {
 static struct __pyx_vtabstruct_4devs_5adevs_IOBag *__pyx_vtabptr_4devs_5adevs_IOBag;
 
 
-/* "devs/adevs.pyx":64
+/* "devs/adevs.pyx":69
  * 
  * 
  * cdef class OutputBag(IOBag):             # <<<<<<<<<<<<<<
@@ -666,7 +771,7 @@ struct __pyx_vtabstruct_4devs_5adevs_OutputBag {
 static struct __pyx_vtabstruct_4devs_5adevs_OutputBag *__pyx_vtabptr_4devs_5adevs_OutputBag;
 
 
-/* "devs/adevs.pyx":92
+/* "devs/adevs.pyx":97
  * 
  * 
  * cdef class InputBag(IOBag):             # <<<<<<<<<<<<<<
@@ -678,6 +783,21 @@ struct __pyx_vtabstruct_4devs_5adevs_InputBag {
   struct __pyx_vtabstruct_4devs_5adevs_IOBag __pyx_base;
 };
 static struct __pyx_vtabstruct_4devs_5adevs_InputBag *__pyx_vtabptr_4devs_5adevs_InputBag;
+
+
+/* "devs/adevs.pyx":243
+ * 
+ * 
+ * cdef class Digraph:             # <<<<<<<<<<<<<<
+ *     """
+ *     Python extension type that wraps the C++ wrapper class for the adevs
+ */
+
+struct __pyx_vtabstruct_4devs_5adevs_Digraph {
+  PyObject *(*add)(struct __pyx_obj_4devs_5adevs_Digraph *, struct __pyx_obj_4devs_5adevs_AtomicBase *, int __pyx_skip_dispatch);
+  PyObject *(*couple)(struct __pyx_obj_4devs_5adevs_Digraph *, struct __pyx_obj_4devs_5adevs_AtomicBase *, __pyx_t_4devs_5adevs_Port, struct __pyx_obj_4devs_5adevs_AtomicBase *, __pyx_t_4devs_5adevs_Port, int __pyx_skip_dispatch);
+};
+static struct __pyx_vtabstruct_4devs_5adevs_Digraph *__pyx_vtabptr_4devs_5adevs_Digraph;
 #ifndef CYTHON_REFNANNY
   #define CYTHON_REFNANNY 0
 #endif
@@ -914,6 +1034,8 @@ static int __Pyx_InitStrings(__Pyx_StringTabEntry *t);
 static unsigned int __pyx_f_4devs_5adevs_5IOBag_size(struct __pyx_obj_4devs_5adevs_IOBag *__pyx_v_self, int __pyx_skip_dispatch); /* proto*/
 static int __pyx_f_4devs_5adevs_5IOBag_empty(struct __pyx_obj_4devs_5adevs_IOBag *__pyx_v_self, int __pyx_skip_dispatch); /* proto*/
 static PyObject *__pyx_f_4devs_5adevs_9OutputBag_insert(struct __pyx_obj_4devs_5adevs_OutputBag *__pyx_v_self, int __pyx_v_port, PyObject *__pyx_v_value, int __pyx_skip_dispatch); /* proto*/
+static PyObject *__pyx_f_4devs_5adevs_7Digraph_add(struct __pyx_obj_4devs_5adevs_Digraph *__pyx_v_self, struct __pyx_obj_4devs_5adevs_AtomicBase *__pyx_v_model, int __pyx_skip_dispatch); /* proto*/
+static PyObject *__pyx_f_4devs_5adevs_7Digraph_couple(struct __pyx_obj_4devs_5adevs_Digraph *__pyx_v_self, struct __pyx_obj_4devs_5adevs_AtomicBase *__pyx_v_source, __pyx_t_4devs_5adevs_Port __pyx_v_source_port, struct __pyx_obj_4devs_5adevs_AtomicBase *__pyx_v_destination, __pyx_t_4devs_5adevs_Port __pyx_v_destination_port, int __pyx_skip_dispatch); /* proto*/
 
 /* Module declarations from 'cpython.ref' */
 
@@ -924,7 +1046,9 @@ static PyTypeObject *__pyx_ptype_4devs_5adevs_IOBag = 0;
 static PyTypeObject *__pyx_ptype_4devs_5adevs_OutputBag = 0;
 static PyTypeObject *__pyx_ptype_4devs_5adevs_InputBag = 0;
 static PyTypeObject *__pyx_ptype_4devs_5adevs_AtomicBase = 0;
+static PyTypeObject *__pyx_ptype_4devs_5adevs_Digraph = 0;
 static PyTypeObject *__pyx_ptype_4devs_5adevs___pyx_scope_struct____iter__ = 0;
+static PyTypeObject *__pyx_ptype_4devs_5adevs___pyx_scope_struct_1___iter__ = 0;
 static PyObject *__pyx_f_4devs_5adevs_CreateOutputBag(__pyx_t_4devs_5adevs_CIOBag *); /*proto*/
 static PyObject *__pyx_f_4devs_5adevs_CreateInputBag(__pyx_t_4devs_5adevs_CIOBag const *); /*proto*/
 static void __pyx_f_4devs_5adevs_cy_delta_int(PyObject *); /*proto*/
@@ -941,19 +1065,28 @@ static PyObject *__pyx_pf_4devs_5adevs_5IOBag_2empty(struct __pyx_obj_4devs_5ade
 static PyObject *__pyx_pf_4devs_5adevs_5IOBag_4__iter__(struct __pyx_obj_4devs_5adevs_IOBag *__pyx_v_self); /* proto */
 static PyObject *__pyx_pf_4devs_5adevs_9OutputBag_insert(struct __pyx_obj_4devs_5adevs_OutputBag *__pyx_v_self, int __pyx_v_port, PyObject *__pyx_v_value); /* proto */
 static int __pyx_pf_4devs_5adevs_10AtomicBase___init__(struct __pyx_obj_4devs_5adevs_AtomicBase *__pyx_v_self); /* proto */
-static PyObject *__pyx_pf_4devs_5adevs_10AtomicBase_2delta_int(CYTHON_UNUSED struct __pyx_obj_4devs_5adevs_AtomicBase *__pyx_v_self); /* proto */
-static PyObject *__pyx_pf_4devs_5adevs_10AtomicBase_4delta_ext(CYTHON_UNUSED struct __pyx_obj_4devs_5adevs_AtomicBase *__pyx_v_self, CYTHON_UNUSED __pyx_t_4devs_5adevs_Time __pyx_v_e, CYTHON_UNUSED struct __pyx_obj_4devs_5adevs_InputBag *__pyx_v_xb); /* proto */
-static PyObject *__pyx_pf_4devs_5adevs_10AtomicBase_6delta_conf(CYTHON_UNUSED struct __pyx_obj_4devs_5adevs_AtomicBase *__pyx_v_self, CYTHON_UNUSED struct __pyx_obj_4devs_5adevs_InputBag *__pyx_v_xb); /* proto */
-static PyObject *__pyx_pf_4devs_5adevs_10AtomicBase_8output_func(CYTHON_UNUSED struct __pyx_obj_4devs_5adevs_AtomicBase *__pyx_v_self, CYTHON_UNUSED struct __pyx_obj_4devs_5adevs_OutputBag *__pyx_v_yb); /* proto */
-static PyObject *__pyx_pf_4devs_5adevs_10AtomicBase_10ta(CYTHON_UNUSED struct __pyx_obj_4devs_5adevs_AtomicBase *__pyx_v_self); /* proto */
+static void __pyx_pf_4devs_5adevs_10AtomicBase_2__dealloc__(struct __pyx_obj_4devs_5adevs_AtomicBase *__pyx_v_self); /* proto */
+static PyObject *__pyx_pf_4devs_5adevs_10AtomicBase_4delta_int(CYTHON_UNUSED struct __pyx_obj_4devs_5adevs_AtomicBase *__pyx_v_self); /* proto */
+static PyObject *__pyx_pf_4devs_5adevs_10AtomicBase_6delta_ext(CYTHON_UNUSED struct __pyx_obj_4devs_5adevs_AtomicBase *__pyx_v_self, CYTHON_UNUSED __pyx_t_4devs_5adevs_Time __pyx_v_e, CYTHON_UNUSED struct __pyx_obj_4devs_5adevs_InputBag *__pyx_v_xb); /* proto */
+static PyObject *__pyx_pf_4devs_5adevs_10AtomicBase_8delta_conf(CYTHON_UNUSED struct __pyx_obj_4devs_5adevs_AtomicBase *__pyx_v_self, CYTHON_UNUSED struct __pyx_obj_4devs_5adevs_InputBag *__pyx_v_xb); /* proto */
+static PyObject *__pyx_pf_4devs_5adevs_10AtomicBase_10output_func(CYTHON_UNUSED struct __pyx_obj_4devs_5adevs_AtomicBase *__pyx_v_self, CYTHON_UNUSED struct __pyx_obj_4devs_5adevs_OutputBag *__pyx_v_yb); /* proto */
+static PyObject *__pyx_pf_4devs_5adevs_10AtomicBase_12ta(CYTHON_UNUSED struct __pyx_obj_4devs_5adevs_AtomicBase *__pyx_v_self); /* proto */
+static int __pyx_pf_4devs_5adevs_7Digraph___cinit__(struct __pyx_obj_4devs_5adevs_Digraph *__pyx_v_self); /* proto */
+static void __pyx_pf_4devs_5adevs_7Digraph_2__dealloc__(struct __pyx_obj_4devs_5adevs_Digraph *__pyx_v_self); /* proto */
+static PyObject *__pyx_pf_4devs_5adevs_7Digraph_4add(struct __pyx_obj_4devs_5adevs_Digraph *__pyx_v_self, struct __pyx_obj_4devs_5adevs_AtomicBase *__pyx_v_model); /* proto */
+static PyObject *__pyx_pf_4devs_5adevs_7Digraph_6couple(struct __pyx_obj_4devs_5adevs_Digraph *__pyx_v_self, struct __pyx_obj_4devs_5adevs_AtomicBase *__pyx_v_source, __pyx_t_4devs_5adevs_Port __pyx_v_source_port, struct __pyx_obj_4devs_5adevs_AtomicBase *__pyx_v_destination, __pyx_t_4devs_5adevs_Port __pyx_v_destination_port); /* proto */
+static PyObject *__pyx_pf_4devs_5adevs_7Digraph_8__iter__(struct __pyx_obj_4devs_5adevs_Digraph *__pyx_v_self); /* proto */
 static PyObject *__pyx_tp_new_4devs_5adevs_IOBag(PyTypeObject *t, PyObject *a, PyObject *k); /*proto*/
 static PyObject *__pyx_tp_new_4devs_5adevs_OutputBag(PyTypeObject *t, PyObject *a, PyObject *k); /*proto*/
 static PyObject *__pyx_tp_new_4devs_5adevs_InputBag(PyTypeObject *t, PyObject *a, PyObject *k); /*proto*/
 static PyObject *__pyx_tp_new_4devs_5adevs_AtomicBase(PyTypeObject *t, PyObject *a, PyObject *k); /*proto*/
+static PyObject *__pyx_tp_new_4devs_5adevs_Digraph(PyTypeObject *t, PyObject *a, PyObject *k); /*proto*/
 static PyObject *__pyx_tp_new_4devs_5adevs___pyx_scope_struct____iter__(PyTypeObject *t, PyObject *a, PyObject *k); /*proto*/
+static PyObject *__pyx_tp_new_4devs_5adevs___pyx_scope_struct_1___iter__(PyTypeObject *t, PyObject *a, PyObject *k); /*proto*/
 static char __pyx_k_e[] = "e";
 static char __pyx_k_ta[] = "ta";
 static char __pyx_k_xb[] = "xb";
+static char __pyx_k_add[] = "add";
 static char __pyx_k_args[] = "args";
 static char __pyx_k_iter[] = "__iter__";
 static char __pyx_k_main[] = "__main__";
@@ -965,19 +1098,30 @@ static char __pyx_k_close[] = "close";
 static char __pyx_k_empty[] = "empty";
 static char __pyx_k_throw[] = "throw";
 static char __pyx_k_value[] = "value";
+static char __pyx_k_couple[] = "couple";
 static char __pyx_k_insert[] = "insert";
+static char __pyx_k_source[] = "source";
 static char __pyx_k_delta_ext[] = "delta_ext";
 static char __pyx_k_delta_int[] = "delta_int";
 static char __pyx_k_delta_conf[] = "delta_conf";
 static char __pyx_k_pyx_vtable[] = "__pyx_vtable__";
+static char __pyx_k_destination[] = "destination";
 static char __pyx_k_output_func[] = "output_func";
+static char __pyx_k_source_port[] = "source_port";
 static char __pyx_k_IOBag___iter[] = "IOBag.__iter__";
+static char __pyx_k_Digraph___iter[] = "Digraph.__iter__";
+static char __pyx_k_destination_port[] = "destination_port";
+static PyObject *__pyx_n_s_Digraph___iter;
 static PyObject *__pyx_n_s_IOBag___iter;
+static PyObject *__pyx_n_s_add;
 static PyObject *__pyx_n_s_args;
 static PyObject *__pyx_n_s_close;
+static PyObject *__pyx_n_s_couple;
 static PyObject *__pyx_n_s_delta_conf;
 static PyObject *__pyx_n_s_delta_ext;
 static PyObject *__pyx_n_s_delta_int;
+static PyObject *__pyx_n_s_destination;
+static PyObject *__pyx_n_s_destination_port;
 static PyObject *__pyx_n_s_e;
 static PyObject *__pyx_n_s_empty;
 static PyObject *__pyx_n_s_insert;
@@ -988,13 +1132,15 @@ static PyObject *__pyx_n_s_port;
 static PyObject *__pyx_n_s_pyx_vtable;
 static PyObject *__pyx_n_s_send;
 static PyObject *__pyx_n_s_size;
+static PyObject *__pyx_n_s_source;
+static PyObject *__pyx_n_s_source_port;
 static PyObject *__pyx_n_s_ta;
 static PyObject *__pyx_n_s_test;
 static PyObject *__pyx_n_s_throw;
 static PyObject *__pyx_n_s_value;
 static PyObject *__pyx_n_s_xb;
 
-/* "devs/adevs.pyx":24
+/* "devs/adevs.pyx":29
  *     cdef bint _is_const
  * 
  *     cpdef unsigned int size(self):             # <<<<<<<<<<<<<<
@@ -1019,7 +1165,7 @@ static unsigned int __pyx_f_4devs_5adevs_5IOBag_size(struct __pyx_obj_4devs_5ade
   if (unlikely(__pyx_skip_dispatch)) ;
   /* Check if overridden in Python */
   else if (unlikely(Py_TYPE(((PyObject *)__pyx_v_self))->tp_dictoffset != 0)) {
-    __pyx_t_1 = __Pyx_PyObject_GetAttrStr(((PyObject *)__pyx_v_self), __pyx_n_s_size); if (unlikely(!__pyx_t_1)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 24; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+    __pyx_t_1 = __Pyx_PyObject_GetAttrStr(((PyObject *)__pyx_v_self), __pyx_n_s_size); if (unlikely(!__pyx_t_1)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 29; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
     __Pyx_GOTREF(__pyx_t_1);
     if (!PyCFunction_Check(__pyx_t_1) || (PyCFunction_GET_FUNCTION(__pyx_t_1) != (PyCFunction)__pyx_pw_4devs_5adevs_5IOBag_1size)) {
       __Pyx_INCREF(__pyx_t_1);
@@ -1034,14 +1180,14 @@ static unsigned int __pyx_f_4devs_5adevs_5IOBag_size(struct __pyx_obj_4devs_5ade
         }
       }
       if (__pyx_t_4) {
-        __pyx_t_2 = __Pyx_PyObject_CallOneArg(__pyx_t_3, __pyx_t_4); if (unlikely(!__pyx_t_2)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 24; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+        __pyx_t_2 = __Pyx_PyObject_CallOneArg(__pyx_t_3, __pyx_t_4); if (unlikely(!__pyx_t_2)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 29; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
         __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
       } else {
-        __pyx_t_2 = __Pyx_PyObject_CallNoArg(__pyx_t_3); if (unlikely(!__pyx_t_2)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 24; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+        __pyx_t_2 = __Pyx_PyObject_CallNoArg(__pyx_t_3); if (unlikely(!__pyx_t_2)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 29; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
       }
       __Pyx_GOTREF(__pyx_t_2);
       __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
-      __pyx_t_5 = __Pyx_PyInt_As_unsigned_int(__pyx_t_2); if (unlikely((__pyx_t_5 == (unsigned int)-1) && PyErr_Occurred())) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 24; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+      __pyx_t_5 = __Pyx_PyInt_As_unsigned_int(__pyx_t_2); if (unlikely((__pyx_t_5 == (unsigned int)-1) && PyErr_Occurred())) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 29; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
       __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
       __pyx_r = __pyx_t_5;
       __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
@@ -1050,7 +1196,7 @@ static unsigned int __pyx_f_4devs_5adevs_5IOBag_size(struct __pyx_obj_4devs_5ade
     __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
   }
 
-  /* "devs/adevs.pyx":25
+  /* "devs/adevs.pyx":30
  * 
  *     cpdef unsigned int size(self):
  *         return self._thisconstptr.size()             # <<<<<<<<<<<<<<
@@ -1060,7 +1206,7 @@ static unsigned int __pyx_f_4devs_5adevs_5IOBag_size(struct __pyx_obj_4devs_5ade
   __pyx_r = __pyx_v_self->_thisconstptr->size();
   goto __pyx_L0;
 
-  /* "devs/adevs.pyx":24
+  /* "devs/adevs.pyx":29
  *     cdef bint _is_const
  * 
  *     cpdef unsigned int size(self):             # <<<<<<<<<<<<<<
@@ -1103,7 +1249,7 @@ static PyObject *__pyx_pf_4devs_5adevs_5IOBag_size(struct __pyx_obj_4devs_5adevs
   int __pyx_clineno = 0;
   __Pyx_RefNannySetupContext("size", 0);
   __Pyx_XDECREF(__pyx_r);
-  __pyx_t_1 = __Pyx_PyInt_From_unsigned_int(__pyx_f_4devs_5adevs_5IOBag_size(__pyx_v_self, 1)); if (unlikely(!__pyx_t_1)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 24; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  __pyx_t_1 = __Pyx_PyInt_From_unsigned_int(__pyx_f_4devs_5adevs_5IOBag_size(__pyx_v_self, 1)); if (unlikely(!__pyx_t_1)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 29; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   __Pyx_GOTREF(__pyx_t_1);
   __pyx_r = __pyx_t_1;
   __pyx_t_1 = 0;
@@ -1120,7 +1266,7 @@ static PyObject *__pyx_pf_4devs_5adevs_5IOBag_size(struct __pyx_obj_4devs_5adevs
   return __pyx_r;
 }
 
-/* "devs/adevs.pyx":27
+/* "devs/adevs.pyx":32
  *         return self._thisconstptr.size()
  * 
  *     cpdef bint empty(self):             # <<<<<<<<<<<<<<
@@ -1145,7 +1291,7 @@ static int __pyx_f_4devs_5adevs_5IOBag_empty(struct __pyx_obj_4devs_5adevs_IOBag
   if (unlikely(__pyx_skip_dispatch)) ;
   /* Check if overridden in Python */
   else if (unlikely(Py_TYPE(((PyObject *)__pyx_v_self))->tp_dictoffset != 0)) {
-    __pyx_t_1 = __Pyx_PyObject_GetAttrStr(((PyObject *)__pyx_v_self), __pyx_n_s_empty); if (unlikely(!__pyx_t_1)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 27; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+    __pyx_t_1 = __Pyx_PyObject_GetAttrStr(((PyObject *)__pyx_v_self), __pyx_n_s_empty); if (unlikely(!__pyx_t_1)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 32; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
     __Pyx_GOTREF(__pyx_t_1);
     if (!PyCFunction_Check(__pyx_t_1) || (PyCFunction_GET_FUNCTION(__pyx_t_1) != (PyCFunction)__pyx_pw_4devs_5adevs_5IOBag_3empty)) {
       __Pyx_INCREF(__pyx_t_1);
@@ -1160,14 +1306,14 @@ static int __pyx_f_4devs_5adevs_5IOBag_empty(struct __pyx_obj_4devs_5adevs_IOBag
         }
       }
       if (__pyx_t_4) {
-        __pyx_t_2 = __Pyx_PyObject_CallOneArg(__pyx_t_3, __pyx_t_4); if (unlikely(!__pyx_t_2)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 27; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+        __pyx_t_2 = __Pyx_PyObject_CallOneArg(__pyx_t_3, __pyx_t_4); if (unlikely(!__pyx_t_2)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 32; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
         __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
       } else {
-        __pyx_t_2 = __Pyx_PyObject_CallNoArg(__pyx_t_3); if (unlikely(!__pyx_t_2)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 27; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+        __pyx_t_2 = __Pyx_PyObject_CallNoArg(__pyx_t_3); if (unlikely(!__pyx_t_2)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 32; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
       }
       __Pyx_GOTREF(__pyx_t_2);
       __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
-      __pyx_t_5 = __Pyx_PyObject_IsTrue(__pyx_t_2); if (unlikely((__pyx_t_5 == (int)-1) && PyErr_Occurred())) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 27; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+      __pyx_t_5 = __Pyx_PyObject_IsTrue(__pyx_t_2); if (unlikely((__pyx_t_5 == (int)-1) && PyErr_Occurred())) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 32; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
       __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
       __pyx_r = __pyx_t_5;
       __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
@@ -1176,7 +1322,7 @@ static int __pyx_f_4devs_5adevs_5IOBag_empty(struct __pyx_obj_4devs_5adevs_IOBag
     __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
   }
 
-  /* "devs/adevs.pyx":28
+  /* "devs/adevs.pyx":33
  * 
  *     cpdef bint empty(self):
  *         return self._thisconstptr.empty()             # <<<<<<<<<<<<<<
@@ -1186,7 +1332,7 @@ static int __pyx_f_4devs_5adevs_5IOBag_empty(struct __pyx_obj_4devs_5adevs_IOBag
   __pyx_r = __pyx_v_self->_thisconstptr->empty();
   goto __pyx_L0;
 
-  /* "devs/adevs.pyx":27
+  /* "devs/adevs.pyx":32
  *         return self._thisconstptr.size()
  * 
  *     cpdef bint empty(self):             # <<<<<<<<<<<<<<
@@ -1229,7 +1375,7 @@ static PyObject *__pyx_pf_4devs_5adevs_5IOBag_2empty(struct __pyx_obj_4devs_5ade
   int __pyx_clineno = 0;
   __Pyx_RefNannySetupContext("empty", 0);
   __Pyx_XDECREF(__pyx_r);
-  __pyx_t_1 = __Pyx_PyBool_FromLong(__pyx_f_4devs_5adevs_5IOBag_empty(__pyx_v_self, 1)); if (unlikely(!__pyx_t_1)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 27; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  __pyx_t_1 = __Pyx_PyBool_FromLong(__pyx_f_4devs_5adevs_5IOBag_empty(__pyx_v_self, 1)); if (unlikely(!__pyx_t_1)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 32; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   __Pyx_GOTREF(__pyx_t_1);
   __pyx_r = __pyx_t_1;
   __pyx_t_1 = 0;
@@ -1247,7 +1393,7 @@ static PyObject *__pyx_pf_4devs_5adevs_5IOBag_2empty(struct __pyx_obj_4devs_5ade
 }
 static PyObject *__pyx_gb_4devs_5adevs_5IOBag_6generator(__pyx_GeneratorObject *__pyx_generator, PyObject *__pyx_sent_value); /* proto */
 
-/* "devs/adevs.pyx":30
+/* "devs/adevs.pyx":35
  *         return self._thisconstptr.empty()
  * 
  *     def __iter__(self):             # <<<<<<<<<<<<<<
@@ -1290,7 +1436,7 @@ static PyObject *__pyx_pf_4devs_5adevs_5IOBag_4__iter__(struct __pyx_obj_4devs_5
   __Pyx_INCREF((PyObject *)__pyx_cur_scope->__pyx_v_self);
   __Pyx_GIVEREF((PyObject *)__pyx_cur_scope->__pyx_v_self);
   {
-    __pyx_GeneratorObject *gen = __Pyx_Generator_New((__pyx_generator_body_t) __pyx_gb_4devs_5adevs_5IOBag_6generator, (PyObject *) __pyx_cur_scope, __pyx_n_s_iter, __pyx_n_s_IOBag___iter); if (unlikely(!gen)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 30; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+    __pyx_GeneratorObject *gen = __Pyx_Generator_New((__pyx_generator_body_t) __pyx_gb_4devs_5adevs_5IOBag_6generator, (PyObject *) __pyx_cur_scope, __pyx_n_s_iter, __pyx_n_s_IOBag___iter); if (unlikely(!gen)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 35; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
     __Pyx_DECREF(__pyx_cur_scope);
     __Pyx_RefNannyFinishContext();
     return (PyObject *) gen;
@@ -1326,9 +1472,9 @@ static PyObject *__pyx_gb_4devs_5adevs_5IOBag_6generator(__pyx_GeneratorObject *
     return NULL;
   }
   __pyx_L3_first_run:;
-  if (unlikely(!__pyx_sent_value)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 30; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  if (unlikely(!__pyx_sent_value)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 35; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
 
-  /* "devs/adevs.pyx":40
+  /* "devs/adevs.pyx":45
  * 
  *         # get first and last element
  *         cdef CIOBagIterator it = self._thisconstptr.begin()             # <<<<<<<<<<<<<<
@@ -1337,7 +1483,7 @@ static PyObject *__pyx_gb_4devs_5adevs_5IOBag_6generator(__pyx_GeneratorObject *
  */
   __pyx_cur_scope->__pyx_v_it = __pyx_cur_scope->__pyx_v_self->_thisconstptr->begin();
 
-  /* "devs/adevs.pyx":41
+  /* "devs/adevs.pyx":46
  *         # get first and last element
  *         cdef CIOBagIterator it = self._thisconstptr.begin()
  *         cdef CIOBagIterator end = self._thisconstptr.end()             # <<<<<<<<<<<<<<
@@ -1346,7 +1492,7 @@ static PyObject *__pyx_gb_4devs_5adevs_5IOBag_6generator(__pyx_GeneratorObject *
  */
   __pyx_cur_scope->__pyx_v_end = __pyx_cur_scope->__pyx_v_self->_thisconstptr->end();
 
-  /* "devs/adevs.pyx":45
+  /* "devs/adevs.pyx":50
  *         cdef const CPortValue* pv
  * 
  *         while it != end:             # <<<<<<<<<<<<<<
@@ -1357,7 +1503,7 @@ static PyObject *__pyx_gb_4devs_5adevs_5IOBag_6generator(__pyx_GeneratorObject *
     __pyx_t_1 = ((__pyx_cur_scope->__pyx_v_it != __pyx_cur_scope->__pyx_v_end) != 0);
     if (!__pyx_t_1) break;
 
-    /* "devs/adevs.pyx":46
+    /* "devs/adevs.pyx":51
  * 
  *         while it != end:
  *             pv = &co.dereference(it)             # <<<<<<<<<<<<<<
@@ -1366,16 +1512,16 @@ static PyObject *__pyx_gb_4devs_5adevs_5IOBag_6generator(__pyx_GeneratorObject *
  */
     __pyx_cur_scope->__pyx_v_pv = (&(*__pyx_cur_scope->__pyx_v_it));
 
-    /* "devs/adevs.pyx":47
+    /* "devs/adevs.pyx":52
  *         while it != end:
  *             pv = &co.dereference(it)
  *             yield pv.port, <object>(pv.value)             # <<<<<<<<<<<<<<
  *             co.preincrement(it)
  * 
  */
-    __pyx_t_2 = __Pyx_PyInt_From_int(__pyx_cur_scope->__pyx_v_pv->port); if (unlikely(!__pyx_t_2)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 47; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+    __pyx_t_2 = __Pyx_PyInt_From_int(__pyx_cur_scope->__pyx_v_pv->port); if (unlikely(!__pyx_t_2)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 52; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
     __Pyx_GOTREF(__pyx_t_2);
-    __pyx_t_3 = PyTuple_New(2); if (unlikely(!__pyx_t_3)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 47; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+    __pyx_t_3 = PyTuple_New(2); if (unlikely(!__pyx_t_3)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 52; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
     __Pyx_GOTREF(__pyx_t_3);
     PyTuple_SET_ITEM(__pyx_t_3, 0, __pyx_t_2);
     __Pyx_GIVEREF(__pyx_t_2);
@@ -1391,9 +1537,9 @@ static PyObject *__pyx_gb_4devs_5adevs_5IOBag_6generator(__pyx_GeneratorObject *
     __pyx_generator->resume_label = 1;
     return __pyx_r;
     __pyx_L6_resume_from_yield:;
-    if (unlikely(!__pyx_sent_value)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 47; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+    if (unlikely(!__pyx_sent_value)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 52; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
 
-    /* "devs/adevs.pyx":48
+    /* "devs/adevs.pyx":53
  *             pv = &co.dereference(it)
  *             yield pv.port, <object>(pv.value)
  *             co.preincrement(it)             # <<<<<<<<<<<<<<
@@ -1403,7 +1549,7 @@ static PyObject *__pyx_gb_4devs_5adevs_5IOBag_6generator(__pyx_GeneratorObject *
     (++__pyx_cur_scope->__pyx_v_it);
   }
 
-  /* "devs/adevs.pyx":30
+  /* "devs/adevs.pyx":35
  *         return self._thisconstptr.empty()
  * 
  *     def __iter__(self):             # <<<<<<<<<<<<<<
@@ -1426,7 +1572,7 @@ static PyObject *__pyx_gb_4devs_5adevs_5IOBag_6generator(__pyx_GeneratorObject *
   return NULL;
 }
 
-/* "devs/adevs.pyx":51
+/* "devs/adevs.pyx":56
  * 
  * 
  * cdef object CreateOutputBag(CIOBag* bag):             # <<<<<<<<<<<<<<
@@ -1444,19 +1590,19 @@ static PyObject *__pyx_f_4devs_5adevs_CreateOutputBag(__pyx_t_4devs_5adevs_CIOBa
   int __pyx_clineno = 0;
   __Pyx_RefNannySetupContext("CreateOutputBag", 0);
 
-  /* "devs/adevs.pyx":57
+  /* "devs/adevs.pyx":62
  *     http://stackoverflow.com/a/12205374/2366781
  *     """
  *     output_bag = OutputBag()             # <<<<<<<<<<<<<<
  *     output_bag._thisptr = bag
  *     output_bag._thisconstptr = bag
  */
-  __pyx_t_1 = __Pyx_PyObject_Call(((PyObject *)((PyObject*)__pyx_ptype_4devs_5adevs_OutputBag)), __pyx_empty_tuple, NULL); if (unlikely(!__pyx_t_1)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 57; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  __pyx_t_1 = __Pyx_PyObject_Call(((PyObject *)((PyObject*)__pyx_ptype_4devs_5adevs_OutputBag)), __pyx_empty_tuple, NULL); if (unlikely(!__pyx_t_1)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 62; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   __Pyx_GOTREF(__pyx_t_1);
   __pyx_v_output_bag = ((struct __pyx_obj_4devs_5adevs_OutputBag *)__pyx_t_1);
   __pyx_t_1 = 0;
 
-  /* "devs/adevs.pyx":58
+  /* "devs/adevs.pyx":63
  *     """
  *     output_bag = OutputBag()
  *     output_bag._thisptr = bag             # <<<<<<<<<<<<<<
@@ -1465,7 +1611,7 @@ static PyObject *__pyx_f_4devs_5adevs_CreateOutputBag(__pyx_t_4devs_5adevs_CIOBa
  */
   __pyx_v_output_bag->__pyx_base._thisptr = __pyx_v_bag;
 
-  /* "devs/adevs.pyx":59
+  /* "devs/adevs.pyx":64
  *     output_bag = OutputBag()
  *     output_bag._thisptr = bag
  *     output_bag._thisconstptr = bag             # <<<<<<<<<<<<<<
@@ -1474,7 +1620,7 @@ static PyObject *__pyx_f_4devs_5adevs_CreateOutputBag(__pyx_t_4devs_5adevs_CIOBa
  */
   __pyx_v_output_bag->__pyx_base._thisconstptr = __pyx_v_bag;
 
-  /* "devs/adevs.pyx":60
+  /* "devs/adevs.pyx":65
  *     output_bag._thisptr = bag
  *     output_bag._thisconstptr = bag
  *     output_bag._is_const = False             # <<<<<<<<<<<<<<
@@ -1483,7 +1629,7 @@ static PyObject *__pyx_f_4devs_5adevs_CreateOutputBag(__pyx_t_4devs_5adevs_CIOBa
  */
   __pyx_v_output_bag->__pyx_base._is_const = 0;
 
-  /* "devs/adevs.pyx":61
+  /* "devs/adevs.pyx":66
  *     output_bag._thisconstptr = bag
  *     output_bag._is_const = False
  *     return output_bag             # <<<<<<<<<<<<<<
@@ -1495,7 +1641,7 @@ static PyObject *__pyx_f_4devs_5adevs_CreateOutputBag(__pyx_t_4devs_5adevs_CIOBa
   __pyx_r = ((PyObject *)__pyx_v_output_bag);
   goto __pyx_L0;
 
-  /* "devs/adevs.pyx":51
+  /* "devs/adevs.pyx":56
  * 
  * 
  * cdef object CreateOutputBag(CIOBag* bag):             # <<<<<<<<<<<<<<
@@ -1515,7 +1661,7 @@ static PyObject *__pyx_f_4devs_5adevs_CreateOutputBag(__pyx_t_4devs_5adevs_CIOBa
   return __pyx_r;
 }
 
-/* "devs/adevs.pyx":75
+/* "devs/adevs.pyx":80
  *     """
  * 
  *     cpdef insert(self, int port, object value):             # <<<<<<<<<<<<<<
@@ -1544,11 +1690,11 @@ static PyObject *__pyx_f_4devs_5adevs_9OutputBag_insert(struct __pyx_obj_4devs_5
   if (unlikely(__pyx_skip_dispatch)) ;
   /* Check if overridden in Python */
   else if (unlikely(Py_TYPE(((PyObject *)__pyx_v_self))->tp_dictoffset != 0)) {
-    __pyx_t_1 = __Pyx_PyObject_GetAttrStr(((PyObject *)__pyx_v_self), __pyx_n_s_insert); if (unlikely(!__pyx_t_1)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 75; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+    __pyx_t_1 = __Pyx_PyObject_GetAttrStr(((PyObject *)__pyx_v_self), __pyx_n_s_insert); if (unlikely(!__pyx_t_1)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 80; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
     __Pyx_GOTREF(__pyx_t_1);
     if (!PyCFunction_Check(__pyx_t_1) || (PyCFunction_GET_FUNCTION(__pyx_t_1) != (PyCFunction)__pyx_pw_4devs_5adevs_9OutputBag_1insert)) {
       __Pyx_XDECREF(__pyx_r);
-      __pyx_t_3 = __Pyx_PyInt_From_int(__pyx_v_port); if (unlikely(!__pyx_t_3)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 75; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+      __pyx_t_3 = __Pyx_PyInt_From_int(__pyx_v_port); if (unlikely(!__pyx_t_3)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 80; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
       __Pyx_GOTREF(__pyx_t_3);
       __Pyx_INCREF(__pyx_t_1);
       __pyx_t_4 = __pyx_t_1; __pyx_t_5 = NULL;
@@ -1563,7 +1709,7 @@ static PyObject *__pyx_f_4devs_5adevs_9OutputBag_insert(struct __pyx_obj_4devs_5
           __pyx_t_6 = 1;
         }
       }
-      __pyx_t_7 = PyTuple_New(2+__pyx_t_6); if (unlikely(!__pyx_t_7)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 75; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+      __pyx_t_7 = PyTuple_New(2+__pyx_t_6); if (unlikely(!__pyx_t_7)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 80; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
       __Pyx_GOTREF(__pyx_t_7);
       if (__pyx_t_5) {
         PyTuple_SET_ITEM(__pyx_t_7, 0, __pyx_t_5); __Pyx_GIVEREF(__pyx_t_5); __pyx_t_5 = NULL;
@@ -1574,7 +1720,7 @@ static PyObject *__pyx_f_4devs_5adevs_9OutputBag_insert(struct __pyx_obj_4devs_5
       PyTuple_SET_ITEM(__pyx_t_7, 1+__pyx_t_6, __pyx_v_value);
       __Pyx_GIVEREF(__pyx_v_value);
       __pyx_t_3 = 0;
-      __pyx_t_2 = __Pyx_PyObject_Call(__pyx_t_4, __pyx_t_7, NULL); if (unlikely(!__pyx_t_2)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 75; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+      __pyx_t_2 = __Pyx_PyObject_Call(__pyx_t_4, __pyx_t_7, NULL); if (unlikely(!__pyx_t_2)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 80; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
       __Pyx_GOTREF(__pyx_t_2);
       __Pyx_DECREF(__pyx_t_7); __pyx_t_7 = 0;
       __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
@@ -1586,7 +1732,7 @@ static PyObject *__pyx_f_4devs_5adevs_9OutputBag_insert(struct __pyx_obj_4devs_5
     __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
   }
 
-  /* "devs/adevs.pyx":76
+  /* "devs/adevs.pyx":81
  * 
  *     cpdef insert(self, int port, object value):
  *         pyobj = <PythonObject>value             # <<<<<<<<<<<<<<
@@ -1595,7 +1741,7 @@ static PyObject *__pyx_f_4devs_5adevs_9OutputBag_insert(struct __pyx_obj_4devs_5
  */
   __pyx_v_pyobj = ((__pyx_t_4devs_5adevs_PythonObject)__pyx_v_value);
 
-  /* "devs/adevs.pyx":77
+  /* "devs/adevs.pyx":82
  *     cpdef insert(self, int port, object value):
  *         pyobj = <PythonObject>value
  *         self._thisptr.insert(CPortValue(port, pyobj))             # <<<<<<<<<<<<<<
@@ -1606,11 +1752,11 @@ static PyObject *__pyx_f_4devs_5adevs_9OutputBag_insert(struct __pyx_obj_4devs_5
     __pyx_t_8 = __pyx_t_4devs_5adevs_CPortValue(__pyx_v_port, __pyx_v_pyobj);
   } catch(...) {
     __Pyx_CppExn2PyErr();
-    {__pyx_filename = __pyx_f[0]; __pyx_lineno = 77; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+    {__pyx_filename = __pyx_f[0]; __pyx_lineno = 82; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   }
   __pyx_v_self->__pyx_base._thisptr->insert(__pyx_t_8);
 
-  /* "devs/adevs.pyx":78
+  /* "devs/adevs.pyx":83
  *         pyobj = <PythonObject>value
  *         self._thisptr.insert(CPortValue(port, pyobj))
  *         Py_XINCREF(pyobj)             # <<<<<<<<<<<<<<
@@ -1619,7 +1765,7 @@ static PyObject *__pyx_f_4devs_5adevs_9OutputBag_insert(struct __pyx_obj_4devs_5
  */
   Py_XINCREF(__pyx_v_pyobj);
 
-  /* "devs/adevs.pyx":75
+  /* "devs/adevs.pyx":80
  *     """
  * 
  *     cpdef insert(self, int port, object value):             # <<<<<<<<<<<<<<
@@ -1676,11 +1822,11 @@ static PyObject *__pyx_pw_4devs_5adevs_9OutputBag_1insert(PyObject *__pyx_v_self
         case  1:
         if (likely((values[1] = PyDict_GetItem(__pyx_kwds, __pyx_n_s_value)) != 0)) kw_args--;
         else {
-          __Pyx_RaiseArgtupleInvalid("insert", 1, 2, 2, 1); {__pyx_filename = __pyx_f[0]; __pyx_lineno = 75; __pyx_clineno = __LINE__; goto __pyx_L3_error;}
+          __Pyx_RaiseArgtupleInvalid("insert", 1, 2, 2, 1); {__pyx_filename = __pyx_f[0]; __pyx_lineno = 80; __pyx_clineno = __LINE__; goto __pyx_L3_error;}
         }
       }
       if (unlikely(kw_args > 0)) {
-        if (unlikely(__Pyx_ParseOptionalKeywords(__pyx_kwds, __pyx_pyargnames, 0, values, pos_args, "insert") < 0)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 75; __pyx_clineno = __LINE__; goto __pyx_L3_error;}
+        if (unlikely(__Pyx_ParseOptionalKeywords(__pyx_kwds, __pyx_pyargnames, 0, values, pos_args, "insert") < 0)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 80; __pyx_clineno = __LINE__; goto __pyx_L3_error;}
       }
     } else if (PyTuple_GET_SIZE(__pyx_args) != 2) {
       goto __pyx_L5_argtuple_error;
@@ -1688,12 +1834,12 @@ static PyObject *__pyx_pw_4devs_5adevs_9OutputBag_1insert(PyObject *__pyx_v_self
       values[0] = PyTuple_GET_ITEM(__pyx_args, 0);
       values[1] = PyTuple_GET_ITEM(__pyx_args, 1);
     }
-    __pyx_v_port = __Pyx_PyInt_As_int(values[0]); if (unlikely((__pyx_v_port == (int)-1) && PyErr_Occurred())) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 75; __pyx_clineno = __LINE__; goto __pyx_L3_error;}
+    __pyx_v_port = __Pyx_PyInt_As_int(values[0]); if (unlikely((__pyx_v_port == (int)-1) && PyErr_Occurred())) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 80; __pyx_clineno = __LINE__; goto __pyx_L3_error;}
     __pyx_v_value = values[1];
   }
   goto __pyx_L4_argument_unpacking_done;
   __pyx_L5_argtuple_error:;
-  __Pyx_RaiseArgtupleInvalid("insert", 1, 2, 2, PyTuple_GET_SIZE(__pyx_args)); {__pyx_filename = __pyx_f[0]; __pyx_lineno = 75; __pyx_clineno = __LINE__; goto __pyx_L3_error;}
+  __Pyx_RaiseArgtupleInvalid("insert", 1, 2, 2, PyTuple_GET_SIZE(__pyx_args)); {__pyx_filename = __pyx_f[0]; __pyx_lineno = 80; __pyx_clineno = __LINE__; goto __pyx_L3_error;}
   __pyx_L3_error:;
   __Pyx_AddTraceback("devs.adevs.OutputBag.insert", __pyx_clineno, __pyx_lineno, __pyx_filename);
   __Pyx_RefNannyFinishContext();
@@ -1715,7 +1861,7 @@ static PyObject *__pyx_pf_4devs_5adevs_9OutputBag_insert(struct __pyx_obj_4devs_
   int __pyx_clineno = 0;
   __Pyx_RefNannySetupContext("insert", 0);
   __Pyx_XDECREF(__pyx_r);
-  __pyx_t_1 = __pyx_f_4devs_5adevs_9OutputBag_insert(__pyx_v_self, __pyx_v_port, __pyx_v_value, 1); if (unlikely(!__pyx_t_1)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 75; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  __pyx_t_1 = __pyx_f_4devs_5adevs_9OutputBag_insert(__pyx_v_self, __pyx_v_port, __pyx_v_value, 1); if (unlikely(!__pyx_t_1)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 80; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   __Pyx_GOTREF(__pyx_t_1);
   __pyx_r = __pyx_t_1;
   __pyx_t_1 = 0;
@@ -1732,7 +1878,7 @@ static PyObject *__pyx_pf_4devs_5adevs_9OutputBag_insert(struct __pyx_obj_4devs_
   return __pyx_r;
 }
 
-/* "devs/adevs.pyx":81
+/* "devs/adevs.pyx":86
  * 
  * 
  * cdef object CreateInputBag(const CIOBag* bag):             # <<<<<<<<<<<<<<
@@ -1750,19 +1896,19 @@ static PyObject *__pyx_f_4devs_5adevs_CreateInputBag(__pyx_t_4devs_5adevs_CIOBag
   int __pyx_clineno = 0;
   __Pyx_RefNannySetupContext("CreateInputBag", 0);
 
-  /* "devs/adevs.pyx":86
+  /* "devs/adevs.pyx":91
  *     http://stackoverflow.com/a/12205374/2366781
  *     """
  *     input_bag = InputBag()             # <<<<<<<<<<<<<<
  *     input_bag._thisconstptr = bag
  *     input_bag._is_const = True
  */
-  __pyx_t_1 = __Pyx_PyObject_Call(((PyObject *)((PyObject*)__pyx_ptype_4devs_5adevs_InputBag)), __pyx_empty_tuple, NULL); if (unlikely(!__pyx_t_1)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 86; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  __pyx_t_1 = __Pyx_PyObject_Call(((PyObject *)((PyObject*)__pyx_ptype_4devs_5adevs_InputBag)), __pyx_empty_tuple, NULL); if (unlikely(!__pyx_t_1)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 91; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   __Pyx_GOTREF(__pyx_t_1);
   __pyx_v_input_bag = ((struct __pyx_obj_4devs_5adevs_InputBag *)__pyx_t_1);
   __pyx_t_1 = 0;
 
-  /* "devs/adevs.pyx":87
+  /* "devs/adevs.pyx":92
  *     """
  *     input_bag = InputBag()
  *     input_bag._thisconstptr = bag             # <<<<<<<<<<<<<<
@@ -1771,7 +1917,7 @@ static PyObject *__pyx_f_4devs_5adevs_CreateInputBag(__pyx_t_4devs_5adevs_CIOBag
  */
   __pyx_v_input_bag->__pyx_base._thisconstptr = __pyx_v_bag;
 
-  /* "devs/adevs.pyx":88
+  /* "devs/adevs.pyx":93
  *     input_bag = InputBag()
  *     input_bag._thisconstptr = bag
  *     input_bag._is_const = True             # <<<<<<<<<<<<<<
@@ -1780,7 +1926,7 @@ static PyObject *__pyx_f_4devs_5adevs_CreateInputBag(__pyx_t_4devs_5adevs_CIOBag
  */
   __pyx_v_input_bag->__pyx_base._is_const = 1;
 
-  /* "devs/adevs.pyx":89
+  /* "devs/adevs.pyx":94
  *     input_bag._thisconstptr = bag
  *     input_bag._is_const = True
  *     return input_bag             # <<<<<<<<<<<<<<
@@ -1792,7 +1938,7 @@ static PyObject *__pyx_f_4devs_5adevs_CreateInputBag(__pyx_t_4devs_5adevs_CIOBag
   __pyx_r = ((PyObject *)__pyx_v_input_bag);
   goto __pyx_L0;
 
-  /* "devs/adevs.pyx":81
+  /* "devs/adevs.pyx":86
  * 
  * 
  * cdef object CreateInputBag(const CIOBag* bag):             # <<<<<<<<<<<<<<
@@ -1812,7 +1958,7 @@ static PyObject *__pyx_f_4devs_5adevs_CreateInputBag(__pyx_t_4devs_5adevs_CIOBag
   return __pyx_r;
 }
 
-/* "devs/adevs.pyx":156
+/* "devs/adevs.pyx":168
  *     cdef cadevs.Atomic* base_ptr_
  * 
  *     def __init__(self):             # <<<<<<<<<<<<<<
@@ -1841,7 +1987,7 @@ static int __pyx_pf_4devs_5adevs_10AtomicBase___init__(struct __pyx_obj_4devs_5a
   __Pyx_RefNannyDeclarations
   __Pyx_RefNannySetupContext("__init__", 0);
 
-  /* "devs/adevs.pyx":157
+  /* "devs/adevs.pyx":169
  * 
  *     def __init__(self):
  *         self.base_ptr_ = new cadevs.Atomic(             # <<<<<<<<<<<<<<
@@ -1850,7 +1996,7 @@ static int __pyx_pf_4devs_5adevs_10AtomicBase___init__(struct __pyx_obj_4devs_5a
  */
   __pyx_v_self->base_ptr_ = new pydevs::Atomic(((PyObject *)__pyx_v_self), ((__pyx_t_4devs_6cadevs_DeltaIntFunc)__pyx_f_4devs_5adevs_cy_delta_int), ((__pyx_t_4devs_6cadevs_DeltaExtFunc)__pyx_f_4devs_5adevs_cy_delta_ext), ((__pyx_t_4devs_6cadevs_DeltaConfFunc)__pyx_f_4devs_5adevs_cy_delta_conf), ((__pyx_t_4devs_6cadevs_OutputFunc)__pyx_f_4devs_5adevs_cy_output_func), ((__pyx_t_4devs_6cadevs_TaFunc)__pyx_f_4devs_5adevs_cy_ta));
 
-  /* "devs/adevs.pyx":156
+  /* "devs/adevs.pyx":168
  *     cdef cadevs.Atomic* base_ptr_
  * 
  *     def __init__(self):             # <<<<<<<<<<<<<<
@@ -1864,8 +2010,52 @@ static int __pyx_pf_4devs_5adevs_10AtomicBase___init__(struct __pyx_obj_4devs_5a
   return __pyx_r;
 }
 
-/* "devs/adevs.pyx":166
+/* "devs/adevs.pyx":178
  *         )
+ * 
+ *     def __dealloc__(self):             # <<<<<<<<<<<<<<
+ *         del self.base_ptr_
+ * 
+ */
+
+/* Python wrapper */
+static void __pyx_pw_4devs_5adevs_10AtomicBase_3__dealloc__(PyObject *__pyx_v_self); /*proto*/
+static void __pyx_pw_4devs_5adevs_10AtomicBase_3__dealloc__(PyObject *__pyx_v_self) {
+  __Pyx_RefNannyDeclarations
+  __Pyx_RefNannySetupContext("__dealloc__ (wrapper)", 0);
+  __pyx_pf_4devs_5adevs_10AtomicBase_2__dealloc__(((struct __pyx_obj_4devs_5adevs_AtomicBase *)__pyx_v_self));
+
+  /* function exit code */
+  __Pyx_RefNannyFinishContext();
+}
+
+static void __pyx_pf_4devs_5adevs_10AtomicBase_2__dealloc__(struct __pyx_obj_4devs_5adevs_AtomicBase *__pyx_v_self) {
+  __Pyx_RefNannyDeclarations
+  __Pyx_RefNannySetupContext("__dealloc__", 0);
+
+  /* "devs/adevs.pyx":179
+ * 
+ *     def __dealloc__(self):
+ *         del self.base_ptr_             # <<<<<<<<<<<<<<
+ * 
+ *     def delta_int(self):
+ */
+  delete __pyx_v_self->base_ptr_;
+
+  /* "devs/adevs.pyx":178
+ *         )
+ * 
+ *     def __dealloc__(self):             # <<<<<<<<<<<<<<
+ *         del self.base_ptr_
+ * 
+ */
+
+  /* function exit code */
+  __Pyx_RefNannyFinishContext();
+}
+
+/* "devs/adevs.pyx":181
+ *         del self.base_ptr_
  * 
  *     def delta_int(self):             # <<<<<<<<<<<<<<
  *         pass
@@ -1873,19 +2063,19 @@ static int __pyx_pf_4devs_5adevs_10AtomicBase___init__(struct __pyx_obj_4devs_5a
  */
 
 /* Python wrapper */
-static PyObject *__pyx_pw_4devs_5adevs_10AtomicBase_3delta_int(PyObject *__pyx_v_self, CYTHON_UNUSED PyObject *unused); /*proto*/
-static PyObject *__pyx_pw_4devs_5adevs_10AtomicBase_3delta_int(PyObject *__pyx_v_self, CYTHON_UNUSED PyObject *unused) {
+static PyObject *__pyx_pw_4devs_5adevs_10AtomicBase_5delta_int(PyObject *__pyx_v_self, CYTHON_UNUSED PyObject *unused); /*proto*/
+static PyObject *__pyx_pw_4devs_5adevs_10AtomicBase_5delta_int(PyObject *__pyx_v_self, CYTHON_UNUSED PyObject *unused) {
   PyObject *__pyx_r = 0;
   __Pyx_RefNannyDeclarations
   __Pyx_RefNannySetupContext("delta_int (wrapper)", 0);
-  __pyx_r = __pyx_pf_4devs_5adevs_10AtomicBase_2delta_int(((struct __pyx_obj_4devs_5adevs_AtomicBase *)__pyx_v_self));
+  __pyx_r = __pyx_pf_4devs_5adevs_10AtomicBase_4delta_int(((struct __pyx_obj_4devs_5adevs_AtomicBase *)__pyx_v_self));
 
   /* function exit code */
   __Pyx_RefNannyFinishContext();
   return __pyx_r;
 }
 
-static PyObject *__pyx_pf_4devs_5adevs_10AtomicBase_2delta_int(CYTHON_UNUSED struct __pyx_obj_4devs_5adevs_AtomicBase *__pyx_v_self) {
+static PyObject *__pyx_pf_4devs_5adevs_10AtomicBase_4delta_int(CYTHON_UNUSED struct __pyx_obj_4devs_5adevs_AtomicBase *__pyx_v_self) {
   PyObject *__pyx_r = NULL;
   __Pyx_RefNannyDeclarations
   __Pyx_RefNannySetupContext("delta_int", 0);
@@ -1897,7 +2087,7 @@ static PyObject *__pyx_pf_4devs_5adevs_10AtomicBase_2delta_int(CYTHON_UNUSED str
   return __pyx_r;
 }
 
-/* "devs/adevs.pyx":169
+/* "devs/adevs.pyx":184
  *         pass
  * 
  *     def delta_ext(self, Time e, InputBag xb):             # <<<<<<<<<<<<<<
@@ -1906,8 +2096,8 @@ static PyObject *__pyx_pf_4devs_5adevs_10AtomicBase_2delta_int(CYTHON_UNUSED str
  */
 
 /* Python wrapper */
-static PyObject *__pyx_pw_4devs_5adevs_10AtomicBase_5delta_ext(PyObject *__pyx_v_self, PyObject *__pyx_args, PyObject *__pyx_kwds); /*proto*/
-static PyObject *__pyx_pw_4devs_5adevs_10AtomicBase_5delta_ext(PyObject *__pyx_v_self, PyObject *__pyx_args, PyObject *__pyx_kwds) {
+static PyObject *__pyx_pw_4devs_5adevs_10AtomicBase_7delta_ext(PyObject *__pyx_v_self, PyObject *__pyx_args, PyObject *__pyx_kwds); /*proto*/
+static PyObject *__pyx_pw_4devs_5adevs_10AtomicBase_7delta_ext(PyObject *__pyx_v_self, PyObject *__pyx_args, PyObject *__pyx_kwds) {
   CYTHON_UNUSED __pyx_t_4devs_5adevs_Time __pyx_v_e;
   CYTHON_UNUSED struct __pyx_obj_4devs_5adevs_InputBag *__pyx_v_xb = 0;
   int __pyx_lineno = 0;
@@ -1936,11 +2126,11 @@ static PyObject *__pyx_pw_4devs_5adevs_10AtomicBase_5delta_ext(PyObject *__pyx_v
         case  1:
         if (likely((values[1] = PyDict_GetItem(__pyx_kwds, __pyx_n_s_xb)) != 0)) kw_args--;
         else {
-          __Pyx_RaiseArgtupleInvalid("delta_ext", 1, 2, 2, 1); {__pyx_filename = __pyx_f[0]; __pyx_lineno = 169; __pyx_clineno = __LINE__; goto __pyx_L3_error;}
+          __Pyx_RaiseArgtupleInvalid("delta_ext", 1, 2, 2, 1); {__pyx_filename = __pyx_f[0]; __pyx_lineno = 184; __pyx_clineno = __LINE__; goto __pyx_L3_error;}
         }
       }
       if (unlikely(kw_args > 0)) {
-        if (unlikely(__Pyx_ParseOptionalKeywords(__pyx_kwds, __pyx_pyargnames, 0, values, pos_args, "delta_ext") < 0)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 169; __pyx_clineno = __LINE__; goto __pyx_L3_error;}
+        if (unlikely(__Pyx_ParseOptionalKeywords(__pyx_kwds, __pyx_pyargnames, 0, values, pos_args, "delta_ext") < 0)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 184; __pyx_clineno = __LINE__; goto __pyx_L3_error;}
       }
     } else if (PyTuple_GET_SIZE(__pyx_args) != 2) {
       goto __pyx_L5_argtuple_error;
@@ -1948,19 +2138,19 @@ static PyObject *__pyx_pw_4devs_5adevs_10AtomicBase_5delta_ext(PyObject *__pyx_v
       values[0] = PyTuple_GET_ITEM(__pyx_args, 0);
       values[1] = PyTuple_GET_ITEM(__pyx_args, 1);
     }
-    __pyx_v_e = __pyx_PyFloat_AsDouble(values[0]); if (unlikely((__pyx_v_e == (double)-1) && PyErr_Occurred())) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 169; __pyx_clineno = __LINE__; goto __pyx_L3_error;}
+    __pyx_v_e = __pyx_PyFloat_AsDouble(values[0]); if (unlikely((__pyx_v_e == (double)-1) && PyErr_Occurred())) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 184; __pyx_clineno = __LINE__; goto __pyx_L3_error;}
     __pyx_v_xb = ((struct __pyx_obj_4devs_5adevs_InputBag *)values[1]);
   }
   goto __pyx_L4_argument_unpacking_done;
   __pyx_L5_argtuple_error:;
-  __Pyx_RaiseArgtupleInvalid("delta_ext", 1, 2, 2, PyTuple_GET_SIZE(__pyx_args)); {__pyx_filename = __pyx_f[0]; __pyx_lineno = 169; __pyx_clineno = __LINE__; goto __pyx_L3_error;}
+  __Pyx_RaiseArgtupleInvalid("delta_ext", 1, 2, 2, PyTuple_GET_SIZE(__pyx_args)); {__pyx_filename = __pyx_f[0]; __pyx_lineno = 184; __pyx_clineno = __LINE__; goto __pyx_L3_error;}
   __pyx_L3_error:;
   __Pyx_AddTraceback("devs.adevs.AtomicBase.delta_ext", __pyx_clineno, __pyx_lineno, __pyx_filename);
   __Pyx_RefNannyFinishContext();
   return NULL;
   __pyx_L4_argument_unpacking_done:;
-  if (unlikely(!__Pyx_ArgTypeTest(((PyObject *)__pyx_v_xb), __pyx_ptype_4devs_5adevs_InputBag, 1, "xb", 0))) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 169; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
-  __pyx_r = __pyx_pf_4devs_5adevs_10AtomicBase_4delta_ext(((struct __pyx_obj_4devs_5adevs_AtomicBase *)__pyx_v_self), __pyx_v_e, __pyx_v_xb);
+  if (unlikely(!__Pyx_ArgTypeTest(((PyObject *)__pyx_v_xb), __pyx_ptype_4devs_5adevs_InputBag, 1, "xb", 0))) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 184; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  __pyx_r = __pyx_pf_4devs_5adevs_10AtomicBase_6delta_ext(((struct __pyx_obj_4devs_5adevs_AtomicBase *)__pyx_v_self), __pyx_v_e, __pyx_v_xb);
 
   /* function exit code */
   goto __pyx_L0;
@@ -1971,7 +2161,7 @@ static PyObject *__pyx_pw_4devs_5adevs_10AtomicBase_5delta_ext(PyObject *__pyx_v
   return __pyx_r;
 }
 
-static PyObject *__pyx_pf_4devs_5adevs_10AtomicBase_4delta_ext(CYTHON_UNUSED struct __pyx_obj_4devs_5adevs_AtomicBase *__pyx_v_self, CYTHON_UNUSED __pyx_t_4devs_5adevs_Time __pyx_v_e, CYTHON_UNUSED struct __pyx_obj_4devs_5adevs_InputBag *__pyx_v_xb) {
+static PyObject *__pyx_pf_4devs_5adevs_10AtomicBase_6delta_ext(CYTHON_UNUSED struct __pyx_obj_4devs_5adevs_AtomicBase *__pyx_v_self, CYTHON_UNUSED __pyx_t_4devs_5adevs_Time __pyx_v_e, CYTHON_UNUSED struct __pyx_obj_4devs_5adevs_InputBag *__pyx_v_xb) {
   PyObject *__pyx_r = NULL;
   __Pyx_RefNannyDeclarations
   __Pyx_RefNannySetupContext("delta_ext", 0);
@@ -1983,7 +2173,7 @@ static PyObject *__pyx_pf_4devs_5adevs_10AtomicBase_4delta_ext(CYTHON_UNUSED str
   return __pyx_r;
 }
 
-/* "devs/adevs.pyx":172
+/* "devs/adevs.pyx":187
  *         pass
  * 
  *     def delta_conf(self, InputBag xb):             # <<<<<<<<<<<<<<
@@ -1992,16 +2182,16 @@ static PyObject *__pyx_pf_4devs_5adevs_10AtomicBase_4delta_ext(CYTHON_UNUSED str
  */
 
 /* Python wrapper */
-static PyObject *__pyx_pw_4devs_5adevs_10AtomicBase_7delta_conf(PyObject *__pyx_v_self, PyObject *__pyx_v_xb); /*proto*/
-static PyObject *__pyx_pw_4devs_5adevs_10AtomicBase_7delta_conf(PyObject *__pyx_v_self, PyObject *__pyx_v_xb) {
+static PyObject *__pyx_pw_4devs_5adevs_10AtomicBase_9delta_conf(PyObject *__pyx_v_self, PyObject *__pyx_v_xb); /*proto*/
+static PyObject *__pyx_pw_4devs_5adevs_10AtomicBase_9delta_conf(PyObject *__pyx_v_self, PyObject *__pyx_v_xb) {
   CYTHON_UNUSED int __pyx_lineno = 0;
   CYTHON_UNUSED const char *__pyx_filename = NULL;
   CYTHON_UNUSED int __pyx_clineno = 0;
   PyObject *__pyx_r = 0;
   __Pyx_RefNannyDeclarations
   __Pyx_RefNannySetupContext("delta_conf (wrapper)", 0);
-  if (unlikely(!__Pyx_ArgTypeTest(((PyObject *)__pyx_v_xb), __pyx_ptype_4devs_5adevs_InputBag, 1, "xb", 0))) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 172; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
-  __pyx_r = __pyx_pf_4devs_5adevs_10AtomicBase_6delta_conf(((struct __pyx_obj_4devs_5adevs_AtomicBase *)__pyx_v_self), ((struct __pyx_obj_4devs_5adevs_InputBag *)__pyx_v_xb));
+  if (unlikely(!__Pyx_ArgTypeTest(((PyObject *)__pyx_v_xb), __pyx_ptype_4devs_5adevs_InputBag, 1, "xb", 0))) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 187; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  __pyx_r = __pyx_pf_4devs_5adevs_10AtomicBase_8delta_conf(((struct __pyx_obj_4devs_5adevs_AtomicBase *)__pyx_v_self), ((struct __pyx_obj_4devs_5adevs_InputBag *)__pyx_v_xb));
 
   /* function exit code */
   goto __pyx_L0;
@@ -2012,7 +2202,7 @@ static PyObject *__pyx_pw_4devs_5adevs_10AtomicBase_7delta_conf(PyObject *__pyx_
   return __pyx_r;
 }
 
-static PyObject *__pyx_pf_4devs_5adevs_10AtomicBase_6delta_conf(CYTHON_UNUSED struct __pyx_obj_4devs_5adevs_AtomicBase *__pyx_v_self, CYTHON_UNUSED struct __pyx_obj_4devs_5adevs_InputBag *__pyx_v_xb) {
+static PyObject *__pyx_pf_4devs_5adevs_10AtomicBase_8delta_conf(CYTHON_UNUSED struct __pyx_obj_4devs_5adevs_AtomicBase *__pyx_v_self, CYTHON_UNUSED struct __pyx_obj_4devs_5adevs_InputBag *__pyx_v_xb) {
   PyObject *__pyx_r = NULL;
   __Pyx_RefNannyDeclarations
   __Pyx_RefNannySetupContext("delta_conf", 0);
@@ -2024,7 +2214,7 @@ static PyObject *__pyx_pf_4devs_5adevs_10AtomicBase_6delta_conf(CYTHON_UNUSED st
   return __pyx_r;
 }
 
-/* "devs/adevs.pyx":175
+/* "devs/adevs.pyx":190
  *         pass
  * 
  *     def output_func(self, OutputBag yb):             # <<<<<<<<<<<<<<
@@ -2033,16 +2223,16 @@ static PyObject *__pyx_pf_4devs_5adevs_10AtomicBase_6delta_conf(CYTHON_UNUSED st
  */
 
 /* Python wrapper */
-static PyObject *__pyx_pw_4devs_5adevs_10AtomicBase_9output_func(PyObject *__pyx_v_self, PyObject *__pyx_v_yb); /*proto*/
-static PyObject *__pyx_pw_4devs_5adevs_10AtomicBase_9output_func(PyObject *__pyx_v_self, PyObject *__pyx_v_yb) {
+static PyObject *__pyx_pw_4devs_5adevs_10AtomicBase_11output_func(PyObject *__pyx_v_self, PyObject *__pyx_v_yb); /*proto*/
+static PyObject *__pyx_pw_4devs_5adevs_10AtomicBase_11output_func(PyObject *__pyx_v_self, PyObject *__pyx_v_yb) {
   CYTHON_UNUSED int __pyx_lineno = 0;
   CYTHON_UNUSED const char *__pyx_filename = NULL;
   CYTHON_UNUSED int __pyx_clineno = 0;
   PyObject *__pyx_r = 0;
   __Pyx_RefNannyDeclarations
   __Pyx_RefNannySetupContext("output_func (wrapper)", 0);
-  if (unlikely(!__Pyx_ArgTypeTest(((PyObject *)__pyx_v_yb), __pyx_ptype_4devs_5adevs_OutputBag, 1, "yb", 0))) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 175; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
-  __pyx_r = __pyx_pf_4devs_5adevs_10AtomicBase_8output_func(((struct __pyx_obj_4devs_5adevs_AtomicBase *)__pyx_v_self), ((struct __pyx_obj_4devs_5adevs_OutputBag *)__pyx_v_yb));
+  if (unlikely(!__Pyx_ArgTypeTest(((PyObject *)__pyx_v_yb), __pyx_ptype_4devs_5adevs_OutputBag, 1, "yb", 0))) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 190; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  __pyx_r = __pyx_pf_4devs_5adevs_10AtomicBase_10output_func(((struct __pyx_obj_4devs_5adevs_AtomicBase *)__pyx_v_self), ((struct __pyx_obj_4devs_5adevs_OutputBag *)__pyx_v_yb));
 
   /* function exit code */
   goto __pyx_L0;
@@ -2053,7 +2243,7 @@ static PyObject *__pyx_pw_4devs_5adevs_10AtomicBase_9output_func(PyObject *__pyx
   return __pyx_r;
 }
 
-static PyObject *__pyx_pf_4devs_5adevs_10AtomicBase_8output_func(CYTHON_UNUSED struct __pyx_obj_4devs_5adevs_AtomicBase *__pyx_v_self, CYTHON_UNUSED struct __pyx_obj_4devs_5adevs_OutputBag *__pyx_v_yb) {
+static PyObject *__pyx_pf_4devs_5adevs_10AtomicBase_10output_func(CYTHON_UNUSED struct __pyx_obj_4devs_5adevs_AtomicBase *__pyx_v_self, CYTHON_UNUSED struct __pyx_obj_4devs_5adevs_OutputBag *__pyx_v_yb) {
   PyObject *__pyx_r = NULL;
   __Pyx_RefNannyDeclarations
   __Pyx_RefNannySetupContext("output_func", 0);
@@ -2065,7 +2255,7 @@ static PyObject *__pyx_pf_4devs_5adevs_10AtomicBase_8output_func(CYTHON_UNUSED s
   return __pyx_r;
 }
 
-/* "devs/adevs.pyx":178
+/* "devs/adevs.pyx":193
  *         pass
  * 
  *     def ta(self):             # <<<<<<<<<<<<<<
@@ -2074,19 +2264,19 @@ static PyObject *__pyx_pf_4devs_5adevs_10AtomicBase_8output_func(CYTHON_UNUSED s
  */
 
 /* Python wrapper */
-static PyObject *__pyx_pw_4devs_5adevs_10AtomicBase_11ta(PyObject *__pyx_v_self, CYTHON_UNUSED PyObject *unused); /*proto*/
-static PyObject *__pyx_pw_4devs_5adevs_10AtomicBase_11ta(PyObject *__pyx_v_self, CYTHON_UNUSED PyObject *unused) {
+static PyObject *__pyx_pw_4devs_5adevs_10AtomicBase_13ta(PyObject *__pyx_v_self, CYTHON_UNUSED PyObject *unused); /*proto*/
+static PyObject *__pyx_pw_4devs_5adevs_10AtomicBase_13ta(PyObject *__pyx_v_self, CYTHON_UNUSED PyObject *unused) {
   PyObject *__pyx_r = 0;
   __Pyx_RefNannyDeclarations
   __Pyx_RefNannySetupContext("ta (wrapper)", 0);
-  __pyx_r = __pyx_pf_4devs_5adevs_10AtomicBase_10ta(((struct __pyx_obj_4devs_5adevs_AtomicBase *)__pyx_v_self));
+  __pyx_r = __pyx_pf_4devs_5adevs_10AtomicBase_12ta(((struct __pyx_obj_4devs_5adevs_AtomicBase *)__pyx_v_self));
 
   /* function exit code */
   __Pyx_RefNannyFinishContext();
   return __pyx_r;
 }
 
-static PyObject *__pyx_pf_4devs_5adevs_10AtomicBase_10ta(CYTHON_UNUSED struct __pyx_obj_4devs_5adevs_AtomicBase *__pyx_v_self) {
+static PyObject *__pyx_pf_4devs_5adevs_10AtomicBase_12ta(CYTHON_UNUSED struct __pyx_obj_4devs_5adevs_AtomicBase *__pyx_v_self) {
   PyObject *__pyx_r = NULL;
   __Pyx_RefNannyDeclarations
   __Pyx_RefNannySetupContext("ta", 0);
@@ -2098,7 +2288,7 @@ static PyObject *__pyx_pf_4devs_5adevs_10AtomicBase_10ta(CYTHON_UNUSED struct __
   return __pyx_r;
 }
 
-/* "devs/adevs.pyx":182
+/* "devs/adevs.pyx":197
  * 
  * 
  * cdef void cy_delta_int(PyObject* object):             # <<<<<<<<<<<<<<
@@ -2117,7 +2307,7 @@ static void __pyx_f_4devs_5adevs_cy_delta_int(PyObject *__pyx_v_object) {
   int __pyx_clineno = 0;
   __Pyx_RefNannySetupContext("cy_delta_int", 0);
 
-  /* "devs/adevs.pyx":183
+  /* "devs/adevs.pyx":198
  * 
  * cdef void cy_delta_int(PyObject* object):
  *     cdef AtomicBase atomic_base = <AtomicBase>(object)             # <<<<<<<<<<<<<<
@@ -2129,14 +2319,14 @@ static void __pyx_f_4devs_5adevs_cy_delta_int(PyObject *__pyx_v_object) {
   __pyx_v_atomic_base = ((struct __pyx_obj_4devs_5adevs_AtomicBase *)__pyx_t_1);
   __pyx_t_1 = 0;
 
-  /* "devs/adevs.pyx":184
+  /* "devs/adevs.pyx":199
  * cdef void cy_delta_int(PyObject* object):
  *     cdef AtomicBase atomic_base = <AtomicBase>(object)
  *     atomic_base.delta_int()             # <<<<<<<<<<<<<<
  * 
  * 
  */
-  __pyx_t_2 = __Pyx_PyObject_GetAttrStr(((PyObject *)__pyx_v_atomic_base), __pyx_n_s_delta_int); if (unlikely(!__pyx_t_2)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 184; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  __pyx_t_2 = __Pyx_PyObject_GetAttrStr(((PyObject *)__pyx_v_atomic_base), __pyx_n_s_delta_int); if (unlikely(!__pyx_t_2)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 199; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   __Pyx_GOTREF(__pyx_t_2);
   __pyx_t_3 = NULL;
   if (CYTHON_COMPILING_IN_CPYTHON && likely(PyMethod_Check(__pyx_t_2))) {
@@ -2149,16 +2339,16 @@ static void __pyx_f_4devs_5adevs_cy_delta_int(PyObject *__pyx_v_object) {
     }
   }
   if (__pyx_t_3) {
-    __pyx_t_1 = __Pyx_PyObject_CallOneArg(__pyx_t_2, __pyx_t_3); if (unlikely(!__pyx_t_1)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 184; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+    __pyx_t_1 = __Pyx_PyObject_CallOneArg(__pyx_t_2, __pyx_t_3); if (unlikely(!__pyx_t_1)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 199; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
     __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
   } else {
-    __pyx_t_1 = __Pyx_PyObject_CallNoArg(__pyx_t_2); if (unlikely(!__pyx_t_1)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 184; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+    __pyx_t_1 = __Pyx_PyObject_CallNoArg(__pyx_t_2); if (unlikely(!__pyx_t_1)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 199; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   }
   __Pyx_GOTREF(__pyx_t_1);
   __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
 
-  /* "devs/adevs.pyx":182
+  /* "devs/adevs.pyx":197
  * 
  * 
  * cdef void cy_delta_int(PyObject* object):             # <<<<<<<<<<<<<<
@@ -2178,7 +2368,7 @@ static void __pyx_f_4devs_5adevs_cy_delta_int(PyObject *__pyx_v_object) {
   __Pyx_RefNannyFinishContext();
 }
 
-/* "devs/adevs.pyx":187
+/* "devs/adevs.pyx":202
  * 
  * 
  * cdef void cy_delta_ext(             # <<<<<<<<<<<<<<
@@ -2201,7 +2391,7 @@ static void __pyx_f_4devs_5adevs_cy_delta_ext(PyObject *__pyx_v_object, __pyx_t_
   int __pyx_clineno = 0;
   __Pyx_RefNannySetupContext("cy_delta_ext", 0);
 
-  /* "devs/adevs.pyx":190
+  /* "devs/adevs.pyx":205
  *     PyObject* object, cadevs.Time e, const cadevs.IOBag& xb
  * ):
  *     cdef AtomicBase atomic_base = <AtomicBase>(object)             # <<<<<<<<<<<<<<
@@ -2213,29 +2403,29 @@ static void __pyx_f_4devs_5adevs_cy_delta_ext(PyObject *__pyx_v_object, __pyx_t_
   __pyx_v_atomic_base = ((struct __pyx_obj_4devs_5adevs_AtomicBase *)__pyx_t_1);
   __pyx_t_1 = 0;
 
-  /* "devs/adevs.pyx":193
+  /* "devs/adevs.pyx":208
  * 
  *     # wrap the C++ Bag in a Python Wrapper Bag class
  *     cdef InputBag input_bag = CreateInputBag(&xb)             # <<<<<<<<<<<<<<
  * 
  *     atomic_base.delta_ext(e, input_bag)
  */
-  __pyx_t_1 = __pyx_f_4devs_5adevs_CreateInputBag((&__pyx_v_xb)); if (unlikely(!__pyx_t_1)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 193; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  __pyx_t_1 = __pyx_f_4devs_5adevs_CreateInputBag((&__pyx_v_xb)); if (unlikely(!__pyx_t_1)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 208; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   __Pyx_GOTREF(__pyx_t_1);
-  if (!(likely(((__pyx_t_1) == Py_None) || likely(__Pyx_TypeTest(__pyx_t_1, __pyx_ptype_4devs_5adevs_InputBag))))) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 193; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  if (!(likely(((__pyx_t_1) == Py_None) || likely(__Pyx_TypeTest(__pyx_t_1, __pyx_ptype_4devs_5adevs_InputBag))))) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 208; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   __pyx_v_input_bag = ((struct __pyx_obj_4devs_5adevs_InputBag *)__pyx_t_1);
   __pyx_t_1 = 0;
 
-  /* "devs/adevs.pyx":195
+  /* "devs/adevs.pyx":210
  *     cdef InputBag input_bag = CreateInputBag(&xb)
  * 
  *     atomic_base.delta_ext(e, input_bag)             # <<<<<<<<<<<<<<
  * 
  * 
  */
-  __pyx_t_2 = __Pyx_PyObject_GetAttrStr(((PyObject *)__pyx_v_atomic_base), __pyx_n_s_delta_ext); if (unlikely(!__pyx_t_2)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 195; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  __pyx_t_2 = __Pyx_PyObject_GetAttrStr(((PyObject *)__pyx_v_atomic_base), __pyx_n_s_delta_ext); if (unlikely(!__pyx_t_2)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 210; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   __Pyx_GOTREF(__pyx_t_2);
-  __pyx_t_3 = PyFloat_FromDouble(__pyx_v_e); if (unlikely(!__pyx_t_3)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 195; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  __pyx_t_3 = PyFloat_FromDouble(__pyx_v_e); if (unlikely(!__pyx_t_3)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 210; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   __Pyx_GOTREF(__pyx_t_3);
   __pyx_t_4 = NULL;
   __pyx_t_5 = 0;
@@ -2249,7 +2439,7 @@ static void __pyx_f_4devs_5adevs_cy_delta_ext(PyObject *__pyx_v_object, __pyx_t_
       __pyx_t_5 = 1;
     }
   }
-  __pyx_t_6 = PyTuple_New(2+__pyx_t_5); if (unlikely(!__pyx_t_6)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 195; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  __pyx_t_6 = PyTuple_New(2+__pyx_t_5); if (unlikely(!__pyx_t_6)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 210; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   __Pyx_GOTREF(__pyx_t_6);
   if (__pyx_t_4) {
     PyTuple_SET_ITEM(__pyx_t_6, 0, __pyx_t_4); __Pyx_GIVEREF(__pyx_t_4); __pyx_t_4 = NULL;
@@ -2260,13 +2450,13 @@ static void __pyx_f_4devs_5adevs_cy_delta_ext(PyObject *__pyx_v_object, __pyx_t_
   PyTuple_SET_ITEM(__pyx_t_6, 1+__pyx_t_5, ((PyObject *)__pyx_v_input_bag));
   __Pyx_GIVEREF(((PyObject *)__pyx_v_input_bag));
   __pyx_t_3 = 0;
-  __pyx_t_1 = __Pyx_PyObject_Call(__pyx_t_2, __pyx_t_6, NULL); if (unlikely(!__pyx_t_1)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 195; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  __pyx_t_1 = __Pyx_PyObject_Call(__pyx_t_2, __pyx_t_6, NULL); if (unlikely(!__pyx_t_1)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 210; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   __Pyx_GOTREF(__pyx_t_1);
   __Pyx_DECREF(__pyx_t_6); __pyx_t_6 = 0;
   __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
 
-  /* "devs/adevs.pyx":187
+  /* "devs/adevs.pyx":202
  * 
  * 
  * cdef void cy_delta_ext(             # <<<<<<<<<<<<<<
@@ -2289,7 +2479,7 @@ static void __pyx_f_4devs_5adevs_cy_delta_ext(PyObject *__pyx_v_object, __pyx_t_
   __Pyx_RefNannyFinishContext();
 }
 
-/* "devs/adevs.pyx":198
+/* "devs/adevs.pyx":213
  * 
  * 
  * cdef void cy_delta_conf(             # <<<<<<<<<<<<<<
@@ -2310,7 +2500,7 @@ static void __pyx_f_4devs_5adevs_cy_delta_conf(PyObject *__pyx_v_object, __pyx_t
   int __pyx_clineno = 0;
   __Pyx_RefNannySetupContext("cy_delta_conf", 0);
 
-  /* "devs/adevs.pyx":201
+  /* "devs/adevs.pyx":216
  *     PyObject* object, const cadevs.IOBag& xb
  * ):
  *     cdef AtomicBase atomic_base = <AtomicBase>(object)             # <<<<<<<<<<<<<<
@@ -2322,27 +2512,27 @@ static void __pyx_f_4devs_5adevs_cy_delta_conf(PyObject *__pyx_v_object, __pyx_t
   __pyx_v_atomic_base = ((struct __pyx_obj_4devs_5adevs_AtomicBase *)__pyx_t_1);
   __pyx_t_1 = 0;
 
-  /* "devs/adevs.pyx":204
+  /* "devs/adevs.pyx":219
  * 
  *     # wrap the C++ Bag in a Python Wrapper Bag class
  *     cdef InputBag input_bag = CreateInputBag(&xb)             # <<<<<<<<<<<<<<
  * 
  *     atomic_base.delta_conf(input_bag)
  */
-  __pyx_t_1 = __pyx_f_4devs_5adevs_CreateInputBag((&__pyx_v_xb)); if (unlikely(!__pyx_t_1)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 204; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  __pyx_t_1 = __pyx_f_4devs_5adevs_CreateInputBag((&__pyx_v_xb)); if (unlikely(!__pyx_t_1)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 219; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   __Pyx_GOTREF(__pyx_t_1);
-  if (!(likely(((__pyx_t_1) == Py_None) || likely(__Pyx_TypeTest(__pyx_t_1, __pyx_ptype_4devs_5adevs_InputBag))))) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 204; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  if (!(likely(((__pyx_t_1) == Py_None) || likely(__Pyx_TypeTest(__pyx_t_1, __pyx_ptype_4devs_5adevs_InputBag))))) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 219; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   __pyx_v_input_bag = ((struct __pyx_obj_4devs_5adevs_InputBag *)__pyx_t_1);
   __pyx_t_1 = 0;
 
-  /* "devs/adevs.pyx":206
+  /* "devs/adevs.pyx":221
  *     cdef InputBag input_bag = CreateInputBag(&xb)
  * 
  *     atomic_base.delta_conf(input_bag)             # <<<<<<<<<<<<<<
  * 
  * 
  */
-  __pyx_t_2 = __Pyx_PyObject_GetAttrStr(((PyObject *)__pyx_v_atomic_base), __pyx_n_s_delta_conf); if (unlikely(!__pyx_t_2)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 206; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  __pyx_t_2 = __Pyx_PyObject_GetAttrStr(((PyObject *)__pyx_v_atomic_base), __pyx_n_s_delta_conf); if (unlikely(!__pyx_t_2)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 221; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   __Pyx_GOTREF(__pyx_t_2);
   __pyx_t_3 = NULL;
   if (CYTHON_COMPILING_IN_CPYTHON && likely(PyMethod_Check(__pyx_t_2))) {
@@ -2355,23 +2545,23 @@ static void __pyx_f_4devs_5adevs_cy_delta_conf(PyObject *__pyx_v_object, __pyx_t
     }
   }
   if (!__pyx_t_3) {
-    __pyx_t_1 = __Pyx_PyObject_CallOneArg(__pyx_t_2, ((PyObject *)__pyx_v_input_bag)); if (unlikely(!__pyx_t_1)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 206; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+    __pyx_t_1 = __Pyx_PyObject_CallOneArg(__pyx_t_2, ((PyObject *)__pyx_v_input_bag)); if (unlikely(!__pyx_t_1)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 221; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
     __Pyx_GOTREF(__pyx_t_1);
   } else {
-    __pyx_t_4 = PyTuple_New(1+1); if (unlikely(!__pyx_t_4)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 206; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+    __pyx_t_4 = PyTuple_New(1+1); if (unlikely(!__pyx_t_4)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 221; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
     __Pyx_GOTREF(__pyx_t_4);
     PyTuple_SET_ITEM(__pyx_t_4, 0, __pyx_t_3); __Pyx_GIVEREF(__pyx_t_3); __pyx_t_3 = NULL;
     __Pyx_INCREF(((PyObject *)__pyx_v_input_bag));
     PyTuple_SET_ITEM(__pyx_t_4, 0+1, ((PyObject *)__pyx_v_input_bag));
     __Pyx_GIVEREF(((PyObject *)__pyx_v_input_bag));
-    __pyx_t_1 = __Pyx_PyObject_Call(__pyx_t_2, __pyx_t_4, NULL); if (unlikely(!__pyx_t_1)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 206; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+    __pyx_t_1 = __Pyx_PyObject_Call(__pyx_t_2, __pyx_t_4, NULL); if (unlikely(!__pyx_t_1)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 221; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
     __Pyx_GOTREF(__pyx_t_1);
     __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
   }
   __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
 
-  /* "devs/adevs.pyx":198
+  /* "devs/adevs.pyx":213
  * 
  * 
  * cdef void cy_delta_conf(             # <<<<<<<<<<<<<<
@@ -2393,7 +2583,7 @@ static void __pyx_f_4devs_5adevs_cy_delta_conf(PyObject *__pyx_v_object, __pyx_t
   __Pyx_RefNannyFinishContext();
 }
 
-/* "devs/adevs.pyx":209
+/* "devs/adevs.pyx":224
  * 
  * 
  * cdef void cy_output_func(             # <<<<<<<<<<<<<<
@@ -2414,7 +2604,7 @@ static void __pyx_f_4devs_5adevs_cy_output_func(PyObject *__pyx_v_object, __pyx_
   int __pyx_clineno = 0;
   __Pyx_RefNannySetupContext("cy_output_func", 0);
 
-  /* "devs/adevs.pyx":212
+  /* "devs/adevs.pyx":227
  *     PyObject* object, cadevs.IOBag& yb
  * ):
  *     cdef AtomicBase atomic_base = <AtomicBase>(object)             # <<<<<<<<<<<<<<
@@ -2426,27 +2616,27 @@ static void __pyx_f_4devs_5adevs_cy_output_func(PyObject *__pyx_v_object, __pyx_
   __pyx_v_atomic_base = ((struct __pyx_obj_4devs_5adevs_AtomicBase *)__pyx_t_1);
   __pyx_t_1 = 0;
 
-  /* "devs/adevs.pyx":215
+  /* "devs/adevs.pyx":230
  * 
  *     # wrap the C++ Bag in a Python Wrapper Bag class
  *     cdef OutputBag output_bag = CreateOutputBag(&yb)             # <<<<<<<<<<<<<<
  * 
  *     atomic_base.output_func(output_bag)
  */
-  __pyx_t_1 = __pyx_f_4devs_5adevs_CreateOutputBag((&__pyx_v_yb)); if (unlikely(!__pyx_t_1)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 215; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  __pyx_t_1 = __pyx_f_4devs_5adevs_CreateOutputBag((&__pyx_v_yb)); if (unlikely(!__pyx_t_1)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 230; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   __Pyx_GOTREF(__pyx_t_1);
-  if (!(likely(((__pyx_t_1) == Py_None) || likely(__Pyx_TypeTest(__pyx_t_1, __pyx_ptype_4devs_5adevs_OutputBag))))) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 215; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  if (!(likely(((__pyx_t_1) == Py_None) || likely(__Pyx_TypeTest(__pyx_t_1, __pyx_ptype_4devs_5adevs_OutputBag))))) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 230; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   __pyx_v_output_bag = ((struct __pyx_obj_4devs_5adevs_OutputBag *)__pyx_t_1);
   __pyx_t_1 = 0;
 
-  /* "devs/adevs.pyx":217
+  /* "devs/adevs.pyx":232
  *     cdef OutputBag output_bag = CreateOutputBag(&yb)
  * 
  *     atomic_base.output_func(output_bag)             # <<<<<<<<<<<<<<
  * 
  * 
  */
-  __pyx_t_2 = __Pyx_PyObject_GetAttrStr(((PyObject *)__pyx_v_atomic_base), __pyx_n_s_output_func); if (unlikely(!__pyx_t_2)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 217; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  __pyx_t_2 = __Pyx_PyObject_GetAttrStr(((PyObject *)__pyx_v_atomic_base), __pyx_n_s_output_func); if (unlikely(!__pyx_t_2)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 232; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   __Pyx_GOTREF(__pyx_t_2);
   __pyx_t_3 = NULL;
   if (CYTHON_COMPILING_IN_CPYTHON && likely(PyMethod_Check(__pyx_t_2))) {
@@ -2459,23 +2649,23 @@ static void __pyx_f_4devs_5adevs_cy_output_func(PyObject *__pyx_v_object, __pyx_
     }
   }
   if (!__pyx_t_3) {
-    __pyx_t_1 = __Pyx_PyObject_CallOneArg(__pyx_t_2, ((PyObject *)__pyx_v_output_bag)); if (unlikely(!__pyx_t_1)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 217; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+    __pyx_t_1 = __Pyx_PyObject_CallOneArg(__pyx_t_2, ((PyObject *)__pyx_v_output_bag)); if (unlikely(!__pyx_t_1)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 232; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
     __Pyx_GOTREF(__pyx_t_1);
   } else {
-    __pyx_t_4 = PyTuple_New(1+1); if (unlikely(!__pyx_t_4)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 217; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+    __pyx_t_4 = PyTuple_New(1+1); if (unlikely(!__pyx_t_4)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 232; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
     __Pyx_GOTREF(__pyx_t_4);
     PyTuple_SET_ITEM(__pyx_t_4, 0, __pyx_t_3); __Pyx_GIVEREF(__pyx_t_3); __pyx_t_3 = NULL;
     __Pyx_INCREF(((PyObject *)__pyx_v_output_bag));
     PyTuple_SET_ITEM(__pyx_t_4, 0+1, ((PyObject *)__pyx_v_output_bag));
     __Pyx_GIVEREF(((PyObject *)__pyx_v_output_bag));
-    __pyx_t_1 = __Pyx_PyObject_Call(__pyx_t_2, __pyx_t_4, NULL); if (unlikely(!__pyx_t_1)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 217; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+    __pyx_t_1 = __Pyx_PyObject_Call(__pyx_t_2, __pyx_t_4, NULL); if (unlikely(!__pyx_t_1)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 232; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
     __Pyx_GOTREF(__pyx_t_1);
     __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
   }
   __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
 
-  /* "devs/adevs.pyx":209
+  /* "devs/adevs.pyx":224
  * 
  * 
  * cdef void cy_output_func(             # <<<<<<<<<<<<<<
@@ -2497,7 +2687,7 @@ static void __pyx_f_4devs_5adevs_cy_output_func(PyObject *__pyx_v_object, __pyx_
   __Pyx_RefNannyFinishContext();
 }
 
-/* "devs/adevs.pyx":220
+/* "devs/adevs.pyx":235
  * 
  * 
  * cdef Time cy_ta(             # <<<<<<<<<<<<<<
@@ -2518,7 +2708,7 @@ static __pyx_t_4devs_5adevs_Time __pyx_f_4devs_5adevs_cy_ta(PyObject *__pyx_v_ob
   int __pyx_clineno = 0;
   __Pyx_RefNannySetupContext("cy_ta", 0);
 
-  /* "devs/adevs.pyx":223
+  /* "devs/adevs.pyx":238
  *     PyObject* object
  * ):
  *     cdef AtomicBase atomic_base = <AtomicBase>(object)             # <<<<<<<<<<<<<<
@@ -2530,12 +2720,14 @@ static __pyx_t_4devs_5adevs_Time __pyx_f_4devs_5adevs_cy_ta(PyObject *__pyx_v_ob
   __pyx_v_atomic_base = ((struct __pyx_obj_4devs_5adevs_AtomicBase *)__pyx_t_1);
   __pyx_t_1 = 0;
 
-  /* "devs/adevs.pyx":225
+  /* "devs/adevs.pyx":240
  *     cdef AtomicBase atomic_base = <AtomicBase>(object)
  * 
  *     return atomic_base.ta()             # <<<<<<<<<<<<<<
+ * 
+ * 
  */
-  __pyx_t_2 = __Pyx_PyObject_GetAttrStr(((PyObject *)__pyx_v_atomic_base), __pyx_n_s_ta); if (unlikely(!__pyx_t_2)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 225; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  __pyx_t_2 = __Pyx_PyObject_GetAttrStr(((PyObject *)__pyx_v_atomic_base), __pyx_n_s_ta); if (unlikely(!__pyx_t_2)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 240; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   __Pyx_GOTREF(__pyx_t_2);
   __pyx_t_3 = NULL;
   if (CYTHON_COMPILING_IN_CPYTHON && likely(PyMethod_Check(__pyx_t_2))) {
@@ -2548,19 +2740,19 @@ static __pyx_t_4devs_5adevs_Time __pyx_f_4devs_5adevs_cy_ta(PyObject *__pyx_v_ob
     }
   }
   if (__pyx_t_3) {
-    __pyx_t_1 = __Pyx_PyObject_CallOneArg(__pyx_t_2, __pyx_t_3); if (unlikely(!__pyx_t_1)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 225; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+    __pyx_t_1 = __Pyx_PyObject_CallOneArg(__pyx_t_2, __pyx_t_3); if (unlikely(!__pyx_t_1)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 240; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
     __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
   } else {
-    __pyx_t_1 = __Pyx_PyObject_CallNoArg(__pyx_t_2); if (unlikely(!__pyx_t_1)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 225; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+    __pyx_t_1 = __Pyx_PyObject_CallNoArg(__pyx_t_2); if (unlikely(!__pyx_t_1)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 240; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   }
   __Pyx_GOTREF(__pyx_t_1);
   __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
-  __pyx_t_4 = __pyx_PyFloat_AsDouble(__pyx_t_1); if (unlikely((__pyx_t_4 == (double)-1) && PyErr_Occurred())) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 225; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  __pyx_t_4 = __pyx_PyFloat_AsDouble(__pyx_t_1); if (unlikely((__pyx_t_4 == (double)-1) && PyErr_Occurred())) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 240; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
   __pyx_r = __pyx_t_4;
   goto __pyx_L0;
 
-  /* "devs/adevs.pyx":220
+  /* "devs/adevs.pyx":235
  * 
  * 
  * cdef Time cy_ta(             # <<<<<<<<<<<<<<
@@ -2579,6 +2771,660 @@ static __pyx_t_4devs_5adevs_Time __pyx_f_4devs_5adevs_cy_ta(PyObject *__pyx_v_ob
   __Pyx_XDECREF((PyObject *)__pyx_v_atomic_base);
   __Pyx_RefNannyFinishContext();
   return __pyx_r;
+}
+
+/* "devs/adevs.pyx":261
+ *     cdef cadevs.Digraph* _thisptr
+ * 
+ *     def __cinit__(self):             # <<<<<<<<<<<<<<
+ *         self._thisptr = new cadevs.Digraph()
+ * 
+ */
+
+/* Python wrapper */
+static int __pyx_pw_4devs_5adevs_7Digraph_1__cinit__(PyObject *__pyx_v_self, PyObject *__pyx_args, PyObject *__pyx_kwds); /*proto*/
+static int __pyx_pw_4devs_5adevs_7Digraph_1__cinit__(PyObject *__pyx_v_self, PyObject *__pyx_args, PyObject *__pyx_kwds) {
+  int __pyx_r;
+  __Pyx_RefNannyDeclarations
+  __Pyx_RefNannySetupContext("__cinit__ (wrapper)", 0);
+  if (unlikely(PyTuple_GET_SIZE(__pyx_args) > 0)) {
+    __Pyx_RaiseArgtupleInvalid("__cinit__", 1, 0, 0, PyTuple_GET_SIZE(__pyx_args)); return -1;}
+  if (unlikely(__pyx_kwds) && unlikely(PyDict_Size(__pyx_kwds) > 0) && unlikely(!__Pyx_CheckKeywordStrings(__pyx_kwds, "__cinit__", 0))) return -1;
+  __pyx_r = __pyx_pf_4devs_5adevs_7Digraph___cinit__(((struct __pyx_obj_4devs_5adevs_Digraph *)__pyx_v_self));
+
+  /* function exit code */
+  __Pyx_RefNannyFinishContext();
+  return __pyx_r;
+}
+
+static int __pyx_pf_4devs_5adevs_7Digraph___cinit__(struct __pyx_obj_4devs_5adevs_Digraph *__pyx_v_self) {
+  int __pyx_r;
+  __Pyx_RefNannyDeclarations
+  pydevs::Digraph *__pyx_t_1;
+  int __pyx_lineno = 0;
+  const char *__pyx_filename = NULL;
+  int __pyx_clineno = 0;
+  __Pyx_RefNannySetupContext("__cinit__", 0);
+
+  /* "devs/adevs.pyx":262
+ * 
+ *     def __cinit__(self):
+ *         self._thisptr = new cadevs.Digraph()             # <<<<<<<<<<<<<<
+ * 
+ *     def __dealloc__(self):
+ */
+  try {
+    __pyx_t_1 = new pydevs::Digraph();
+  } catch(...) {
+    __Pyx_CppExn2PyErr();
+    {__pyx_filename = __pyx_f[0]; __pyx_lineno = 262; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  }
+  __pyx_v_self->_thisptr = __pyx_t_1;
+
+  /* "devs/adevs.pyx":261
+ *     cdef cadevs.Digraph* _thisptr
+ * 
+ *     def __cinit__(self):             # <<<<<<<<<<<<<<
+ *         self._thisptr = new cadevs.Digraph()
+ * 
+ */
+
+  /* function exit code */
+  __pyx_r = 0;
+  goto __pyx_L0;
+  __pyx_L1_error:;
+  __Pyx_AddTraceback("devs.adevs.Digraph.__cinit__", __pyx_clineno, __pyx_lineno, __pyx_filename);
+  __pyx_r = -1;
+  __pyx_L0:;
+  __Pyx_RefNannyFinishContext();
+  return __pyx_r;
+}
+
+/* "devs/adevs.pyx":264
+ *         self._thisptr = new cadevs.Digraph()
+ * 
+ *     def __dealloc__(self):             # <<<<<<<<<<<<<<
+ *         del self._thisptr
+ * 
+ */
+
+/* Python wrapper */
+static void __pyx_pw_4devs_5adevs_7Digraph_3__dealloc__(PyObject *__pyx_v_self); /*proto*/
+static void __pyx_pw_4devs_5adevs_7Digraph_3__dealloc__(PyObject *__pyx_v_self) {
+  __Pyx_RefNannyDeclarations
+  __Pyx_RefNannySetupContext("__dealloc__ (wrapper)", 0);
+  __pyx_pf_4devs_5adevs_7Digraph_2__dealloc__(((struct __pyx_obj_4devs_5adevs_Digraph *)__pyx_v_self));
+
+  /* function exit code */
+  __Pyx_RefNannyFinishContext();
+}
+
+static void __pyx_pf_4devs_5adevs_7Digraph_2__dealloc__(struct __pyx_obj_4devs_5adevs_Digraph *__pyx_v_self) {
+  __Pyx_RefNannyDeclarations
+  __Pyx_RefNannySetupContext("__dealloc__", 0);
+
+  /* "devs/adevs.pyx":265
+ * 
+ *     def __dealloc__(self):
+ *         del self._thisptr             # <<<<<<<<<<<<<<
+ * 
+ *     cpdef add(self, AtomicBase model):
+ */
+  delete __pyx_v_self->_thisptr;
+
+  /* "devs/adevs.pyx":264
+ *         self._thisptr = new cadevs.Digraph()
+ * 
+ *     def __dealloc__(self):             # <<<<<<<<<<<<<<
+ *         del self._thisptr
+ * 
+ */
+
+  /* function exit code */
+  __Pyx_RefNannyFinishContext();
+}
+
+/* "devs/adevs.pyx":267
+ *         del self._thisptr
+ * 
+ *     cpdef add(self, AtomicBase model):             # <<<<<<<<<<<<<<
+ *         self._thisptr.add(model.base_ptr_)
+ * 
+ */
+
+static PyObject *__pyx_pw_4devs_5adevs_7Digraph_5add(PyObject *__pyx_v_self, PyObject *__pyx_v_model); /*proto*/
+static PyObject *__pyx_f_4devs_5adevs_7Digraph_add(struct __pyx_obj_4devs_5adevs_Digraph *__pyx_v_self, struct __pyx_obj_4devs_5adevs_AtomicBase *__pyx_v_model, int __pyx_skip_dispatch) {
+  PyObject *__pyx_r = NULL;
+  __Pyx_RefNannyDeclarations
+  PyObject *__pyx_t_1 = NULL;
+  PyObject *__pyx_t_2 = NULL;
+  PyObject *__pyx_t_3 = NULL;
+  PyObject *__pyx_t_4 = NULL;
+  PyObject *__pyx_t_5 = NULL;
+  int __pyx_lineno = 0;
+  const char *__pyx_filename = NULL;
+  int __pyx_clineno = 0;
+  __Pyx_RefNannySetupContext("add", 0);
+  /* Check if called by wrapper */
+  if (unlikely(__pyx_skip_dispatch)) ;
+  /* Check if overridden in Python */
+  else if (unlikely(Py_TYPE(((PyObject *)__pyx_v_self))->tp_dictoffset != 0)) {
+    __pyx_t_1 = __Pyx_PyObject_GetAttrStr(((PyObject *)__pyx_v_self), __pyx_n_s_add); if (unlikely(!__pyx_t_1)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 267; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+    __Pyx_GOTREF(__pyx_t_1);
+    if (!PyCFunction_Check(__pyx_t_1) || (PyCFunction_GET_FUNCTION(__pyx_t_1) != (PyCFunction)__pyx_pw_4devs_5adevs_7Digraph_5add)) {
+      __Pyx_XDECREF(__pyx_r);
+      __Pyx_INCREF(__pyx_t_1);
+      __pyx_t_3 = __pyx_t_1; __pyx_t_4 = NULL;
+      if (CYTHON_COMPILING_IN_CPYTHON && unlikely(PyMethod_Check(__pyx_t_3))) {
+        __pyx_t_4 = PyMethod_GET_SELF(__pyx_t_3);
+        if (likely(__pyx_t_4)) {
+          PyObject* function = PyMethod_GET_FUNCTION(__pyx_t_3);
+          __Pyx_INCREF(__pyx_t_4);
+          __Pyx_INCREF(function);
+          __Pyx_DECREF_SET(__pyx_t_3, function);
+        }
+      }
+      if (!__pyx_t_4) {
+        __pyx_t_2 = __Pyx_PyObject_CallOneArg(__pyx_t_3, ((PyObject *)__pyx_v_model)); if (unlikely(!__pyx_t_2)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 267; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+        __Pyx_GOTREF(__pyx_t_2);
+      } else {
+        __pyx_t_5 = PyTuple_New(1+1); if (unlikely(!__pyx_t_5)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 267; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+        __Pyx_GOTREF(__pyx_t_5);
+        PyTuple_SET_ITEM(__pyx_t_5, 0, __pyx_t_4); __Pyx_GIVEREF(__pyx_t_4); __pyx_t_4 = NULL;
+        __Pyx_INCREF(((PyObject *)__pyx_v_model));
+        PyTuple_SET_ITEM(__pyx_t_5, 0+1, ((PyObject *)__pyx_v_model));
+        __Pyx_GIVEREF(((PyObject *)__pyx_v_model));
+        __pyx_t_2 = __Pyx_PyObject_Call(__pyx_t_3, __pyx_t_5, NULL); if (unlikely(!__pyx_t_2)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 267; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+        __Pyx_GOTREF(__pyx_t_2);
+        __Pyx_DECREF(__pyx_t_5); __pyx_t_5 = 0;
+      }
+      __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
+      __pyx_r = __pyx_t_2;
+      __pyx_t_2 = 0;
+      __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
+      goto __pyx_L0;
+    }
+    __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
+  }
+
+  /* "devs/adevs.pyx":268
+ * 
+ *     cpdef add(self, AtomicBase model):
+ *         self._thisptr.add(model.base_ptr_)             # <<<<<<<<<<<<<<
+ * 
+ *     cpdef couple(
+ */
+  __pyx_v_self->_thisptr->add(__pyx_v_model->base_ptr_);
+
+  /* "devs/adevs.pyx":267
+ *         del self._thisptr
+ * 
+ *     cpdef add(self, AtomicBase model):             # <<<<<<<<<<<<<<
+ *         self._thisptr.add(model.base_ptr_)
+ * 
+ */
+
+  /* function exit code */
+  __pyx_r = Py_None; __Pyx_INCREF(Py_None);
+  goto __pyx_L0;
+  __pyx_L1_error:;
+  __Pyx_XDECREF(__pyx_t_1);
+  __Pyx_XDECREF(__pyx_t_2);
+  __Pyx_XDECREF(__pyx_t_3);
+  __Pyx_XDECREF(__pyx_t_4);
+  __Pyx_XDECREF(__pyx_t_5);
+  __Pyx_AddTraceback("devs.adevs.Digraph.add", __pyx_clineno, __pyx_lineno, __pyx_filename);
+  __pyx_r = 0;
+  __pyx_L0:;
+  __Pyx_XGIVEREF(__pyx_r);
+  __Pyx_RefNannyFinishContext();
+  return __pyx_r;
+}
+
+/* Python wrapper */
+static PyObject *__pyx_pw_4devs_5adevs_7Digraph_5add(PyObject *__pyx_v_self, PyObject *__pyx_v_model); /*proto*/
+static PyObject *__pyx_pw_4devs_5adevs_7Digraph_5add(PyObject *__pyx_v_self, PyObject *__pyx_v_model) {
+  CYTHON_UNUSED int __pyx_lineno = 0;
+  CYTHON_UNUSED const char *__pyx_filename = NULL;
+  CYTHON_UNUSED int __pyx_clineno = 0;
+  PyObject *__pyx_r = 0;
+  __Pyx_RefNannyDeclarations
+  __Pyx_RefNannySetupContext("add (wrapper)", 0);
+  if (unlikely(!__Pyx_ArgTypeTest(((PyObject *)__pyx_v_model), __pyx_ptype_4devs_5adevs_AtomicBase, 1, "model", 0))) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 267; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  __pyx_r = __pyx_pf_4devs_5adevs_7Digraph_4add(((struct __pyx_obj_4devs_5adevs_Digraph *)__pyx_v_self), ((struct __pyx_obj_4devs_5adevs_AtomicBase *)__pyx_v_model));
+
+  /* function exit code */
+  goto __pyx_L0;
+  __pyx_L1_error:;
+  __pyx_r = NULL;
+  __pyx_L0:;
+  __Pyx_RefNannyFinishContext();
+  return __pyx_r;
+}
+
+static PyObject *__pyx_pf_4devs_5adevs_7Digraph_4add(struct __pyx_obj_4devs_5adevs_Digraph *__pyx_v_self, struct __pyx_obj_4devs_5adevs_AtomicBase *__pyx_v_model) {
+  PyObject *__pyx_r = NULL;
+  __Pyx_RefNannyDeclarations
+  PyObject *__pyx_t_1 = NULL;
+  int __pyx_lineno = 0;
+  const char *__pyx_filename = NULL;
+  int __pyx_clineno = 0;
+  __Pyx_RefNannySetupContext("add", 0);
+  __Pyx_XDECREF(__pyx_r);
+  __pyx_t_1 = __pyx_f_4devs_5adevs_7Digraph_add(__pyx_v_self, __pyx_v_model, 1); if (unlikely(!__pyx_t_1)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 267; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  __Pyx_GOTREF(__pyx_t_1);
+  __pyx_r = __pyx_t_1;
+  __pyx_t_1 = 0;
+  goto __pyx_L0;
+
+  /* function exit code */
+  __pyx_L1_error:;
+  __Pyx_XDECREF(__pyx_t_1);
+  __Pyx_AddTraceback("devs.adevs.Digraph.add", __pyx_clineno, __pyx_lineno, __pyx_filename);
+  __pyx_r = NULL;
+  __pyx_L0:;
+  __Pyx_XGIVEREF(__pyx_r);
+  __Pyx_RefNannyFinishContext();
+  return __pyx_r;
+}
+
+/* "devs/adevs.pyx":270
+ *         self._thisptr.add(model.base_ptr_)
+ * 
+ *     cpdef couple(             # <<<<<<<<<<<<<<
+ *         self,
+ *         AtomicBase source, Port source_port,
+ */
+
+static PyObject *__pyx_pw_4devs_5adevs_7Digraph_7couple(PyObject *__pyx_v_self, PyObject *__pyx_args, PyObject *__pyx_kwds); /*proto*/
+static PyObject *__pyx_f_4devs_5adevs_7Digraph_couple(struct __pyx_obj_4devs_5adevs_Digraph *__pyx_v_self, struct __pyx_obj_4devs_5adevs_AtomicBase *__pyx_v_source, __pyx_t_4devs_5adevs_Port __pyx_v_source_port, struct __pyx_obj_4devs_5adevs_AtomicBase *__pyx_v_destination, __pyx_t_4devs_5adevs_Port __pyx_v_destination_port, int __pyx_skip_dispatch) {
+  PyObject *__pyx_r = NULL;
+  __Pyx_RefNannyDeclarations
+  PyObject *__pyx_t_1 = NULL;
+  PyObject *__pyx_t_2 = NULL;
+  PyObject *__pyx_t_3 = NULL;
+  PyObject *__pyx_t_4 = NULL;
+  PyObject *__pyx_t_5 = NULL;
+  PyObject *__pyx_t_6 = NULL;
+  Py_ssize_t __pyx_t_7;
+  PyObject *__pyx_t_8 = NULL;
+  int __pyx_lineno = 0;
+  const char *__pyx_filename = NULL;
+  int __pyx_clineno = 0;
+  __Pyx_RefNannySetupContext("couple", 0);
+  /* Check if called by wrapper */
+  if (unlikely(__pyx_skip_dispatch)) ;
+  /* Check if overridden in Python */
+  else if (unlikely(Py_TYPE(((PyObject *)__pyx_v_self))->tp_dictoffset != 0)) {
+    __pyx_t_1 = __Pyx_PyObject_GetAttrStr(((PyObject *)__pyx_v_self), __pyx_n_s_couple); if (unlikely(!__pyx_t_1)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 270; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+    __Pyx_GOTREF(__pyx_t_1);
+    if (!PyCFunction_Check(__pyx_t_1) || (PyCFunction_GET_FUNCTION(__pyx_t_1) != (PyCFunction)__pyx_pw_4devs_5adevs_7Digraph_7couple)) {
+      __Pyx_XDECREF(__pyx_r);
+      __pyx_t_3 = __Pyx_PyInt_From_int(__pyx_v_source_port); if (unlikely(!__pyx_t_3)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 270; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+      __Pyx_GOTREF(__pyx_t_3);
+      __pyx_t_4 = __Pyx_PyInt_From_int(__pyx_v_destination_port); if (unlikely(!__pyx_t_4)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 270; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+      __Pyx_GOTREF(__pyx_t_4);
+      __Pyx_INCREF(__pyx_t_1);
+      __pyx_t_5 = __pyx_t_1; __pyx_t_6 = NULL;
+      __pyx_t_7 = 0;
+      if (CYTHON_COMPILING_IN_CPYTHON && unlikely(PyMethod_Check(__pyx_t_5))) {
+        __pyx_t_6 = PyMethod_GET_SELF(__pyx_t_5);
+        if (likely(__pyx_t_6)) {
+          PyObject* function = PyMethod_GET_FUNCTION(__pyx_t_5);
+          __Pyx_INCREF(__pyx_t_6);
+          __Pyx_INCREF(function);
+          __Pyx_DECREF_SET(__pyx_t_5, function);
+          __pyx_t_7 = 1;
+        }
+      }
+      __pyx_t_8 = PyTuple_New(4+__pyx_t_7); if (unlikely(!__pyx_t_8)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 270; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+      __Pyx_GOTREF(__pyx_t_8);
+      if (__pyx_t_6) {
+        PyTuple_SET_ITEM(__pyx_t_8, 0, __pyx_t_6); __Pyx_GIVEREF(__pyx_t_6); __pyx_t_6 = NULL;
+      }
+      __Pyx_INCREF(((PyObject *)__pyx_v_source));
+      PyTuple_SET_ITEM(__pyx_t_8, 0+__pyx_t_7, ((PyObject *)__pyx_v_source));
+      __Pyx_GIVEREF(((PyObject *)__pyx_v_source));
+      PyTuple_SET_ITEM(__pyx_t_8, 1+__pyx_t_7, __pyx_t_3);
+      __Pyx_GIVEREF(__pyx_t_3);
+      __Pyx_INCREF(((PyObject *)__pyx_v_destination));
+      PyTuple_SET_ITEM(__pyx_t_8, 2+__pyx_t_7, ((PyObject *)__pyx_v_destination));
+      __Pyx_GIVEREF(((PyObject *)__pyx_v_destination));
+      PyTuple_SET_ITEM(__pyx_t_8, 3+__pyx_t_7, __pyx_t_4);
+      __Pyx_GIVEREF(__pyx_t_4);
+      __pyx_t_3 = 0;
+      __pyx_t_4 = 0;
+      __pyx_t_2 = __Pyx_PyObject_Call(__pyx_t_5, __pyx_t_8, NULL); if (unlikely(!__pyx_t_2)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 270; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+      __Pyx_GOTREF(__pyx_t_2);
+      __Pyx_DECREF(__pyx_t_8); __pyx_t_8 = 0;
+      __Pyx_DECREF(__pyx_t_5); __pyx_t_5 = 0;
+      __pyx_r = __pyx_t_2;
+      __pyx_t_2 = 0;
+      __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
+      goto __pyx_L0;
+    }
+    __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
+  }
+
+  /* "devs/adevs.pyx":275
+ *         AtomicBase destination, Port destination_port,
+ *     ):
+ *         self._thisptr.couple(             # <<<<<<<<<<<<<<
+ *             source.base_ptr_, source_port,
+ *             destination.base_ptr_, destination_port,
+ */
+  __pyx_v_self->_thisptr->couple(__pyx_v_source->base_ptr_, __pyx_v_source_port, __pyx_v_destination->base_ptr_, __pyx_v_destination_port);
+
+  /* "devs/adevs.pyx":270
+ *         self._thisptr.add(model.base_ptr_)
+ * 
+ *     cpdef couple(             # <<<<<<<<<<<<<<
+ *         self,
+ *         AtomicBase source, Port source_port,
+ */
+
+  /* function exit code */
+  __pyx_r = Py_None; __Pyx_INCREF(Py_None);
+  goto __pyx_L0;
+  __pyx_L1_error:;
+  __Pyx_XDECREF(__pyx_t_1);
+  __Pyx_XDECREF(__pyx_t_2);
+  __Pyx_XDECREF(__pyx_t_3);
+  __Pyx_XDECREF(__pyx_t_4);
+  __Pyx_XDECREF(__pyx_t_5);
+  __Pyx_XDECREF(__pyx_t_6);
+  __Pyx_XDECREF(__pyx_t_8);
+  __Pyx_AddTraceback("devs.adevs.Digraph.couple", __pyx_clineno, __pyx_lineno, __pyx_filename);
+  __pyx_r = 0;
+  __pyx_L0:;
+  __Pyx_XGIVEREF(__pyx_r);
+  __Pyx_RefNannyFinishContext();
+  return __pyx_r;
+}
+
+/* Python wrapper */
+static PyObject *__pyx_pw_4devs_5adevs_7Digraph_7couple(PyObject *__pyx_v_self, PyObject *__pyx_args, PyObject *__pyx_kwds); /*proto*/
+static PyObject *__pyx_pw_4devs_5adevs_7Digraph_7couple(PyObject *__pyx_v_self, PyObject *__pyx_args, PyObject *__pyx_kwds) {
+  struct __pyx_obj_4devs_5adevs_AtomicBase *__pyx_v_source = 0;
+  __pyx_t_4devs_5adevs_Port __pyx_v_source_port;
+  struct __pyx_obj_4devs_5adevs_AtomicBase *__pyx_v_destination = 0;
+  __pyx_t_4devs_5adevs_Port __pyx_v_destination_port;
+  int __pyx_lineno = 0;
+  const char *__pyx_filename = NULL;
+  int __pyx_clineno = 0;
+  PyObject *__pyx_r = 0;
+  __Pyx_RefNannyDeclarations
+  __Pyx_RefNannySetupContext("couple (wrapper)", 0);
+  {
+    static PyObject **__pyx_pyargnames[] = {&__pyx_n_s_source,&__pyx_n_s_source_port,&__pyx_n_s_destination,&__pyx_n_s_destination_port,0};
+    PyObject* values[4] = {0,0,0,0};
+    if (unlikely(__pyx_kwds)) {
+      Py_ssize_t kw_args;
+      const Py_ssize_t pos_args = PyTuple_GET_SIZE(__pyx_args);
+      switch (pos_args) {
+        case  4: values[3] = PyTuple_GET_ITEM(__pyx_args, 3);
+        case  3: values[2] = PyTuple_GET_ITEM(__pyx_args, 2);
+        case  2: values[1] = PyTuple_GET_ITEM(__pyx_args, 1);
+        case  1: values[0] = PyTuple_GET_ITEM(__pyx_args, 0);
+        case  0: break;
+        default: goto __pyx_L5_argtuple_error;
+      }
+      kw_args = PyDict_Size(__pyx_kwds);
+      switch (pos_args) {
+        case  0:
+        if (likely((values[0] = PyDict_GetItem(__pyx_kwds, __pyx_n_s_source)) != 0)) kw_args--;
+        else goto __pyx_L5_argtuple_error;
+        case  1:
+        if (likely((values[1] = PyDict_GetItem(__pyx_kwds, __pyx_n_s_source_port)) != 0)) kw_args--;
+        else {
+          __Pyx_RaiseArgtupleInvalid("couple", 1, 4, 4, 1); {__pyx_filename = __pyx_f[0]; __pyx_lineno = 270; __pyx_clineno = __LINE__; goto __pyx_L3_error;}
+        }
+        case  2:
+        if (likely((values[2] = PyDict_GetItem(__pyx_kwds, __pyx_n_s_destination)) != 0)) kw_args--;
+        else {
+          __Pyx_RaiseArgtupleInvalid("couple", 1, 4, 4, 2); {__pyx_filename = __pyx_f[0]; __pyx_lineno = 270; __pyx_clineno = __LINE__; goto __pyx_L3_error;}
+        }
+        case  3:
+        if (likely((values[3] = PyDict_GetItem(__pyx_kwds, __pyx_n_s_destination_port)) != 0)) kw_args--;
+        else {
+          __Pyx_RaiseArgtupleInvalid("couple", 1, 4, 4, 3); {__pyx_filename = __pyx_f[0]; __pyx_lineno = 270; __pyx_clineno = __LINE__; goto __pyx_L3_error;}
+        }
+      }
+      if (unlikely(kw_args > 0)) {
+        if (unlikely(__Pyx_ParseOptionalKeywords(__pyx_kwds, __pyx_pyargnames, 0, values, pos_args, "couple") < 0)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 270; __pyx_clineno = __LINE__; goto __pyx_L3_error;}
+      }
+    } else if (PyTuple_GET_SIZE(__pyx_args) != 4) {
+      goto __pyx_L5_argtuple_error;
+    } else {
+      values[0] = PyTuple_GET_ITEM(__pyx_args, 0);
+      values[1] = PyTuple_GET_ITEM(__pyx_args, 1);
+      values[2] = PyTuple_GET_ITEM(__pyx_args, 2);
+      values[3] = PyTuple_GET_ITEM(__pyx_args, 3);
+    }
+    __pyx_v_source = ((struct __pyx_obj_4devs_5adevs_AtomicBase *)values[0]);
+    __pyx_v_source_port = __Pyx_PyInt_As_int(values[1]); if (unlikely((__pyx_v_source_port == (int)-1) && PyErr_Occurred())) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 272; __pyx_clineno = __LINE__; goto __pyx_L3_error;}
+    __pyx_v_destination = ((struct __pyx_obj_4devs_5adevs_AtomicBase *)values[2]);
+    __pyx_v_destination_port = __Pyx_PyInt_As_int(values[3]); if (unlikely((__pyx_v_destination_port == (int)-1) && PyErr_Occurred())) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 273; __pyx_clineno = __LINE__; goto __pyx_L3_error;}
+  }
+  goto __pyx_L4_argument_unpacking_done;
+  __pyx_L5_argtuple_error:;
+  __Pyx_RaiseArgtupleInvalid("couple", 1, 4, 4, PyTuple_GET_SIZE(__pyx_args)); {__pyx_filename = __pyx_f[0]; __pyx_lineno = 270; __pyx_clineno = __LINE__; goto __pyx_L3_error;}
+  __pyx_L3_error:;
+  __Pyx_AddTraceback("devs.adevs.Digraph.couple", __pyx_clineno, __pyx_lineno, __pyx_filename);
+  __Pyx_RefNannyFinishContext();
+  return NULL;
+  __pyx_L4_argument_unpacking_done:;
+  if (unlikely(!__Pyx_ArgTypeTest(((PyObject *)__pyx_v_source), __pyx_ptype_4devs_5adevs_AtomicBase, 1, "source", 0))) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 272; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  if (unlikely(!__Pyx_ArgTypeTest(((PyObject *)__pyx_v_destination), __pyx_ptype_4devs_5adevs_AtomicBase, 1, "destination", 0))) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 273; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  __pyx_r = __pyx_pf_4devs_5adevs_7Digraph_6couple(((struct __pyx_obj_4devs_5adevs_Digraph *)__pyx_v_self), __pyx_v_source, __pyx_v_source_port, __pyx_v_destination, __pyx_v_destination_port);
+
+  /* function exit code */
+  goto __pyx_L0;
+  __pyx_L1_error:;
+  __pyx_r = NULL;
+  __pyx_L0:;
+  __Pyx_RefNannyFinishContext();
+  return __pyx_r;
+}
+
+static PyObject *__pyx_pf_4devs_5adevs_7Digraph_6couple(struct __pyx_obj_4devs_5adevs_Digraph *__pyx_v_self, struct __pyx_obj_4devs_5adevs_AtomicBase *__pyx_v_source, __pyx_t_4devs_5adevs_Port __pyx_v_source_port, struct __pyx_obj_4devs_5adevs_AtomicBase *__pyx_v_destination, __pyx_t_4devs_5adevs_Port __pyx_v_destination_port) {
+  PyObject *__pyx_r = NULL;
+  __Pyx_RefNannyDeclarations
+  PyObject *__pyx_t_1 = NULL;
+  int __pyx_lineno = 0;
+  const char *__pyx_filename = NULL;
+  int __pyx_clineno = 0;
+  __Pyx_RefNannySetupContext("couple", 0);
+  __Pyx_XDECREF(__pyx_r);
+  __pyx_t_1 = __pyx_f_4devs_5adevs_7Digraph_couple(__pyx_v_self, __pyx_v_source, __pyx_v_source_port, __pyx_v_destination, __pyx_v_destination_port, 1); if (unlikely(!__pyx_t_1)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 270; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  __Pyx_GOTREF(__pyx_t_1);
+  __pyx_r = __pyx_t_1;
+  __pyx_t_1 = 0;
+  goto __pyx_L0;
+
+  /* function exit code */
+  __pyx_L1_error:;
+  __Pyx_XDECREF(__pyx_t_1);
+  __Pyx_AddTraceback("devs.adevs.Digraph.couple", __pyx_clineno, __pyx_lineno, __pyx_filename);
+  __pyx_r = NULL;
+  __pyx_L0:;
+  __Pyx_XGIVEREF(__pyx_r);
+  __Pyx_RefNannyFinishContext();
+  return __pyx_r;
+}
+static PyObject *__pyx_gb_4devs_5adevs_7Digraph_10generator1(__pyx_GeneratorObject *__pyx_generator, PyObject *__pyx_sent_value); /* proto */
+
+/* "devs/adevs.pyx":280
+ *         )
+ * 
+ *     def __iter__(self):             # <<<<<<<<<<<<<<
+ *         """
+ *         Generator to iterate over components of the digraph
+ */
+
+/* Python wrapper */
+static PyObject *__pyx_pw_4devs_5adevs_7Digraph_9__iter__(PyObject *__pyx_v_self); /*proto*/
+static char __pyx_doc_4devs_5adevs_7Digraph_8__iter__[] = "\n        Generator to iterate over components of the digraph\n\n        http://docs.python.org/3/library/stdtypes.html#generator-types\n\n        Return AtomicBase Python objects upon each iteration\n        ";
+#if CYTHON_COMPILING_IN_CPYTHON
+struct wrapperbase __pyx_wrapperbase_4devs_5adevs_7Digraph_8__iter__;
+#endif
+static PyObject *__pyx_pw_4devs_5adevs_7Digraph_9__iter__(PyObject *__pyx_v_self) {
+  PyObject *__pyx_r = 0;
+  __Pyx_RefNannyDeclarations
+  __Pyx_RefNannySetupContext("__iter__ (wrapper)", 0);
+  __pyx_r = __pyx_pf_4devs_5adevs_7Digraph_8__iter__(((struct __pyx_obj_4devs_5adevs_Digraph *)__pyx_v_self));
+
+  /* function exit code */
+  __Pyx_RefNannyFinishContext();
+  return __pyx_r;
+}
+
+static PyObject *__pyx_pf_4devs_5adevs_7Digraph_8__iter__(struct __pyx_obj_4devs_5adevs_Digraph *__pyx_v_self) {
+  struct __pyx_obj_4devs_5adevs___pyx_scope_struct_1___iter__ *__pyx_cur_scope;
+  PyObject *__pyx_r = NULL;
+  __Pyx_RefNannyDeclarations
+  int __pyx_lineno = 0;
+  const char *__pyx_filename = NULL;
+  int __pyx_clineno = 0;
+  __Pyx_RefNannySetupContext("__iter__", 0);
+  __pyx_cur_scope = (struct __pyx_obj_4devs_5adevs___pyx_scope_struct_1___iter__ *)__pyx_tp_new_4devs_5adevs___pyx_scope_struct_1___iter__(__pyx_ptype_4devs_5adevs___pyx_scope_struct_1___iter__, __pyx_empty_tuple, NULL);
+  if (unlikely(!__pyx_cur_scope)) {
+    __Pyx_RefNannyFinishContext();
+    return NULL;
+  }
+  __Pyx_GOTREF(__pyx_cur_scope);
+  __pyx_cur_scope->__pyx_v_self = __pyx_v_self;
+  __Pyx_INCREF((PyObject *)__pyx_cur_scope->__pyx_v_self);
+  __Pyx_GIVEREF((PyObject *)__pyx_cur_scope->__pyx_v_self);
+  {
+    __pyx_GeneratorObject *gen = __Pyx_Generator_New((__pyx_generator_body_t) __pyx_gb_4devs_5adevs_7Digraph_10generator1, (PyObject *) __pyx_cur_scope, __pyx_n_s_iter, __pyx_n_s_Digraph___iter); if (unlikely(!gen)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 280; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+    __Pyx_DECREF(__pyx_cur_scope);
+    __Pyx_RefNannyFinishContext();
+    return (PyObject *) gen;
+  }
+
+  /* function exit code */
+  __pyx_L1_error:;
+  __Pyx_AddTraceback("devs.adevs.Digraph.__iter__", __pyx_clineno, __pyx_lineno, __pyx_filename);
+  __pyx_r = NULL;
+  __Pyx_DECREF(((PyObject *)__pyx_cur_scope));
+  __Pyx_XGIVEREF(__pyx_r);
+  __Pyx_RefNannyFinishContext();
+  return __pyx_r;
+}
+
+static PyObject *__pyx_gb_4devs_5adevs_7Digraph_10generator1(__pyx_GeneratorObject *__pyx_generator, PyObject *__pyx_sent_value) /* generator body */
+{
+  struct __pyx_obj_4devs_5adevs___pyx_scope_struct_1___iter__ *__pyx_cur_scope = ((struct __pyx_obj_4devs_5adevs___pyx_scope_struct_1___iter__ *)__pyx_generator->closure);
+  PyObject *__pyx_r = NULL;
+  int __pyx_t_1;
+  PyObject *__pyx_t_2;
+  int __pyx_lineno = 0;
+  const char *__pyx_filename = NULL;
+  int __pyx_clineno = 0;
+  __Pyx_RefNannyDeclarations
+  __Pyx_RefNannySetupContext("None", 0);
+  switch (__pyx_generator->resume_label) {
+    case 0: goto __pyx_L3_first_run;
+    case 1: goto __pyx_L6_resume_from_yield;
+    default: /* CPython raises the right error here */
+    __Pyx_RefNannyFinishContext();
+    return NULL;
+  }
+  __pyx_L3_first_run:;
+  if (unlikely(!__pyx_sent_value)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 280; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+
+  /* "devs/adevs.pyx":290
+ * 
+ *         cdef CComponents components
+ *         self._thisptr.getComponents(components)             # <<<<<<<<<<<<<<
+ * 
+ *         # get first and last element
+ */
+  __pyx_cur_scope->__pyx_v_self->_thisptr->getComponents(__pyx_cur_scope->__pyx_v_components);
+
+  /* "devs/adevs.pyx":293
+ * 
+ *         # get first and last element
+ *         cdef CComponentsIterator it = components.begin()             # <<<<<<<<<<<<<<
+ *         cdef CComponentsIterator end = components.end()
+ * 
+ */
+  __pyx_cur_scope->__pyx_v_it = __pyx_cur_scope->__pyx_v_components.begin();
+
+  /* "devs/adevs.pyx":294
+ *         # get first and last element
+ *         cdef CComponentsIterator it = components.begin()
+ *         cdef CComponentsIterator end = components.end()             # <<<<<<<<<<<<<<
+ * 
+ *         cdef cadevs.Atomic* component
+ */
+  __pyx_cur_scope->__pyx_v_end = __pyx_cur_scope->__pyx_v_components.end();
+
+  /* "devs/adevs.pyx":298
+ *         cdef cadevs.Atomic* component
+ * 
+ *         while it != end:             # <<<<<<<<<<<<<<
+ *             component = <cadevs.Atomic*>(&co.dereference(it))
+ *             yield <object>(component.get_python_object())
+ */
+  while (1) {
+    __pyx_t_1 = ((__pyx_cur_scope->__pyx_v_it != __pyx_cur_scope->__pyx_v_end) != 0);
+    if (!__pyx_t_1) break;
+
+    /* "devs/adevs.pyx":299
+ * 
+ *         while it != end:
+ *             component = <cadevs.Atomic*>(&co.dereference(it))             # <<<<<<<<<<<<<<
+ *             yield <object>(component.get_python_object())
+ *             co.preincrement(it)
+ */
+    __pyx_cur_scope->__pyx_v_component = ((pydevs::Atomic *)(&(*__pyx_cur_scope->__pyx_v_it)));
+
+    /* "devs/adevs.pyx":300
+ *         while it != end:
+ *             component = <cadevs.Atomic*>(&co.dereference(it))
+ *             yield <object>(component.get_python_object())             # <<<<<<<<<<<<<<
+ *             co.preincrement(it)
+ */
+    __pyx_t_2 = __pyx_cur_scope->__pyx_v_component->get_python_object();
+    __Pyx_INCREF(((PyObject *)__pyx_t_2));
+    __pyx_r = ((PyObject *)__pyx_t_2);
+    __Pyx_XGIVEREF(__pyx_r);
+    __Pyx_RefNannyFinishContext();
+    /* return from generator, yielding value */
+    __pyx_generator->resume_label = 1;
+    return __pyx_r;
+    __pyx_L6_resume_from_yield:;
+    if (unlikely(!__pyx_sent_value)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 300; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+
+    /* "devs/adevs.pyx":301
+ *             component = <cadevs.Atomic*>(&co.dereference(it))
+ *             yield <object>(component.get_python_object())
+ *             co.preincrement(it)             # <<<<<<<<<<<<<<
+ */
+    (++__pyx_cur_scope->__pyx_v_it);
+  }
+
+  /* "devs/adevs.pyx":280
+ *         )
+ * 
+ *     def __iter__(self):             # <<<<<<<<<<<<<<
+ *         """
+ *         Generator to iterate over components of the digraph
+ */
+
+  /* function exit code */
+  PyErr_SetNone(PyExc_StopIteration);
+  goto __pyx_L0;
+  __pyx_L1_error:;
+  __Pyx_AddTraceback("__iter__", __pyx_clineno, __pyx_lineno, __pyx_filename);
+  __pyx_L0:;
+  __Pyx_XDECREF(__pyx_r);
+  __pyx_generator->resume_label = -1;
+  __Pyx_Generator_clear((PyObject*)__pyx_generator);
+  __Pyx_RefNannyFinishContext();
+  return NULL;
 }
 static struct __pyx_vtabstruct_4devs_5adevs_IOBag __pyx_vtable_4devs_5adevs_IOBag;
 
@@ -2832,15 +3678,23 @@ static void __pyx_tp_dealloc_4devs_5adevs_AtomicBase(PyObject *o) {
     if (PyObject_CallFinalizerFromDealloc(o)) return;
   }
   #endif
+  {
+    PyObject *etype, *eval, *etb;
+    PyErr_Fetch(&etype, &eval, &etb);
+    ++Py_REFCNT(o);
+    __pyx_pw_4devs_5adevs_10AtomicBase_3__dealloc__(o);
+    --Py_REFCNT(o);
+    PyErr_Restore(etype, eval, etb);
+  }
   (*Py_TYPE(o)->tp_free)(o);
 }
 
 static PyMethodDef __pyx_methods_4devs_5adevs_AtomicBase[] = {
-  {"delta_int", (PyCFunction)__pyx_pw_4devs_5adevs_10AtomicBase_3delta_int, METH_NOARGS, 0},
-  {"delta_ext", (PyCFunction)__pyx_pw_4devs_5adevs_10AtomicBase_5delta_ext, METH_VARARGS|METH_KEYWORDS, 0},
-  {"delta_conf", (PyCFunction)__pyx_pw_4devs_5adevs_10AtomicBase_7delta_conf, METH_O, 0},
-  {"output_func", (PyCFunction)__pyx_pw_4devs_5adevs_10AtomicBase_9output_func, METH_O, 0},
-  {"ta", (PyCFunction)__pyx_pw_4devs_5adevs_10AtomicBase_11ta, METH_NOARGS, 0},
+  {"delta_int", (PyCFunction)__pyx_pw_4devs_5adevs_10AtomicBase_5delta_int, METH_NOARGS, 0},
+  {"delta_ext", (PyCFunction)__pyx_pw_4devs_5adevs_10AtomicBase_7delta_ext, METH_VARARGS|METH_KEYWORDS, 0},
+  {"delta_conf", (PyCFunction)__pyx_pw_4devs_5adevs_10AtomicBase_9delta_conf, METH_O, 0},
+  {"output_func", (PyCFunction)__pyx_pw_4devs_5adevs_10AtomicBase_11output_func, METH_O, 0},
+  {"ta", (PyCFunction)__pyx_pw_4devs_5adevs_10AtomicBase_13ta, METH_NOARGS, 0},
   {0, 0, 0, 0}
 };
 
@@ -2869,7 +3723,7 @@ static PyTypeObject __pyx_type_4devs_5adevs_AtomicBase = {
   0, /*tp_setattro*/
   0, /*tp_as_buffer*/
   Py_TPFLAGS_DEFAULT|Py_TPFLAGS_HAVE_VERSION_TAG|Py_TPFLAGS_CHECKTYPES|Py_TPFLAGS_HAVE_NEWBUFFER|Py_TPFLAGS_BASETYPE, /*tp_flags*/
-  "\n    Python extension type, base type for DEVS Atomic Model\n\n    Python modules subclass this type and overwrite the methods\n\n    How does it work?\n    -----------------\n\n    When initialized, the constructor (__init__) creates a new instance\n    of the underlying C++ wrapper class Atomic (defined in the C++ header\n    file).\n    The C++ wrapper class Atomic inherits from adevs::Atomic and implements\n    all the virtual functions.\n    The C++ wrapper instance receives the function pointers to the cy_*\n    helper functions defined here, as well as a pointer to the Python extension\n    type instance.\n    Whenever adevs calls one of the virtual functions of the C++ wrapper\n    instance, the C++ wrapper instance routes it via the function pointer to\n    the corresponding cy_* helper function.\n    The cy_* helper function calls the corresponding method of the instance of\n    the Python extension type.\n\n    http://stackoverflow.com/a/12700121/2366781\n    https://bitbucket.org/binet/cy-cxxfwk/src\n\n\n    Reference counting\n    ------------------\n\n    When initialized, the constructor (__init__) creates a new instance of the\n    underlying C++ wrapper class Atomic (defined in the C++ header file).\n    The C++ wrapper class Atomic increases the reference count to this Python\n    object, and decreases the reference count upon destruction.\n    So the Python object will exist at least as long as the C++ wrapper\n    instance exists.\n    When adevs deletes the C++ wrapper instance, the Python object is not\n    deleted, when it is still referenced in the Python scope, but we can live\n    with that.\n\n\n    Input/output\n    ------------\n    The port type is integer.\n    The value type is a generic Python object.\n    This Python wrapper class abstracts away the underlying adevs C++ PortValue\n    type.\n    The only interface we need is to iterate over input (InputBag) in delta_ext\n    and delta_conf, and to add output events (OutputBag) in output_func.\n    Adding output events, the instance of this Python wrapper class increases\n    the reference counter of the value Python object.\n    The C++ wrapper class decreases the reference counter upon adevs' call to\n    the gc_output garbage collection function.\n    ", /*tp_doc*/
+  "\n    Python extension type, base type for DEVS Atomic Model\n\n    Python modules subclass this type and overwrite the methods\n\n    How does it work?\n    -----------------\n\n    When initialized, the constructor (__init__) creates a new instance\n    of the underlying C++ wrapper class Atomic (defined in the C++ header\n    file).\n    The C++ wrapper class Atomic inherits from adevs::Atomic and implements\n    all the virtual functions.\n    The C++ wrapper instance receives the function pointers to the cy_*\n    helper functions defined here, as well as a pointer to the Python extension\n    type instance.\n    Whenever adevs calls one of the virtual functions of the C++ wrapper\n    instance, the C++ wrapper instance routes it via the function pointer to\n    the corresponding cy_* helper function.\n    The cy_* helper function calls the corresponding method of the instance of\n    the Python extension type.\n\n    http://stackoverflow.com/a/12700121/2366781\n    https://bitbucket.org/binet/cy-cxxfwk/src\n\n\n    Reference counting\n    ------------------\n\n    When initialized, the constructor (__init__) creates a new instance of the\n    underlying C++ wrapper class Atomic (defined in the C++ header file).\n    The C++ wrapper class Atomic increases the reference count to this Python\n    object, and decreases the reference count upon destruction.\n    So the Python object will exist at least as long as the C++ wrapper\n    instance exists.\n    Hence, it is safe to delete the C++ instance when this Python object is\n    destroyed.\n    When adevs deletes the C++ wrapper instance, the Python object is not\n    deleted, when it is still referenced in the Python scope, but we can live\n    with that.\n\n\n    Input/output\n    ------------\n    The port type is integer.\n    The value type is a generic Python object.\n    This Python wrapper class abstracts away the underlying adevs C++ PortValue\n    type.\n\n    adevs creates (copies) the C++ PortValue instance.\n    https://github.com/smiz/adevs/blob/aae196ba660259ac32fc254bad810f4b4185d52f/include/adevs_digraph.h#L194\n    https://github.com/smiz/adevs/blob/aae196ba660259ac32fc254bad810f4b4185d52f/include/adevs_bag.h#L156\n\n    The only interface we need is to iterate over input (InputBag) in delta_ext\n    and delta_conf, and to add output events (OutputBag) in output_func.\n    Adding output events, the instance of this Python wrapper class increases\n    the reference counter of the value Python object.\n    The C++ wrapper class decreases the reference counter upon adevs' call to\n    the gc_output garbage collection function.\n    ", /*tp_doc*/
   0, /*tp_traverse*/
   0, /*tp_clear*/
   0, /*tp_richcompare*/
@@ -2887,6 +3741,104 @@ static PyTypeObject __pyx_type_4devs_5adevs_AtomicBase = {
   __pyx_pw_4devs_5adevs_10AtomicBase_1__init__, /*tp_init*/
   0, /*tp_alloc*/
   __pyx_tp_new_4devs_5adevs_AtomicBase, /*tp_new*/
+  0, /*tp_free*/
+  0, /*tp_is_gc*/
+  0, /*tp_bases*/
+  0, /*tp_mro*/
+  0, /*tp_cache*/
+  0, /*tp_subclasses*/
+  0, /*tp_weaklist*/
+  0, /*tp_del*/
+  0, /*tp_version_tag*/
+  #if PY_VERSION_HEX >= 0x030400a1
+  0, /*tp_finalize*/
+  #endif
+};
+static struct __pyx_vtabstruct_4devs_5adevs_Digraph __pyx_vtable_4devs_5adevs_Digraph;
+
+static PyObject *__pyx_tp_new_4devs_5adevs_Digraph(PyTypeObject *t, CYTHON_UNUSED PyObject *a, CYTHON_UNUSED PyObject *k) {
+  struct __pyx_obj_4devs_5adevs_Digraph *p;
+  PyObject *o;
+  if (likely((t->tp_flags & Py_TPFLAGS_IS_ABSTRACT) == 0)) {
+    o = (*t->tp_alloc)(t, 0);
+  } else {
+    o = (PyObject *) PyBaseObject_Type.tp_new(t, __pyx_empty_tuple, 0);
+  }
+  if (unlikely(!o)) return 0;
+  p = ((struct __pyx_obj_4devs_5adevs_Digraph *)o);
+  p->__pyx_vtab = __pyx_vtabptr_4devs_5adevs_Digraph;
+  if (unlikely(__pyx_pw_4devs_5adevs_7Digraph_1__cinit__(o, __pyx_empty_tuple, NULL) < 0)) {
+    Py_DECREF(o); o = 0;
+  }
+  return o;
+}
+
+static void __pyx_tp_dealloc_4devs_5adevs_Digraph(PyObject *o) {
+  #if PY_VERSION_HEX >= 0x030400a1
+  if (unlikely(Py_TYPE(o)->tp_finalize) && (!PyType_IS_GC(Py_TYPE(o)) || !_PyGC_FINALIZED(o))) {
+    if (PyObject_CallFinalizerFromDealloc(o)) return;
+  }
+  #endif
+  {
+    PyObject *etype, *eval, *etb;
+    PyErr_Fetch(&etype, &eval, &etb);
+    ++Py_REFCNT(o);
+    __pyx_pw_4devs_5adevs_7Digraph_3__dealloc__(o);
+    --Py_REFCNT(o);
+    PyErr_Restore(etype, eval, etb);
+  }
+  (*Py_TYPE(o)->tp_free)(o);
+}
+
+static PyMethodDef __pyx_methods_4devs_5adevs_Digraph[] = {
+  {"add", (PyCFunction)__pyx_pw_4devs_5adevs_7Digraph_5add, METH_O, 0},
+  {"couple", (PyCFunction)__pyx_pw_4devs_5adevs_7Digraph_7couple, METH_VARARGS|METH_KEYWORDS, 0},
+  {0, 0, 0, 0}
+};
+
+static PyTypeObject __pyx_type_4devs_5adevs_Digraph = {
+  PyVarObject_HEAD_INIT(0, 0)
+  "devs.adevs.Digraph", /*tp_name*/
+  sizeof(struct __pyx_obj_4devs_5adevs_Digraph), /*tp_basicsize*/
+  0, /*tp_itemsize*/
+  __pyx_tp_dealloc_4devs_5adevs_Digraph, /*tp_dealloc*/
+  0, /*tp_print*/
+  0, /*tp_getattr*/
+  0, /*tp_setattr*/
+  #if PY_MAJOR_VERSION < 3
+  0, /*tp_compare*/
+  #else
+  0, /*reserved*/
+  #endif
+  0, /*tp_repr*/
+  0, /*tp_as_number*/
+  0, /*tp_as_sequence*/
+  0, /*tp_as_mapping*/
+  0, /*tp_hash*/
+  0, /*tp_call*/
+  0, /*tp_str*/
+  0, /*tp_getattro*/
+  0, /*tp_setattro*/
+  0, /*tp_as_buffer*/
+  Py_TPFLAGS_DEFAULT|Py_TPFLAGS_HAVE_VERSION_TAG|Py_TPFLAGS_CHECKTYPES|Py_TPFLAGS_HAVE_NEWBUFFER|Py_TPFLAGS_BASETYPE, /*tp_flags*/
+  "\n    Python extension type that wraps the C++ wrapper class for the adevs\n    Digraph class\n\n    Design decision\n    ---------------\n    For now, we only provide Atomic models.\n    I.e. nested network models are not supported yet.\n\n    Memory management\n    -----------------\n    An instance of the C++ Digraph class takes ownership of added components,\n    i.e. deletes the components at the end of its lifetime.\n    https://github.com/smiz/adevs/blob/aae196ba660259ac32fc254bad810f4b4185d52f/include/adevs_digraph.h#L205\n    ", /*tp_doc*/
+  0, /*tp_traverse*/
+  0, /*tp_clear*/
+  0, /*tp_richcompare*/
+  0, /*tp_weaklistoffset*/
+  __pyx_pw_4devs_5adevs_7Digraph_9__iter__, /*tp_iter*/
+  0, /*tp_iternext*/
+  __pyx_methods_4devs_5adevs_Digraph, /*tp_methods*/
+  0, /*tp_members*/
+  0, /*tp_getset*/
+  0, /*tp_base*/
+  0, /*tp_dict*/
+  0, /*tp_descr_get*/
+  0, /*tp_descr_set*/
+  0, /*tp_dictoffset*/
+  0, /*tp_init*/
+  0, /*tp_alloc*/
+  __pyx_tp_new_4devs_5adevs_Digraph, /*tp_new*/
   0, /*tp_free*/
   0, /*tp_is_gc*/
   0, /*tp_bases*/
@@ -3010,6 +3962,117 @@ static PyTypeObject __pyx_type_4devs_5adevs___pyx_scope_struct____iter__ = {
   #endif
 };
 
+static struct __pyx_obj_4devs_5adevs___pyx_scope_struct_1___iter__ *__pyx_freelist_4devs_5adevs___pyx_scope_struct_1___iter__[8];
+static int __pyx_freecount_4devs_5adevs___pyx_scope_struct_1___iter__ = 0;
+
+static PyObject *__pyx_tp_new_4devs_5adevs___pyx_scope_struct_1___iter__(PyTypeObject *t, CYTHON_UNUSED PyObject *a, CYTHON_UNUSED PyObject *k) {
+  struct __pyx_obj_4devs_5adevs___pyx_scope_struct_1___iter__ *p;
+  PyObject *o;
+  if (CYTHON_COMPILING_IN_CPYTHON && likely((__pyx_freecount_4devs_5adevs___pyx_scope_struct_1___iter__ > 0) & (t->tp_basicsize == sizeof(struct __pyx_obj_4devs_5adevs___pyx_scope_struct_1___iter__)))) {
+    o = (PyObject*)__pyx_freelist_4devs_5adevs___pyx_scope_struct_1___iter__[--__pyx_freecount_4devs_5adevs___pyx_scope_struct_1___iter__];
+    memset(o, 0, sizeof(struct __pyx_obj_4devs_5adevs___pyx_scope_struct_1___iter__));
+    (void) PyObject_INIT(o, t);
+    PyObject_GC_Track(o);
+  } else {
+    o = (*t->tp_alloc)(t, 0);
+    if (unlikely(!o)) return 0;
+  }
+  p = ((struct __pyx_obj_4devs_5adevs___pyx_scope_struct_1___iter__ *)o);
+  new((void*)&(p->__pyx_v_components)) __pyx_t_4devs_5adevs_CComponents();
+  new((void*)&(p->__pyx_v_end)) __pyx_t_4devs_5adevs_CComponentsIterator();
+  new((void*)&(p->__pyx_v_it)) __pyx_t_4devs_5adevs_CComponentsIterator();
+  return o;
+}
+
+static void __pyx_tp_dealloc_4devs_5adevs___pyx_scope_struct_1___iter__(PyObject *o) {
+  struct __pyx_obj_4devs_5adevs___pyx_scope_struct_1___iter__ *p = (struct __pyx_obj_4devs_5adevs___pyx_scope_struct_1___iter__ *)o;
+  PyObject_GC_UnTrack(o);
+  __Pyx_call_destructor(&p->__pyx_v_components);
+  __Pyx_call_destructor(&p->__pyx_v_end);
+  __Pyx_call_destructor(&p->__pyx_v_it);
+  Py_CLEAR(p->__pyx_v_self);
+  if (CYTHON_COMPILING_IN_CPYTHON && ((__pyx_freecount_4devs_5adevs___pyx_scope_struct_1___iter__ < 8) & (Py_TYPE(o)->tp_basicsize == sizeof(struct __pyx_obj_4devs_5adevs___pyx_scope_struct_1___iter__)))) {
+    __pyx_freelist_4devs_5adevs___pyx_scope_struct_1___iter__[__pyx_freecount_4devs_5adevs___pyx_scope_struct_1___iter__++] = ((struct __pyx_obj_4devs_5adevs___pyx_scope_struct_1___iter__ *)o);
+  } else {
+    (*Py_TYPE(o)->tp_free)(o);
+  }
+}
+
+static int __pyx_tp_traverse_4devs_5adevs___pyx_scope_struct_1___iter__(PyObject *o, visitproc v, void *a) {
+  int e;
+  struct __pyx_obj_4devs_5adevs___pyx_scope_struct_1___iter__ *p = (struct __pyx_obj_4devs_5adevs___pyx_scope_struct_1___iter__ *)o;
+  if (p->__pyx_v_self) {
+    e = (*v)(((PyObject*)p->__pyx_v_self), a); if (e) return e;
+  }
+  return 0;
+}
+
+static int __pyx_tp_clear_4devs_5adevs___pyx_scope_struct_1___iter__(PyObject *o) {
+  PyObject* tmp;
+  struct __pyx_obj_4devs_5adevs___pyx_scope_struct_1___iter__ *p = (struct __pyx_obj_4devs_5adevs___pyx_scope_struct_1___iter__ *)o;
+  tmp = ((PyObject*)p->__pyx_v_self);
+  p->__pyx_v_self = ((struct __pyx_obj_4devs_5adevs_Digraph *)Py_None); Py_INCREF(Py_None);
+  Py_XDECREF(tmp);
+  return 0;
+}
+
+static PyTypeObject __pyx_type_4devs_5adevs___pyx_scope_struct_1___iter__ = {
+  PyVarObject_HEAD_INIT(0, 0)
+  "devs.adevs.__pyx_scope_struct_1___iter__", /*tp_name*/
+  sizeof(struct __pyx_obj_4devs_5adevs___pyx_scope_struct_1___iter__), /*tp_basicsize*/
+  0, /*tp_itemsize*/
+  __pyx_tp_dealloc_4devs_5adevs___pyx_scope_struct_1___iter__, /*tp_dealloc*/
+  0, /*tp_print*/
+  0, /*tp_getattr*/
+  0, /*tp_setattr*/
+  #if PY_MAJOR_VERSION < 3
+  0, /*tp_compare*/
+  #else
+  0, /*reserved*/
+  #endif
+  0, /*tp_repr*/
+  0, /*tp_as_number*/
+  0, /*tp_as_sequence*/
+  0, /*tp_as_mapping*/
+  0, /*tp_hash*/
+  0, /*tp_call*/
+  0, /*tp_str*/
+  0, /*tp_getattro*/
+  0, /*tp_setattro*/
+  0, /*tp_as_buffer*/
+  Py_TPFLAGS_DEFAULT|Py_TPFLAGS_HAVE_VERSION_TAG|Py_TPFLAGS_CHECKTYPES|Py_TPFLAGS_HAVE_NEWBUFFER|Py_TPFLAGS_HAVE_GC, /*tp_flags*/
+  0, /*tp_doc*/
+  __pyx_tp_traverse_4devs_5adevs___pyx_scope_struct_1___iter__, /*tp_traverse*/
+  __pyx_tp_clear_4devs_5adevs___pyx_scope_struct_1___iter__, /*tp_clear*/
+  0, /*tp_richcompare*/
+  0, /*tp_weaklistoffset*/
+  0, /*tp_iter*/
+  0, /*tp_iternext*/
+  0, /*tp_methods*/
+  0, /*tp_members*/
+  0, /*tp_getset*/
+  0, /*tp_base*/
+  0, /*tp_dict*/
+  0, /*tp_descr_get*/
+  0, /*tp_descr_set*/
+  0, /*tp_dictoffset*/
+  0, /*tp_init*/
+  0, /*tp_alloc*/
+  __pyx_tp_new_4devs_5adevs___pyx_scope_struct_1___iter__, /*tp_new*/
+  0, /*tp_free*/
+  0, /*tp_is_gc*/
+  0, /*tp_bases*/
+  0, /*tp_mro*/
+  0, /*tp_cache*/
+  0, /*tp_subclasses*/
+  0, /*tp_weaklist*/
+  0, /*tp_del*/
+  0, /*tp_version_tag*/
+  #if PY_VERSION_HEX >= 0x030400a1
+  0, /*tp_finalize*/
+  #endif
+};
+
 static PyMethodDef __pyx_methods[] = {
   {0, 0, 0, 0}
 };
@@ -3033,12 +4096,17 @@ static struct PyModuleDef __pyx_moduledef = {
 #endif
 
 static __Pyx_StringTabEntry __pyx_string_tab[] = {
+  {&__pyx_n_s_Digraph___iter, __pyx_k_Digraph___iter, sizeof(__pyx_k_Digraph___iter), 0, 0, 1, 1},
   {&__pyx_n_s_IOBag___iter, __pyx_k_IOBag___iter, sizeof(__pyx_k_IOBag___iter), 0, 0, 1, 1},
+  {&__pyx_n_s_add, __pyx_k_add, sizeof(__pyx_k_add), 0, 0, 1, 1},
   {&__pyx_n_s_args, __pyx_k_args, sizeof(__pyx_k_args), 0, 0, 1, 1},
   {&__pyx_n_s_close, __pyx_k_close, sizeof(__pyx_k_close), 0, 0, 1, 1},
+  {&__pyx_n_s_couple, __pyx_k_couple, sizeof(__pyx_k_couple), 0, 0, 1, 1},
   {&__pyx_n_s_delta_conf, __pyx_k_delta_conf, sizeof(__pyx_k_delta_conf), 0, 0, 1, 1},
   {&__pyx_n_s_delta_ext, __pyx_k_delta_ext, sizeof(__pyx_k_delta_ext), 0, 0, 1, 1},
   {&__pyx_n_s_delta_int, __pyx_k_delta_int, sizeof(__pyx_k_delta_int), 0, 0, 1, 1},
+  {&__pyx_n_s_destination, __pyx_k_destination, sizeof(__pyx_k_destination), 0, 0, 1, 1},
+  {&__pyx_n_s_destination_port, __pyx_k_destination_port, sizeof(__pyx_k_destination_port), 0, 0, 1, 1},
   {&__pyx_n_s_e, __pyx_k_e, sizeof(__pyx_k_e), 0, 0, 1, 1},
   {&__pyx_n_s_empty, __pyx_k_empty, sizeof(__pyx_k_empty), 0, 0, 1, 1},
   {&__pyx_n_s_insert, __pyx_k_insert, sizeof(__pyx_k_insert), 0, 0, 1, 1},
@@ -3049,6 +4117,8 @@ static __Pyx_StringTabEntry __pyx_string_tab[] = {
   {&__pyx_n_s_pyx_vtable, __pyx_k_pyx_vtable, sizeof(__pyx_k_pyx_vtable), 0, 0, 1, 1},
   {&__pyx_n_s_send, __pyx_k_send, sizeof(__pyx_k_send), 0, 0, 1, 1},
   {&__pyx_n_s_size, __pyx_k_size, sizeof(__pyx_k_size), 0, 0, 1, 1},
+  {&__pyx_n_s_source, __pyx_k_source, sizeof(__pyx_k_source), 0, 0, 1, 1},
+  {&__pyx_n_s_source_port, __pyx_k_source_port, sizeof(__pyx_k_source_port), 0, 0, 1, 1},
   {&__pyx_n_s_ta, __pyx_k_ta, sizeof(__pyx_k_ta), 0, 0, 1, 1},
   {&__pyx_n_s_test, __pyx_k_test, sizeof(__pyx_k_test), 0, 0, 1, 1},
   {&__pyx_n_s_throw, __pyx_k_throw, sizeof(__pyx_k_throw), 0, 0, 1, 1},
@@ -3157,11 +4227,11 @@ PyMODINIT_FUNC PyInit_adevs(void)
   __pyx_vtabptr_4devs_5adevs_IOBag = &__pyx_vtable_4devs_5adevs_IOBag;
   __pyx_vtable_4devs_5adevs_IOBag.size = (unsigned int (*)(struct __pyx_obj_4devs_5adevs_IOBag *, int __pyx_skip_dispatch))__pyx_f_4devs_5adevs_5IOBag_size;
   __pyx_vtable_4devs_5adevs_IOBag.empty = (int (*)(struct __pyx_obj_4devs_5adevs_IOBag *, int __pyx_skip_dispatch))__pyx_f_4devs_5adevs_5IOBag_empty;
-  if (PyType_Ready(&__pyx_type_4devs_5adevs_IOBag) < 0) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 12; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  if (PyType_Ready(&__pyx_type_4devs_5adevs_IOBag) < 0) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 17; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   __pyx_type_4devs_5adevs_IOBag.tp_print = 0;
   #if CYTHON_COMPILING_IN_CPYTHON
   {
-    PyObject *wrapper = PyObject_GetAttrString((PyObject *)&__pyx_type_4devs_5adevs_IOBag, "__iter__"); if (unlikely(!wrapper)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 12; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+    PyObject *wrapper = PyObject_GetAttrString((PyObject *)&__pyx_type_4devs_5adevs_IOBag, "__iter__"); if (unlikely(!wrapper)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 17; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
     if (Py_TYPE(wrapper) == &PyWrapperDescr_Type) {
       __pyx_wrapperbase_4devs_5adevs_5IOBag_4__iter__ = *((PyWrapperDescrObject *)wrapper)->d_base;
       __pyx_wrapperbase_4devs_5adevs_5IOBag_4__iter__.doc = __pyx_doc_4devs_5adevs_5IOBag_4__iter__;
@@ -3169,33 +4239,54 @@ PyMODINIT_FUNC PyInit_adevs(void)
     }
   }
   #endif
-  if (__Pyx_SetVtable(__pyx_type_4devs_5adevs_IOBag.tp_dict, __pyx_vtabptr_4devs_5adevs_IOBag) < 0) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 12; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
-  if (PyObject_SetAttrString(__pyx_m, "IOBag", (PyObject *)&__pyx_type_4devs_5adevs_IOBag) < 0) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 12; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  if (__Pyx_SetVtable(__pyx_type_4devs_5adevs_IOBag.tp_dict, __pyx_vtabptr_4devs_5adevs_IOBag) < 0) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 17; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  if (PyObject_SetAttrString(__pyx_m, "IOBag", (PyObject *)&__pyx_type_4devs_5adevs_IOBag) < 0) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 17; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   __pyx_ptype_4devs_5adevs_IOBag = &__pyx_type_4devs_5adevs_IOBag;
   __pyx_vtabptr_4devs_5adevs_OutputBag = &__pyx_vtable_4devs_5adevs_OutputBag;
   __pyx_vtable_4devs_5adevs_OutputBag.__pyx_base = *__pyx_vtabptr_4devs_5adevs_IOBag;
   __pyx_vtable_4devs_5adevs_OutputBag.insert = (PyObject *(*)(struct __pyx_obj_4devs_5adevs_OutputBag *, int, PyObject *, int __pyx_skip_dispatch))__pyx_f_4devs_5adevs_9OutputBag_insert;
   __pyx_type_4devs_5adevs_OutputBag.tp_base = __pyx_ptype_4devs_5adevs_IOBag;
-  if (PyType_Ready(&__pyx_type_4devs_5adevs_OutputBag) < 0) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 64; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  if (PyType_Ready(&__pyx_type_4devs_5adevs_OutputBag) < 0) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 69; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   __pyx_type_4devs_5adevs_OutputBag.tp_print = 0;
-  if (__Pyx_SetVtable(__pyx_type_4devs_5adevs_OutputBag.tp_dict, __pyx_vtabptr_4devs_5adevs_OutputBag) < 0) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 64; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
-  if (PyObject_SetAttrString(__pyx_m, "OutputBag", (PyObject *)&__pyx_type_4devs_5adevs_OutputBag) < 0) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 64; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  if (__Pyx_SetVtable(__pyx_type_4devs_5adevs_OutputBag.tp_dict, __pyx_vtabptr_4devs_5adevs_OutputBag) < 0) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 69; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  if (PyObject_SetAttrString(__pyx_m, "OutputBag", (PyObject *)&__pyx_type_4devs_5adevs_OutputBag) < 0) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 69; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   __pyx_ptype_4devs_5adevs_OutputBag = &__pyx_type_4devs_5adevs_OutputBag;
   __pyx_vtabptr_4devs_5adevs_InputBag = &__pyx_vtable_4devs_5adevs_InputBag;
   __pyx_vtable_4devs_5adevs_InputBag.__pyx_base = *__pyx_vtabptr_4devs_5adevs_IOBag;
   __pyx_type_4devs_5adevs_InputBag.tp_base = __pyx_ptype_4devs_5adevs_IOBag;
-  if (PyType_Ready(&__pyx_type_4devs_5adevs_InputBag) < 0) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 92; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  if (PyType_Ready(&__pyx_type_4devs_5adevs_InputBag) < 0) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 97; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   __pyx_type_4devs_5adevs_InputBag.tp_print = 0;
-  if (__Pyx_SetVtable(__pyx_type_4devs_5adevs_InputBag.tp_dict, __pyx_vtabptr_4devs_5adevs_InputBag) < 0) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 92; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
-  if (PyObject_SetAttrString(__pyx_m, "InputBag", (PyObject *)&__pyx_type_4devs_5adevs_InputBag) < 0) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 92; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  if (__Pyx_SetVtable(__pyx_type_4devs_5adevs_InputBag.tp_dict, __pyx_vtabptr_4devs_5adevs_InputBag) < 0) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 97; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  if (PyObject_SetAttrString(__pyx_m, "InputBag", (PyObject *)&__pyx_type_4devs_5adevs_InputBag) < 0) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 97; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   __pyx_ptype_4devs_5adevs_InputBag = &__pyx_type_4devs_5adevs_InputBag;
-  if (PyType_Ready(&__pyx_type_4devs_5adevs_AtomicBase) < 0) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 99; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  if (PyType_Ready(&__pyx_type_4devs_5adevs_AtomicBase) < 0) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 104; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   __pyx_type_4devs_5adevs_AtomicBase.tp_print = 0;
-  if (PyObject_SetAttrString(__pyx_m, "AtomicBase", (PyObject *)&__pyx_type_4devs_5adevs_AtomicBase) < 0) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 99; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  if (PyObject_SetAttrString(__pyx_m, "AtomicBase", (PyObject *)&__pyx_type_4devs_5adevs_AtomicBase) < 0) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 104; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   __pyx_ptype_4devs_5adevs_AtomicBase = &__pyx_type_4devs_5adevs_AtomicBase;
-  if (PyType_Ready(&__pyx_type_4devs_5adevs___pyx_scope_struct____iter__) < 0) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 30; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  __pyx_vtabptr_4devs_5adevs_Digraph = &__pyx_vtable_4devs_5adevs_Digraph;
+  __pyx_vtable_4devs_5adevs_Digraph.add = (PyObject *(*)(struct __pyx_obj_4devs_5adevs_Digraph *, struct __pyx_obj_4devs_5adevs_AtomicBase *, int __pyx_skip_dispatch))__pyx_f_4devs_5adevs_7Digraph_add;
+  __pyx_vtable_4devs_5adevs_Digraph.couple = (PyObject *(*)(struct __pyx_obj_4devs_5adevs_Digraph *, struct __pyx_obj_4devs_5adevs_AtomicBase *, __pyx_t_4devs_5adevs_Port, struct __pyx_obj_4devs_5adevs_AtomicBase *, __pyx_t_4devs_5adevs_Port, int __pyx_skip_dispatch))__pyx_f_4devs_5adevs_7Digraph_couple;
+  if (PyType_Ready(&__pyx_type_4devs_5adevs_Digraph) < 0) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 243; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  __pyx_type_4devs_5adevs_Digraph.tp_print = 0;
+  #if CYTHON_COMPILING_IN_CPYTHON
+  {
+    PyObject *wrapper = PyObject_GetAttrString((PyObject *)&__pyx_type_4devs_5adevs_Digraph, "__iter__"); if (unlikely(!wrapper)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 243; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+    if (Py_TYPE(wrapper) == &PyWrapperDescr_Type) {
+      __pyx_wrapperbase_4devs_5adevs_7Digraph_8__iter__ = *((PyWrapperDescrObject *)wrapper)->d_base;
+      __pyx_wrapperbase_4devs_5adevs_7Digraph_8__iter__.doc = __pyx_doc_4devs_5adevs_7Digraph_8__iter__;
+      ((PyWrapperDescrObject *)wrapper)->d_base = &__pyx_wrapperbase_4devs_5adevs_7Digraph_8__iter__;
+    }
+  }
+  #endif
+  if (__Pyx_SetVtable(__pyx_type_4devs_5adevs_Digraph.tp_dict, __pyx_vtabptr_4devs_5adevs_Digraph) < 0) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 243; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  if (PyObject_SetAttrString(__pyx_m, "Digraph", (PyObject *)&__pyx_type_4devs_5adevs_Digraph) < 0) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 243; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  __pyx_ptype_4devs_5adevs_Digraph = &__pyx_type_4devs_5adevs_Digraph;
+  if (PyType_Ready(&__pyx_type_4devs_5adevs___pyx_scope_struct____iter__) < 0) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 35; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   __pyx_type_4devs_5adevs___pyx_scope_struct____iter__.tp_print = 0;
   __pyx_ptype_4devs_5adevs___pyx_scope_struct____iter__ = &__pyx_type_4devs_5adevs___pyx_scope_struct____iter__;
+  if (PyType_Ready(&__pyx_type_4devs_5adevs___pyx_scope_struct_1___iter__) < 0) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 280; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  __pyx_type_4devs_5adevs___pyx_scope_struct_1___iter__.tp_print = 0;
+  __pyx_ptype_4devs_5adevs___pyx_scope_struct_1___iter__ = &__pyx_type_4devs_5adevs___pyx_scope_struct_1___iter__;
   /*--- Type import code ---*/
   /*--- Variable import code ---*/
   /*--- Function import code ---*/

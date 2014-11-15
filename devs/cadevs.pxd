@@ -31,18 +31,34 @@ cdef extern from "adevs/adevs.h" namespace "adevs":
         iterator find(const T&) const
         void insert(const T&)
 
+    cdef cppclass Set[T]:
+        cppclass iterator:
+            const T& operator*() const
+            iterator operator++()
+            bint operator==(iterator)
+            bint operator!=(iterator)
+        iterator begin() const
+        iterator end() const
 
-ctypedef PortValue[PythonObject, int] CPortValue
+    cdef cppclass Devs[X, T]:
+        pass
+
+
+ctypedef int Port
+ctypedef PortValue[PythonObject, Port] CPortValue
 ctypedef Bag[CPortValue] IOBag
 ctypedef Bag[CPortValue].iterator IOBagIterator
 ctypedef double Time
-
+ctypedef Devs[CPortValue, Time] CDevs
+ctypedef Set[CDevs*] Components
+ctypedef Set[CDevs*].iterator ComponentsIterator
 
 ctypedef void (*DeltaIntFunc)(PyObject*)
 ctypedef void (*DeltaExtFunc)(PyObject*, Time, const IOBag&)
 ctypedef void (*DeltaConfFunc)(PyObject*, const IOBag&)
 ctypedef void (*OutputFunc)(PyObject*, IOBag&)
 ctypedef Time (*TaFunc)(PyObject*)
+
 
 cdef extern from "adevs_python.hpp" namespace "pydevs":
 
@@ -55,3 +71,10 @@ cdef extern from "adevs_python.hpp" namespace "pydevs":
             OutputFunc,
             TaFunc,
         )
+        PyObject* get_python_object()
+
+    cdef cppclass Digraph:
+        Digraph() except +
+        void add(Atomic*)
+        void couple(Atomic*, Port, Atomic*, Port)
+        void getComponents(Components&)

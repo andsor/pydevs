@@ -5,9 +5,14 @@ cimport cadevs
 
 ctypedef cadevs.PythonObject PythonObject
 ctypedef cadevs.Time Time
+ctypedef cadevs.Port Port
 ctypedef cadevs.CPortValue CPortValue
 ctypedef cadevs.IOBag CIOBag
 ctypedef cadevs.IOBagIterator CIOBagIterator
+ctypedef cadevs.CDevs CDevs
+ctypedef cadevs.Components CComponents
+ctypedef cadevs.ComponentsIterator CComponentsIterator
+
 
 cdef class IOBag:
     """
@@ -132,6 +137,8 @@ cdef class AtomicBase:
     object, and decreases the reference count upon destruction.
     So the Python object will exist at least as long as the C++ wrapper
     instance exists.
+    Hence, it is safe to delete the C++ instance when this Python object is
+    destroyed.
     When adevs deletes the C++ wrapper instance, the Python object is not
     deleted, when it is still referenced in the Python scope, but we can live
     with that.
@@ -167,6 +174,9 @@ cdef class AtomicBase:
             <cadevs.OutputFunc>cy_output_func,
             <cadevs.TaFunc>cy_ta,
         )
+
+    def __dealloc__(self):
+        del self.base_ptr_
 
     def delta_int(self):
         pass
@@ -228,3 +238,64 @@ cdef Time cy_ta(
     cdef AtomicBase atomic_base = <AtomicBase>(object)
 
     return atomic_base.ta()
+
+
+cdef class Digraph:
+    """
+    Python extension type that wraps the C++ wrapper class for the adevs
+    Digraph class
+
+    Design decision
+    ---------------
+    For now, we only provide Atomic models.
+    I.e. nested network models are not supported yet.
+
+    Memory management
+    -----------------
+    An instance of the C++ Digraph class takes ownership of added components,
+    i.e. deletes the components at the end of its lifetime.
+    https://github.com/smiz/adevs/blob/aae196ba660259ac32fc254bad810f4b4185d52f/include/adevs_digraph.h#L205
+    """
+    cdef cadevs.Digraph* _thisptr
+
+    def __cinit__(self):
+        self._thisptr = new cadevs.Digraph()
+
+    def __dealloc__(self):
+        del self._thisptr
+
+    cpdef add(self, AtomicBase model):
+        self._thisptr.add(model.base_ptr_)
+
+    cpdef couple(
+        self,
+        AtomicBase source, Port source_port,
+        AtomicBase destination, Port destination_port,
+    ):
+        self._thisptr.couple(
+            source.base_ptr_, source_port,
+            destination.base_ptr_, destination_port,
+        )
+
+    def __iter__(self):
+        """
+        Generator to iterate over components of the digraph
+
+        http://docs.python.org/3/library/stdtypes.html#generator-types
+
+        Return AtomicBase Python objects upon each iteration
+        """
+
+        cdef CComponents components
+        self._thisptr.getComponents(components)
+
+        # get first and last element
+        cdef CComponentsIterator it = components.begin()
+        cdef CComponentsIterator end = components.end()
+
+        cdef cadevs.Atomic* component
+
+        while it != end:
+            component = <cadevs.Atomic*>(&co.dereference(it))
+            yield <object>(component.get_python_object())
+            co.preincrement(it)
