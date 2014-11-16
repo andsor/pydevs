@@ -39,13 +39,9 @@ namespace pydevs {
 			delta_conf_func_(delta_conf_func),
 			output_func_(output_func),
 			ta_func_(ta_func)
-		{
-			Py_XINCREF(this->object_);
-		}
+		{ }
 
-		virtual ~Atomic() {
-			Py_CLEAR(this->object_);
-		}
+		virtual ~Atomic() { }
 
 		virtual void delta_int() {
 			if(!(this->object_ && this->delta_int_func_)) {

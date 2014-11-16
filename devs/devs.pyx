@@ -1,7 +1,9 @@
-from cpython.ref cimport PyObject, Py_XINCREF, Py_CLEAR
+from cpython.ref cimport PyObject, Py_INCREF, Py_XINCREF, Py_CLEAR, Py_DECREF
 cimport cython.operator as co
 cimport cadevs
+import logging
 
+logger = logging.getLogger(__name__)
 
 ctypedef cadevs.PythonObject PythonObject
 ctypedef cadevs.Time Time
@@ -133,12 +135,14 @@ cdef class AtomicBase:
 
     When initialized, the constructor (__init__) creates a new instance of the
     underlying C++ wrapper class Atomic (defined in the C++ header file).
-    The C++ wrapper class Atomic increases the reference count to this Python
-    object, and decreases the reference count upon destruction.
-    So the Python object will exist at least as long as the C++ wrapper
-    instance exists.
-    Hence, it is safe to delete the C++ instance when this Python object is
-    destroyed.
+    Upon adding the model to a Digraph, the Digraph increases the reference
+    count to this Python object, and decreases the reference count upon
+    destruction.
+    Note that the adevs C++ Digraph instance assumes ownership of the C++
+    wrapper instances.
+    The C++ Digraph instance deletes all C++ wrapper instances upon destruction.
+    So the Python object might still exist even though the C++ wrapper
+    instance is long gone.
     When adevs deletes the C++ wrapper instance, the Python object is not
     deleted, when it is still referenced in the Python scope, but we can live
     with that.
@@ -164,8 +168,10 @@ cdef class AtomicBase:
     """
 
     cdef cadevs.Atomic* base_ptr_
+    cdef object logger
 
     def __init__(self):
+        logger.debug('Initialize AtomicBase...')
         self.base_ptr_ = new cadevs.Atomic(
             <PyObject*>self,
             <cadevs.DeltaIntFunc>cy_delta_int,
@@ -174,9 +180,22 @@ cdef class AtomicBase:
             <cadevs.OutputFunc>cy_output_func,
             <cadevs.TaFunc>cy_ta,
         )
+        logger.debug('Initialized AtomicBase.')
+        logger.debug('Set up logging for new AtomicBase instance...')
+        self.logger = logging.getLogger(__name__ + '.AtomicBase')
+        self.logger.debug('Set up logging.')
 
     def __dealloc__(self):
-        del self.base_ptr_
+        if self.base_ptr_ is NULL:
+            self.logger.debug('Internal pointer already cleared.')
+        else:
+            self.logger.debug('Deallocate internal pointer...')
+            del self.base_ptr_
+            self.logger.debug('Deallocated internal pointer.')
+
+    def _reset_base_ptr(self):
+        self.logger.debug('Reset internal pointer')
+        self.base_ptr_ = NULL
 
     def delta_int(self):
         pass
@@ -254,18 +273,43 @@ cdef class Digraph:
     -----------------
     An instance of the C++ Digraph class takes ownership of added components,
     i.e. deletes the components at the end of its lifetime.
+    This is why we increase the reference count to the Python object as soon as
+    we add it to the Digraph.
+    Upon deletion of the Digraph, the reference count is decreased.
     https://github.com/smiz/adevs/blob/aae196ba660259ac32fc254bad810f4b4185d52f/include/adevs_digraph.h#L205
     """
     cdef cadevs.Digraph* _thisptr
+    cdef object logger
 
     def __cinit__(self):
+        logger.debug('Initialize Digraph...')
         self._thisptr = new cadevs.Digraph()
+        logger.debug('Initialized Digraph.')
+
+    def __init__(self):
+        logger.debug('Set up logging for new Digraph instance...')
+        self.logger = logging.getLogger(__name__ + '.Digraph')
+        self.logger.debug('Set up logging.')
 
     def __dealloc__(self):
+        self.logger.debug('Temporarily store the Python objects')
+        components = list(self)
+        self.logger.debug('Deallocate internal pointer...')
+        # this deletes all C++ Atomic models (and in turn, the references to
+        # the Python objects)
         del self._thisptr
+        self.logger.debug('Deallocated internal pointer.')
+        self.logger.debug('Decrease reference counts of all Python objects')
+        for component in components:
+            Py_DECREF(component)
+            component._reset_base_ptr()
 
     cpdef add(self, AtomicBase model):
+        self.logger.debug('Add model...')
+        self.logger.debug('Increase reference counter to Python object')
+        Py_INCREF(model)
         self._thisptr.add(model.base_ptr_)
+        self.logger.debug('Added model.')
 
     cpdef couple(
         self,
@@ -286,6 +330,7 @@ cdef class Digraph:
         Return AtomicBase Python objects upon each iteration
         """
 
+        self.logger.debug("Start iteration")
         cdef CComponents components
         self._thisptr.getComponents(components)
 
@@ -294,8 +339,21 @@ cdef class Digraph:
         cdef CComponentsIterator end = components.end()
 
         cdef cadevs.Atomic* component
+        cdef PyObject* c_python_object
+        cdef object python_object
 
         while it != end:
-            component = <cadevs.Atomic*>(&co.dereference(it))
-            yield <object>(component.get_python_object())
+            self.logger.debug("Retrieve next component")
+            component = <cadevs.Atomic*>(co.dereference(it))
+            self.logger.debug("Get C Python object")
+            c_python_object = <PyObject*>(component.get_python_object())
+            self.logger.debug("Cast to Python object")
+            python_object = <object>c_python_object
+            self.logger.debug("Yield Python object")
+            yield python_object
+            self.logger.debug("Increment iterator")
             co.preincrement(it)
+
+        self.logger.debug("Stop iteration")
+
+logger.debug('devs imported.')
