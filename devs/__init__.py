@@ -10,5 +10,5 @@ __version__ = get_versions()['version']
 del get_versions
 
 from devs.devs import (
-    AtomicBase, Digraph
+    infinity, AtomicBase, Digraph, Simulator
 )

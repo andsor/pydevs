@@ -2,6 +2,7 @@ cython
 ipython[notebook,nbconvert]
 memory_profiler
 psutil
+pytest-mock
 pytest-cov
 pytest
 ipdb

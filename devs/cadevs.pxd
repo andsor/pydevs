@@ -44,6 +44,7 @@ cdef extern from "adevs/adevs.h" namespace "adevs":
         pass
 
 
+
 ctypedef int Port
 ctypedef PortValue[PythonObject, Port] CPortValue
 ctypedef Bag[CPortValue] IOBag
@@ -71,10 +72,18 @@ cdef extern from "adevs_python.hpp" namespace "pydevs":
             OutputFunc,
             TaFunc,
         )
-        PyObject* get_python_object()
+        PyObject* getPythonObject()
 
     cdef cppclass Digraph:
         Digraph() except +
-        void add(Atomic*)
-        void couple(Atomic*, Port, Atomic*, Port)
-        void getComponents(Components&)
+        void add (Atomic*)
+        void couple (Atomic*, Port, Atomic*, Port)
+        void getComponents (Components&)
+
+    cdef cppclass Simulator:
+        Simulator(CDevs*)
+        Simulator(Atomic*)
+        Simulator(Digraph*)
+        Time nextEventTime()
+        void executeNextEvent()
+        void executeUntil(T)

@@ -2,6 +2,7 @@ from cpython.ref cimport PyObject, Py_INCREF, Py_XINCREF, Py_CLEAR, Py_DECREF
 cimport cython.operator as co
 cimport cadevs
 import logging
+import sys
 
 logger = logging.getLogger(__name__)
 
@@ -14,6 +15,8 @@ ctypedef cadevs.IOBagIterator CIOBagIterator
 ctypedef cadevs.CDevs CDevs
 ctypedef cadevs.Components CComponents
 ctypedef cadevs.ComponentsIterator CComponentsIterator
+
+infinity = sys.float_info.max
 
 
 cdef class IOBag:
@@ -170,8 +173,8 @@ cdef class AtomicBase:
     cdef cadevs.Atomic* base_ptr_
     cdef object logger
 
-    def __init__(self):
-        logger.debug('Initialize AtomicBase...')
+    def __cinit__(self, *args, **kwargs):
+        logger.debug('Initialize AtomicBase (__cinit__)...')
         self.base_ptr_ = new cadevs.Atomic(
             <PyObject*>self,
             <cadevs.DeltaIntFunc>cy_delta_int,
@@ -180,48 +183,57 @@ cdef class AtomicBase:
             <cadevs.OutputFunc>cy_output_func,
             <cadevs.TaFunc>cy_ta,
         )
-        logger.debug('Initialized AtomicBase.')
+        logger.debug('Initialized AtomicBase (__cinit__).')
+
+    def __init__(self, *args, **kwargs):
         logger.debug('Set up logging for new AtomicBase instance...')
         self.logger = logging.getLogger(__name__ + '.AtomicBase')
         self.logger.debug('Set up logging.')
 
     def __dealloc__(self):
         if self.base_ptr_ is NULL:
-            self.logger.debug('Internal pointer already cleared.')
+            logger.debug('AtomicBase: Internal pointer already cleared.')
         else:
-            self.logger.debug('Deallocate internal pointer...')
+            logger.debug('AtomicBase: Deallocate internal pointer...')
             del self.base_ptr_
-            self.logger.debug('Deallocated internal pointer.')
+            logger.debug('AtomicBase: Deallocated internal pointer.')
 
     def _reset_base_ptr(self):
         self.logger.debug('Reset internal pointer')
         self.base_ptr_ = NULL
 
     def delta_int(self):
-        pass
+        self.logger.debug('delta_int')
+        raise NotImplementedError
 
     def delta_ext(self, Time e, InputBag xb):
-        pass
+        self.logger.debug('delta_ext')
+        raise NotImplementedError
 
     def delta_conf(self, InputBag xb):
-        pass
+        self.logger.debug('delta_conf')
+        raise NotImplementedError
 
     def output_func(self, OutputBag yb):
-        pass
+        self.logger.debug('output_func')
+        raise NotImplementedError
 
     def ta(self):
-        pass
+        self.logger.debug('ta')
+        raise NotImplementedError
 
 
 cdef void cy_delta_int(PyObject* object):
-    cdef AtomicBase atomic_base = <AtomicBase>(object)
+    logger.debug('Cython delta_int helper function')
+    cdef AtomicBase atomic_base = <AtomicBase>object
     atomic_base.delta_int()
 
 
 cdef void cy_delta_ext(
     PyObject* object, cadevs.Time e, const cadevs.IOBag& xb
 ):
-    cdef AtomicBase atomic_base = <AtomicBase>(object)
+    logger.debug('Cython delta_ext helper function')
+    cdef AtomicBase atomic_base = <AtomicBase>object
 
     # wrap the C++ Bag in a Python Wrapper Bag class
     cdef InputBag input_bag = CreateInputBag(&xb)
@@ -232,7 +244,8 @@ cdef void cy_delta_ext(
 cdef void cy_delta_conf(
     PyObject* object, const cadevs.IOBag& xb
 ):
-    cdef AtomicBase atomic_base = <AtomicBase>(object)
+    logger.debug('Cython delta_conf helper function')
+    cdef AtomicBase atomic_base = <AtomicBase>object
 
     # wrap the C++ Bag in a Python Wrapper Bag class
     cdef InputBag input_bag = CreateInputBag(&xb)
@@ -243,7 +256,8 @@ cdef void cy_delta_conf(
 cdef void cy_output_func(
     PyObject* object, cadevs.IOBag& yb
 ):
-    cdef AtomicBase atomic_base = <AtomicBase>(object)
+    logger.debug('Cython output_func helper function')
+    cdef AtomicBase atomic_base = <AtomicBase>object
 
     # wrap the C++ Bag in a Python Wrapper Bag class
     cdef OutputBag output_bag = CreateOutputBag(&yb)
@@ -254,7 +268,8 @@ cdef void cy_output_func(
 cdef Time cy_ta(
     PyObject* object
 ):
-    cdef AtomicBase atomic_base = <AtomicBase>(object)
+    logger.debug('Cython ta helper function')
+    cdef AtomicBase atomic_base = <AtomicBase>object
 
     return atomic_base.ta()
 
@@ -346,7 +361,7 @@ cdef class Digraph:
             self.logger.debug("Retrieve next component")
             component = <cadevs.Atomic*>(co.dereference(it))
             self.logger.debug("Get C Python object")
-            c_python_object = <PyObject*>(component.get_python_object())
+            c_python_object = <PyObject*>(component.getPythonObject())
             self.logger.debug("Cast to Python object")
             python_object = <object>c_python_object
             self.logger.debug("Yield Python object")
@@ -355,5 +370,64 @@ cdef class Digraph:
             co.preincrement(it)
 
         self.logger.debug("Stop iteration")
+
+
+cdef class Simulator:
+    """
+    Python extension type that wraps the adevs C++ Simulator class
+
+    Memory management
+    -----------------
+    Note that the adevc C++ Simulator class does not assume ownership of the
+    model.
+    Hence, when using a Python wrapper Simulator instance, we need to keep
+    the Python wrapper Digraph or AtomicBase-subclassed instance in scope as
+    well.
+    When the model Python instance goes out of scope, the internal C++ pointer
+    gets deleted, rendering the Simulator defunct.
+    """
+    cdef cadevs.Simulator* _thisptr
+    cdef object logger
+    cdef object sim_logger
+
+    def __cinit__(self):
+        pass
+
+    def __init__(self, object model):
+        logger.debug('Initialize Simulator...')
+
+        if isinstance(model, AtomicBase):
+            if type(model) is AtomicBase:
+                error_msg = (
+                    'Model is AtomicBase instance, use a subclass instead'
+                )
+                logger.error(error_msg)
+                raise TypeError(error_msg)
+            logger.debug('Initialize Simulator with atomic model')
+            self._thisptr = new cadevs.Simulator((<AtomicBase>model).base_ptr_)
+            logger.info('Initialized Simulator with atomic model')
+        elif isinstance(model, Digraph):
+            logger.debug('Initialize Simulator with digraph')
+            self._thisptr = new cadevs.Simulator((<Digraph>model)._thisptr)
+            logger.info('Initialized Simulator with digraph')
+        else:
+            raise TypeError
+
+        self.logger = logging.getLogger(__name__ + '.Simulator')
+        self.logger.debug('Set up logging.')
+
+    def __dealloc__(self):
+        self.logger.debug('Deallocate internal pointer...')
+        del self._thisptr
+        self.logger.debug('Deallocated internal pointer.')
+
+    def next_event_time(self):
+        self.logger.debug('Compute time of next event')
+        return self._thisptr.nextEventTime()
+
+    def execute_next_event(self):
+        self.logger.info('Execute next event')
+        self._thisptr.executeNextEvent()
+
 
 logger.debug('devs imported.')
