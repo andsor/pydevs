@@ -472,5 +472,9 @@ cdef class Simulator:
         self.logger.info('Execute next event')
         self._thisptr.executeNextEvent()
 
+    def execute_until(self, Time t_end):
+        self.logger.info('Execute until time {}'.format(t_end))
+        self._thisptr.executeUntil(t_end)
+
 
 logger.debug('devs imported.')

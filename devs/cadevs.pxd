@@ -86,4 +86,4 @@ cdef extern from "adevs_python.hpp" namespace "pydevs":
         Simulator(Digraph*) except +
         Time nextEventTime() except *
         void executeNextEvent() except *
-        void executeUntil(T) except *
+        void executeUntil(Time) except *

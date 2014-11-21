@@ -1146,6 +1146,7 @@ static int __pyx_pf_4devs_4devs_9Simulator_2__init__(struct __pyx_obj_4devs_4dev
 static void __pyx_pf_4devs_4devs_9Simulator_4__dealloc__(struct __pyx_obj_4devs_4devs_Simulator *__pyx_v_self); /* proto */
 static PyObject *__pyx_pf_4devs_4devs_9Simulator_6next_event_time(struct __pyx_obj_4devs_4devs_Simulator *__pyx_v_self); /* proto */
 static PyObject *__pyx_pf_4devs_4devs_9Simulator_8execute_next_event(struct __pyx_obj_4devs_4devs_Simulator *__pyx_v_self); /* proto */
+static PyObject *__pyx_pf_4devs_4devs_9Simulator_10execute_until(struct __pyx_obj_4devs_4devs_Simulator *__pyx_v_self, __pyx_t_4devs_4devs_Time __pyx_v_t_end); /* proto */
 static PyObject *__pyx_tp_new_4devs_4devs_IOBag(PyTypeObject *t, PyObject *a, PyObject *k); /*proto*/
 static PyObject *__pyx_tp_new_4devs_4devs_OutputBag(PyTypeObject *t, PyObject *a, PyObject *k); /*proto*/
 static PyObject *__pyx_tp_new_4devs_4devs_InputBag(PyTypeObject *t, PyObject *a, PyObject *k); /*proto*/
@@ -1212,6 +1213,7 @@ static char __pyx_k_reset_base_ptr[] = "_reset_base_ptr";
 static char __pyx_k_Start_iteration[] = "Start iteration";
 static char __pyx_k_destination_port[] = "destination_port";
 static char __pyx_k_Execute_next_event[] = "Execute next event";
+static char __pyx_k_Execute_until_time[] = "Execute until time {}";
 static char __pyx_k_Increment_iterator[] = "Increment iterator";
 static char __pyx_k_Initialize_Digraph[] = "Initialize Digraph...";
 static char __pyx_k_Get_C_Python_object[] = "Get C Python object";
@@ -1271,6 +1273,7 @@ static PyObject *__pyx_kp_u_Decrease_reference_counts_of_all;
 static PyObject *__pyx_kp_u_Digraph;
 static PyObject *__pyx_n_s_Digraph___iter;
 static PyObject *__pyx_kp_u_Execute_next_event;
+static PyObject *__pyx_kp_u_Execute_until_time;
 static PyObject *__pyx_kp_u_Get_C_Python_object;
 static PyObject *__pyx_n_s_IOBag___iter;
 static PyObject *__pyx_kp_u_Increase_reference_counter_to_Py;
@@ -6221,7 +6224,7 @@ static PyObject *__pyx_pf_4devs_4devs_9Simulator_8execute_next_event(struct __py
  *         self.logger.info('Execute next event')
  *         self._thisptr.executeNextEvent()             # <<<<<<<<<<<<<<
  * 
- * 
+ *     def execute_until(self, Time t_end):
  */
   __pyx_v_self->_thisptr->executeNextEvent(); if (unlikely(PyErr_Occurred())) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 473; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
 
@@ -6240,6 +6243,158 @@ static PyObject *__pyx_pf_4devs_4devs_9Simulator_8execute_next_event(struct __py
   __Pyx_XDECREF(__pyx_t_1);
   __Pyx_XDECREF(__pyx_t_2);
   __Pyx_AddTraceback("devs.devs.Simulator.execute_next_event", __pyx_clineno, __pyx_lineno, __pyx_filename);
+  __pyx_r = NULL;
+  __pyx_L0:;
+  __Pyx_XGIVEREF(__pyx_r);
+  __Pyx_RefNannyFinishContext();
+  return __pyx_r;
+}
+
+/* "devs/devs.pyx":475
+ *         self._thisptr.executeNextEvent()
+ * 
+ *     def execute_until(self, Time t_end):             # <<<<<<<<<<<<<<
+ *         self.logger.info('Execute until time {}'.format(t_end))
+ *         self._thisptr.executeUntil(t_end)
+ */
+
+/* Python wrapper */
+static PyObject *__pyx_pw_4devs_4devs_9Simulator_11execute_until(PyObject *__pyx_v_self, PyObject *__pyx_arg_t_end); /*proto*/
+static PyObject *__pyx_pw_4devs_4devs_9Simulator_11execute_until(PyObject *__pyx_v_self, PyObject *__pyx_arg_t_end) {
+  __pyx_t_4devs_4devs_Time __pyx_v_t_end;
+  int __pyx_lineno = 0;
+  const char *__pyx_filename = NULL;
+  int __pyx_clineno = 0;
+  PyObject *__pyx_r = 0;
+  __Pyx_RefNannyDeclarations
+  __Pyx_RefNannySetupContext("execute_until (wrapper)", 0);
+  assert(__pyx_arg_t_end); {
+    __pyx_v_t_end = __pyx_PyFloat_AsDouble(__pyx_arg_t_end); if (unlikely((__pyx_v_t_end == (double)-1) && PyErr_Occurred())) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 475; __pyx_clineno = __LINE__; goto __pyx_L3_error;}
+  }
+  goto __pyx_L4_argument_unpacking_done;
+  __pyx_L3_error:;
+  __Pyx_AddTraceback("devs.devs.Simulator.execute_until", __pyx_clineno, __pyx_lineno, __pyx_filename);
+  __Pyx_RefNannyFinishContext();
+  return NULL;
+  __pyx_L4_argument_unpacking_done:;
+  __pyx_r = __pyx_pf_4devs_4devs_9Simulator_10execute_until(((struct __pyx_obj_4devs_4devs_Simulator *)__pyx_v_self), ((__pyx_t_4devs_4devs_Time)__pyx_v_t_end));
+
+  /* function exit code */
+  __Pyx_RefNannyFinishContext();
+  return __pyx_r;
+}
+
+static PyObject *__pyx_pf_4devs_4devs_9Simulator_10execute_until(struct __pyx_obj_4devs_4devs_Simulator *__pyx_v_self, __pyx_t_4devs_4devs_Time __pyx_v_t_end) {
+  PyObject *__pyx_r = NULL;
+  __Pyx_RefNannyDeclarations
+  PyObject *__pyx_t_1 = NULL;
+  PyObject *__pyx_t_2 = NULL;
+  PyObject *__pyx_t_3 = NULL;
+  PyObject *__pyx_t_4 = NULL;
+  PyObject *__pyx_t_5 = NULL;
+  PyObject *__pyx_t_6 = NULL;
+  PyObject *__pyx_t_7 = NULL;
+  int __pyx_lineno = 0;
+  const char *__pyx_filename = NULL;
+  int __pyx_clineno = 0;
+  __Pyx_RefNannySetupContext("execute_until", 0);
+
+  /* "devs/devs.pyx":476
+ * 
+ *     def execute_until(self, Time t_end):
+ *         self.logger.info('Execute until time {}'.format(t_end))             # <<<<<<<<<<<<<<
+ *         self._thisptr.executeUntil(t_end)
+ * 
+ */
+  __pyx_t_2 = __Pyx_PyObject_GetAttrStr(__pyx_v_self->logger, __pyx_n_s_info); if (unlikely(!__pyx_t_2)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 476; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  __Pyx_GOTREF(__pyx_t_2);
+  __pyx_t_4 = __Pyx_PyObject_GetAttrStr(__pyx_kp_u_Execute_until_time, __pyx_n_s_format); if (unlikely(!__pyx_t_4)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 476; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  __Pyx_GOTREF(__pyx_t_4);
+  __pyx_t_5 = PyFloat_FromDouble(__pyx_v_t_end); if (unlikely(!__pyx_t_5)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 476; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  __Pyx_GOTREF(__pyx_t_5);
+  __pyx_t_6 = NULL;
+  if (CYTHON_COMPILING_IN_CPYTHON && likely(PyMethod_Check(__pyx_t_4))) {
+    __pyx_t_6 = PyMethod_GET_SELF(__pyx_t_4);
+    if (likely(__pyx_t_6)) {
+      PyObject* function = PyMethod_GET_FUNCTION(__pyx_t_4);
+      __Pyx_INCREF(__pyx_t_6);
+      __Pyx_INCREF(function);
+      __Pyx_DECREF_SET(__pyx_t_4, function);
+    }
+  }
+  if (!__pyx_t_6) {
+    __pyx_t_3 = __Pyx_PyObject_CallOneArg(__pyx_t_4, __pyx_t_5); if (unlikely(!__pyx_t_3)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 476; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+    __Pyx_DECREF(__pyx_t_5); __pyx_t_5 = 0;
+    __Pyx_GOTREF(__pyx_t_3);
+  } else {
+    __pyx_t_7 = PyTuple_New(1+1); if (unlikely(!__pyx_t_7)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 476; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+    __Pyx_GOTREF(__pyx_t_7);
+    PyTuple_SET_ITEM(__pyx_t_7, 0, __pyx_t_6); __Pyx_GIVEREF(__pyx_t_6); __pyx_t_6 = NULL;
+    PyTuple_SET_ITEM(__pyx_t_7, 0+1, __pyx_t_5);
+    __Pyx_GIVEREF(__pyx_t_5);
+    __pyx_t_5 = 0;
+    __pyx_t_3 = __Pyx_PyObject_Call(__pyx_t_4, __pyx_t_7, NULL); if (unlikely(!__pyx_t_3)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 476; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+    __Pyx_GOTREF(__pyx_t_3);
+    __Pyx_DECREF(__pyx_t_7); __pyx_t_7 = 0;
+  }
+  __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
+  __pyx_t_4 = NULL;
+  if (CYTHON_COMPILING_IN_CPYTHON && likely(PyMethod_Check(__pyx_t_2))) {
+    __pyx_t_4 = PyMethod_GET_SELF(__pyx_t_2);
+    if (likely(__pyx_t_4)) {
+      PyObject* function = PyMethod_GET_FUNCTION(__pyx_t_2);
+      __Pyx_INCREF(__pyx_t_4);
+      __Pyx_INCREF(function);
+      __Pyx_DECREF_SET(__pyx_t_2, function);
+    }
+  }
+  if (!__pyx_t_4) {
+    __pyx_t_1 = __Pyx_PyObject_CallOneArg(__pyx_t_2, __pyx_t_3); if (unlikely(!__pyx_t_1)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 476; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+    __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
+    __Pyx_GOTREF(__pyx_t_1);
+  } else {
+    __pyx_t_7 = PyTuple_New(1+1); if (unlikely(!__pyx_t_7)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 476; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+    __Pyx_GOTREF(__pyx_t_7);
+    PyTuple_SET_ITEM(__pyx_t_7, 0, __pyx_t_4); __Pyx_GIVEREF(__pyx_t_4); __pyx_t_4 = NULL;
+    PyTuple_SET_ITEM(__pyx_t_7, 0+1, __pyx_t_3);
+    __Pyx_GIVEREF(__pyx_t_3);
+    __pyx_t_3 = 0;
+    __pyx_t_1 = __Pyx_PyObject_Call(__pyx_t_2, __pyx_t_7, NULL); if (unlikely(!__pyx_t_1)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 476; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+    __Pyx_GOTREF(__pyx_t_1);
+    __Pyx_DECREF(__pyx_t_7); __pyx_t_7 = 0;
+  }
+  __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
+  __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
+
+  /* "devs/devs.pyx":477
+ *     def execute_until(self, Time t_end):
+ *         self.logger.info('Execute until time {}'.format(t_end))
+ *         self._thisptr.executeUntil(t_end)             # <<<<<<<<<<<<<<
+ * 
+ * 
+ */
+  __pyx_v_self->_thisptr->executeUntil(__pyx_v_t_end); if (unlikely(PyErr_Occurred())) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 477; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+
+  /* "devs/devs.pyx":475
+ *         self._thisptr.executeNextEvent()
+ * 
+ *     def execute_until(self, Time t_end):             # <<<<<<<<<<<<<<
+ *         self.logger.info('Execute until time {}'.format(t_end))
+ *         self._thisptr.executeUntil(t_end)
+ */
+
+  /* function exit code */
+  __pyx_r = Py_None; __Pyx_INCREF(Py_None);
+  goto __pyx_L0;
+  __pyx_L1_error:;
+  __Pyx_XDECREF(__pyx_t_1);
+  __Pyx_XDECREF(__pyx_t_2);
+  __Pyx_XDECREF(__pyx_t_3);
+  __Pyx_XDECREF(__pyx_t_4);
+  __Pyx_XDECREF(__pyx_t_5);
+  __Pyx_XDECREF(__pyx_t_6);
+  __Pyx_XDECREF(__pyx_t_7);
+  __Pyx_AddTraceback("devs.devs.Simulator.execute_until", __pyx_clineno, __pyx_lineno, __pyx_filename);
   __pyx_r = NULL;
   __pyx_L0:;
   __Pyx_XGIVEREF(__pyx_r);
@@ -6789,6 +6944,7 @@ static int __pyx_tp_clear_4devs_4devs_Simulator(PyObject *o) {
 static PyMethodDef __pyx_methods_4devs_4devs_Simulator[] = {
   {"next_event_time", (PyCFunction)__pyx_pw_4devs_4devs_9Simulator_7next_event_time, METH_NOARGS, 0},
   {"execute_next_event", (PyCFunction)__pyx_pw_4devs_4devs_9Simulator_9execute_next_event, METH_NOARGS, 0},
+  {"execute_until", (PyCFunction)__pyx_pw_4devs_4devs_9Simulator_11execute_until, METH_O, 0},
   {0, 0, 0, 0}
 };
 
@@ -7118,6 +7274,7 @@ static __Pyx_StringTabEntry __pyx_string_tab[] = {
   {&__pyx_kp_u_Digraph, __pyx_k_Digraph, sizeof(__pyx_k_Digraph), 0, 1, 0, 0},
   {&__pyx_n_s_Digraph___iter, __pyx_k_Digraph___iter, sizeof(__pyx_k_Digraph___iter), 0, 0, 1, 1},
   {&__pyx_kp_u_Execute_next_event, __pyx_k_Execute_next_event, sizeof(__pyx_k_Execute_next_event), 0, 1, 0, 0},
+  {&__pyx_kp_u_Execute_until_time, __pyx_k_Execute_until_time, sizeof(__pyx_k_Execute_until_time), 0, 1, 0, 0},
   {&__pyx_kp_u_Get_C_Python_object, __pyx_k_Get_C_Python_object, sizeof(__pyx_k_Get_C_Python_object), 0, 1, 0, 0},
   {&__pyx_n_s_IOBag___iter, __pyx_k_IOBag___iter, sizeof(__pyx_k_IOBag___iter), 0, 0, 1, 1},
   {&__pyx_kp_u_Increase_reference_counter_to_Py, __pyx_k_Increase_reference_counter_to_Py, sizeof(__pyx_k_Increase_reference_counter_to_Py), 0, 1, 0, 0},
@@ -7684,12 +7841,12 @@ static int __Pyx_InitCachedConstants(void) {
   __Pyx_GOTREF(__pyx_tuple__43);
   __Pyx_GIVEREF(__pyx_tuple__43);
 
-  /* "devs/devs.pyx":476
+  /* "devs/devs.pyx":480
  * 
  * 
  * logger.debug('devs imported.')             # <<<<<<<<<<<<<<
  */
-  __pyx_tuple__44 = PyTuple_Pack(1, __pyx_kp_u_devs_imported); if (unlikely(!__pyx_tuple__44)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 476; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  __pyx_tuple__44 = PyTuple_Pack(1, __pyx_kp_u_devs_imported); if (unlikely(!__pyx_tuple__44)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 480; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   __Pyx_GOTREF(__pyx_tuple__44);
   __Pyx_GIVEREF(__pyx_tuple__44);
   __Pyx_RefNannyFinishContext();
@@ -7959,17 +8116,17 @@ PyMODINIT_FUNC PyInit_devs(void)
   if (PyDict_SetItem(__pyx_d, __pyx_n_s_infinity, __pyx_t_1) < 0) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 20; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
 
-  /* "devs/devs.pyx":476
+  /* "devs/devs.pyx":480
  * 
  * 
  * logger.debug('devs imported.')             # <<<<<<<<<<<<<<
  */
-  __pyx_t_1 = __Pyx_GetModuleGlobalName(__pyx_n_s_logger); if (unlikely(!__pyx_t_1)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 476; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  __pyx_t_1 = __Pyx_GetModuleGlobalName(__pyx_n_s_logger); if (unlikely(!__pyx_t_1)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 480; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   __Pyx_GOTREF(__pyx_t_1);
-  __pyx_t_3 = __Pyx_PyObject_GetAttrStr(__pyx_t_1, __pyx_n_s_debug); if (unlikely(!__pyx_t_3)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 476; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  __pyx_t_3 = __Pyx_PyObject_GetAttrStr(__pyx_t_1, __pyx_n_s_debug); if (unlikely(!__pyx_t_3)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 480; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   __Pyx_GOTREF(__pyx_t_3);
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
-  __pyx_t_1 = __Pyx_PyObject_Call(__pyx_t_3, __pyx_tuple__44, NULL); if (unlikely(!__pyx_t_1)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 476; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  __pyx_t_1 = __Pyx_PyObject_Call(__pyx_t_3, __pyx_tuple__44, NULL); if (unlikely(!__pyx_t_1)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 480; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   __Pyx_GOTREF(__pyx_t_1);
   __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
