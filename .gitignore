@@ -57,3 +57,4 @@ target/
 # Local stuff
 .devenv*
 MANIFEST
+.ipynb_checkpoints

@@ -18,6 +18,7 @@ Contents
 .. toctree::
    :maxdepth: 2
 
+   Quickstart <quickstart> 
    License <license>
    Module Reference <_rst/modules>
 
