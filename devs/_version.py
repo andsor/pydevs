@@ -71,7 +71,7 @@ def versions_from_parentdir(parentdir_prefix, root, verbose=False):
         return None
     ret = dirname[len(parentdir_prefix):]
     if ret.find('-py') != -1:
-        ret = dirname[:ret.find('-py')]
+        ret = ret[:ret.find('-py')]
     return {"version": ret, "full": ""}
 
 
