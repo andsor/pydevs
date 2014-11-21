@@ -233,7 +233,7 @@ void __Pyx_call_destructor(T* x) {
 #include <math.h>
 #define __PYX_HAVE__devs__devs
 #define __PYX_HAVE_API__devs__devs
-#include "adevs/adevs.h"
+#include "adevs.h"
 #include "ios"
 #include "new"
 #include "stdexcept"

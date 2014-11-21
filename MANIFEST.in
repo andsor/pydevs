@@ -2,3 +2,4 @@ include versioneer.py
 include *.rst
 include *.txt
 include devs/_version.py
+include vendor/adevs/include/*.h

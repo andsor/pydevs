@@ -189,7 +189,7 @@ def setup_package():
             "devs.devs",
             sources=['devs/devs.cpp'],
             language='c++',
-            include_dirs=['include'],
+            include_dirs=['vendor/adevs/include', ],
             extra_compile_args=['--std=c++11', ],
         ),
     ]

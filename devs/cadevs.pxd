@@ -4,7 +4,7 @@ from cpython.ref cimport PyObject
 ctypedef PyObject* PythonObject
 
 
-cdef extern from "adevs/adevs.h" namespace "adevs":
+cdef extern from "adevs.h" namespace "adevs":
     cdef cppclass PortValue[VALUE, PORT]:
         PortValue(PORT, const VALUE&) except +
         PORT port

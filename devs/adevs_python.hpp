@@ -5,7 +5,7 @@
 
 #include <Python.h>
 
-#include "adevs/adevs.h"
+#include "adevs.h"
 
 
 
