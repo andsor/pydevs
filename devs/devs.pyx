@@ -3,6 +3,7 @@ cimport cython.operator as co
 cimport cadevs
 import logging
 import sys
+import warnings
 
 logger = logging.getLogger(__name__)
 
@@ -185,7 +186,7 @@ cdef class AtomicBase:
     """
 
     cdef cadevs.Atomic* base_ptr_
-    cdef object logger
+    cdef object _logger
 
     def __cinit__(self, *args, **kwargs):
         logger.debug('Initialize AtomicBase (__cinit__)...')
@@ -198,11 +199,9 @@ cdef class AtomicBase:
             <cadevs.TaFunc>cy_ta,
         )
         logger.debug('Initialized AtomicBase (__cinit__).')
-
-    def __init__(self, *args, **kwargs):
         logger.debug('Set up logging for new AtomicBase instance...')
-        self.logger = logging.getLogger(__name__ + '.AtomicBase')
-        self.logger.debug('Set up logging.')
+        self._logger = logging.getLogger(__name__ + '.AtomicBase')
+        self._logger.debug('Set up logging.')
 
     def __dealloc__(self):
         if self.base_ptr_ is NULL:
@@ -213,28 +212,35 @@ cdef class AtomicBase:
             logger.debug('AtomicBase: Deallocated internal pointer.')
 
     def _reset_base_ptr(self):
-        self.logger.debug('Reset internal pointer')
+        self._logger.debug('Reset internal pointer')
         self.base_ptr_ = NULL
 
     def delta_int(self):
-        self.logger.debug('delta_int')
-        raise NotImplementedError
+        warn_msg = 'delta_int not implemented'
+        self._logger.warning(warn_msg)
+        warnings.warn(warn_msg)
 
     def delta_ext(self, e, xb):
-        self.logger.debug('delta_ext')
-        raise NotImplementedError
+        warn_msg = 'delta_ext not implemented'
+        self._logger.warning(warn_msg)
+        warnings.warn(warn_msg)
 
     def delta_conf(self, xb):
-        self.logger.debug('delta_conf')
-        raise NotImplementedError
+        warn_msg = 'delta_conf not implemented'
+        self._logger.warning(warn_msg)
+        warnings.warn(warn_msg)
 
     def output_func(self):
-        self.logger.debug('output_func')
-        raise NotImplementedError
+        warn_msg = 'output_func not implemented, return None'
+        self._logger.warning(warn_msg)
+        warnings.warn(warn_msg)
+        return None
 
     def ta(self):
-        self.logger.debug('ta')
-        raise NotImplementedError
+        warn_msg = 'ta not implemented, return devs.infinity'
+        self._logger.warning(warn_msg)
+        warnings.warn(warn_msg)
+        return infinity
 
 
 cdef void cy_delta_int(PyObject* object) except *:
