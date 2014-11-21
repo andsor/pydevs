@@ -247,4 +247,4 @@ def test_delta_conf(mocker):
     assert not processor_delta_func['int'].called
     assert not processor_delta_func['ext'].called
     processor_delta_func['conf'].assert_called_once_with([(0, 1)])
-    obs_delta_ext.assert_called_once_with(1.0, [(0, 1), (0, 2)])
+    obs_delta_ext.assert_called_once_with(1.0, [(0, 2), (0, 1)])
