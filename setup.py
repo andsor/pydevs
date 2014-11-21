@@ -17,6 +17,8 @@ import setuptools
 from setuptools import setup
 from setuptools.command.test import test as TestCommand
 
+from distutils.extension import Extension
+
 import versioneer
 
 __location__ = os.path.join(os.getcwd(), os.path.dirname(
@@ -181,6 +183,16 @@ def setup_package():
         'test': {'test_suite': ('setup.py', 'tests')},
     }
 
+    # extensions
+    extensions = [
+        Extension(
+            "devs.devs",
+            sources=['devs/devs.cpp'],
+            language='c++',
+            include_dirs=['include'],
+            extra_compile_args=['--std=c++11', ],
+        ),
+    ]
     setup(name=MAIN_PACKAGE,
           version=version,
           url=URL,
@@ -204,6 +216,7 @@ def setup_package():
           include_package_data=True,  # include everything in source control
           # but exclude these files
           exclude_package_data={'': ['.gitignore']},
+          ext_modules=extensions,
           )
 
 if __name__ == "__main__":
