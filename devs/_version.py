@@ -69,7 +69,10 @@ def versions_from_parentdir(parentdir_prefix, root, verbose=False):
                 ) % (root, dirname, parentdir_prefix)
             )
         return None
-    return {"version": dirname[len(parentdir_prefix):], "full": ""}
+    ret = dirname[len(parentdir_prefix):]
+    if ret.find('-py') != -1:
+        ret = dirname[:ret.find('-py')]
+    return {"version": ret, "full": ""}
 
 
 def git_get_keywords(versionfile_abs):
