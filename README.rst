@@ -79,8 +79,8 @@ Setuptool uses the information of tags to infer the version of your project
 with the help of `versioneer <https://github.com/warner/python-versioneer>`_.
 
 To use this feature you need to tag with the format ``MAJOR.MINOR[.REVISION]``
-, e.g. ``0.0.1`` or ``0.1``.
-The prefix ``v`` is *not* needed!
+, e.g. ``v0.0.1`` or ``v0.1``.
+The prefix ``v`` is needed!
 
 Run ::
         
