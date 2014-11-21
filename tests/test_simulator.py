@@ -72,6 +72,17 @@ def test_atomic_raises_error_if_returns_tuple_not_length_2(atomic, mocker):
         simulator.execute_next_event()
 
 
+def test_atomic_calls_output_func(atomic, mocker):
+    output_func = mocker.patch.object(
+        atomic, 'output_func', return_value=(1, 2)
+    )
+    mocker.patch.object(atomic, 'ta', return_value=1.0)
+    simulator = devs.Simulator(atomic)
+    assert not output_func.called
+    simulator.execute_next_event()
+    assert output_func.call_count == 1
+
+
 def test_add_digraph(digraph):
     devs.Simulator(digraph)
 
@@ -184,3 +195,56 @@ def test_digraph_two_models_execute_next_event(digraph_two_models, mocker):
     assert delta_ints[0].call_count == 1
     assert delta_ints[1].call_count == 1
     assert simulator.next_event_time() == 2.0
+
+
+def test_source_feeds_to_observer(mocker):
+    source = TestAtomic()
+    observer = TestAtomic()
+
+    mocker.patch.object(source, 'ta', return_value=1.0)
+    mocker.patch.object(source, 'output_func', return_value=(0, 1))
+    obs_delta_ext = mocker.patch.object(observer, 'delta_ext')
+
+    digraph = devs.Digraph()
+    digraph.add(source)
+    digraph.add(observer)
+    digraph.couple(source, 0, observer, 0)
+
+    simulator = devs.Simulator(digraph)
+    simulator.execute_next_event()
+
+    obs_delta_ext.assert_called_once_with(1.0, [(0, 1)])
+
+
+def test_delta_conf(mocker):
+    source = TestAtomic()
+    processor = TestAtomic()
+    observer = TestAtomic()
+
+    mocker.patch.object(source, 'ta', return_value=1.0)
+    mocker.patch.object(source, 'output_func', return_value=(0, 1))
+    mocker.patch.object(processor, 'ta', return_value=1.0)
+    mocker.patch.object(processor, 'output_func', return_value=(0, 2))
+    deltas = ['int', 'ext', 'conf']
+    processor_delta_func = {
+        delta:
+        mocker.patch.object(processor, 'delta_{}'.format(delta))
+        for delta in deltas
+    }
+    obs_delta_ext = mocker.patch.object(observer, 'delta_ext')
+
+    digraph = devs.Digraph()
+    digraph.add(source)
+    digraph.add(processor)
+    digraph.add(observer)
+    digraph.couple(source, 0, processor, 0)
+    digraph.couple(source, 0, observer, 0)
+    digraph.couple(processor, 0, observer, 0)
+
+    simulator = devs.Simulator(digraph)
+    simulator.execute_next_event()
+
+    assert not processor_delta_func['int'].called
+    assert not processor_delta_func['ext'].called
+    processor_delta_func['conf'].assert_called_once_with([(0, 1)])
+    obs_delta_ext.assert_called_once_with(1.0, [(0, 1), (0, 2)])

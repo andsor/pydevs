@@ -179,6 +179,9 @@ cdef class AtomicBase:
         a tuple (of length 2: port, value),
         or an iterable (of tuples of length 2: port, value).
     For example, output_func can be implemented as a generator expression.
+
+    Similarly, the cy_delta_ext and cy_delta_conf helper functions convert the
+    input bag to a Python list of port, value tuples.
     """
 
     cdef cadevs.Atomic* base_ptr_
@@ -217,11 +220,11 @@ cdef class AtomicBase:
         self.logger.debug('delta_int')
         raise NotImplementedError
 
-    def delta_ext(self, Time e, InputBag xb):
+    def delta_ext(self, e, xb):
         self.logger.debug('delta_ext')
         raise NotImplementedError
 
-    def delta_conf(self, InputBag xb):
+    def delta_conf(self, xb):
         self.logger.debug('delta_conf')
         raise NotImplementedError
 
@@ -249,7 +252,7 @@ cdef void cy_delta_ext(
     # wrap the C++ Bag in a Python Wrapper Bag class
     cdef InputBag input_bag = CreateInputBag(&xb)
 
-    atomic_base.delta_ext(e, input_bag)
+    atomic_base.delta_ext(e, list(input_bag))
 
 
 cdef void cy_delta_conf(
@@ -261,7 +264,7 @@ cdef void cy_delta_conf(
     # wrap the C++ Bag in a Python Wrapper Bag class
     cdef InputBag input_bag = CreateInputBag(&xb)
 
-    atomic_base.delta_conf(input_bag)
+    atomic_base.delta_conf(list(input_bag))
 
 
 cdef void cy_output_func(
