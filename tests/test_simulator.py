@@ -12,7 +12,7 @@ class TestAtomic(devs.AtomicBase):
     def delta_conf(self, xb):
         pass
 
-    def output_func(self, yb):
+    def output_func(self):
         pass
 
     def ta(self):
@@ -64,6 +64,14 @@ def test_atomic_next_event_time(atomic, mocker):
     assert simulator.next_event_time() == 1.0
 
 
+def test_atomic_raises_error_if_returns_tuple_not_length_2(atomic, mocker):
+    mocker.patch.object(atomic, 'output_func', return_value=(1, 2, 3))
+    mocker.patch.object(atomic, 'ta', return_value=1.0)
+    simulator = devs.Simulator(atomic)
+    with pytest.raises(ValueError):
+        simulator.execute_next_event()
+
+
 def test_add_digraph(digraph):
     devs.Simulator(digraph)
 
@@ -73,7 +81,6 @@ def test_add_digraph_with_one_model(digraph_one_model):
 
 
 def test_digraph_with_one_model_no_event(digraph_one_model):
-    model = list(digraph_one_model)[0]
     simulator = devs.Simulator(digraph_one_model)
     assert simulator.next_event_time() == devs.infinity
 
@@ -91,7 +98,6 @@ def test_digraph_with_two_models(digraph_two_models):
 
 
 def test_add_digraph_with_two_models_no_event(digraph_two_models):
-    models = list(digraph_two_models)
     simulator = devs.Simulator(digraph_two_models)
     assert simulator.next_event_time() == devs.infinity
 

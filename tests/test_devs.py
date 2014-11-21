@@ -1,5 +1,6 @@
-import devs
 import sys
+
+import devs
 import pytest
 
 

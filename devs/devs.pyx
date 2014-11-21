@@ -168,6 +168,17 @@ cdef class AtomicBase:
     the reference counter of the value Python object.
     The C++ wrapper class decreases the reference counter upon adevs' call to
     the gc_output garbage collection function.
+
+    We deliberately break the adevs interface for the output_func method.
+    In adevs, a reference to a Bag is supplied to the method returning void.
+    Here, we choose the Pythonic way and take the return value of the method as
+    the output bag.
+    This is converted automatically by the cy_output_func helper function.
+    output_func can either return
+        None (no output),
+        a tuple (of length 2: port, value),
+        or an iterable (of tuples of length 2: port, value).
+    For example, output_func can be implemented as a generator expression.
     """
 
     cdef cadevs.Atomic* base_ptr_
@@ -214,7 +225,7 @@ cdef class AtomicBase:
         self.logger.debug('delta_conf')
         raise NotImplementedError
 
-    def output_func(self, OutputBag yb):
+    def output_func(self):
         self.logger.debug('output_func')
         raise NotImplementedError
 
@@ -223,7 +234,7 @@ cdef class AtomicBase:
         raise NotImplementedError
 
 
-cdef void cy_delta_int(PyObject* object):
+cdef void cy_delta_int(PyObject* object) except *:
     logger.debug('Cython delta_int helper function')
     cdef AtomicBase atomic_base = <AtomicBase>object
     atomic_base.delta_int()
@@ -231,7 +242,7 @@ cdef void cy_delta_int(PyObject* object):
 
 cdef void cy_delta_ext(
     PyObject* object, cadevs.Time e, const cadevs.IOBag& xb
-):
+) except *:
     logger.debug('Cython delta_ext helper function')
     cdef AtomicBase atomic_base = <AtomicBase>object
 
@@ -243,7 +254,7 @@ cdef void cy_delta_ext(
 
 cdef void cy_delta_conf(
     PyObject* object, const cadevs.IOBag& xb
-):
+) except *:
     logger.debug('Cython delta_conf helper function')
     cdef AtomicBase atomic_base = <AtomicBase>object
 
@@ -255,19 +266,42 @@ cdef void cy_delta_conf(
 
 cdef void cy_output_func(
     PyObject* object, cadevs.IOBag& yb
-):
+) except *:
     logger.debug('Cython output_func helper function')
     cdef AtomicBase atomic_base = <AtomicBase>object
 
     # wrap the C++ Bag in a Python Wrapper Bag class
     cdef OutputBag output_bag = CreateOutputBag(&yb)
 
-    atomic_base.output_func(output_bag)
+    output = atomic_base.output_func()
+
+    if output is None:
+        logger.debug('output_func returns None')
+        return
+
+    if type(output) is tuple:
+        logger.debug('output_func returns tuple')
+        if len(output) != 2:
+            err_msg = (
+                'output_func needs to return tuple of length 2, got length {}'
+            ).format(len(output))
+            logger.error(err_msg)
+            raise ValueError(err_msg)
+        output_bag.insert(output[0], output[1])
+        return
+
+    try:
+        iterator = iter(output)
+    except TypeError:
+        raise ValueError
+
+    for port, value in output:
+        output_bag.insert(port, value)
 
 
 cdef Time cy_ta(
     PyObject* object
-):
+) except *:
     logger.debug('Cython ta helper function')
     cdef AtomicBase atomic_base = <AtomicBase>object
 

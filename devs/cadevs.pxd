@@ -71,19 +71,19 @@ cdef extern from "adevs_python.hpp" namespace "pydevs":
             DeltaConfFunc,
             OutputFunc,
             TaFunc,
-        )
+        ) except +
         PyObject* getPythonObject()
 
     cdef cppclass Digraph:
         Digraph() except +
-        void add (Atomic*)
-        void couple (Atomic*, Port, Atomic*, Port)
-        void getComponents (Components&)
+        void add (Atomic*) except *
+        void couple (Atomic*, Port, Atomic*, Port) except *
+        void getComponents (Components&) except *
 
     cdef cppclass Simulator:
-        Simulator(CDevs*)
-        Simulator(Atomic*)
-        Simulator(Digraph*)
-        Time nextEventTime()
-        void executeNextEvent()
-        void executeUntil(T)
+        Simulator(CDevs*) except +
+        Simulator(Atomic*) except +
+        Simulator(Digraph*) except +
+        Time nextEventTime() except *
+        void executeNextEvent() except *
+        void executeUntil(T) except *
