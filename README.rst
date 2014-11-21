@@ -2,7 +2,8 @@
 pydevs
 ======
 
-A Python implementation of the Discrete Event System Specification (DEVS) based on `adevs`_
+A Python wrapper of `adevs`_, a C++ library implementing the Discrete Event
+System Specification (DEVS).
 
 .. _adevs: http://web.ornl.gov/~1qn/adevs/
 
