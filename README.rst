@@ -12,7 +12,7 @@ System Specification (DEVS).
    :target: https://readthedocs.org/projects/pydevs/?badge=latest
    :alt: Documentation Status
 
-.. image:: http://img.shields.io/pypi/l/pydevs.svg
+.. image:: http://img.shields.io/pypi/l/devs.svg
    :target: http://pydevs.readthedocs.org/en/latest/license.html
    :alt: License
 
