@@ -13,6 +13,7 @@ library implementing the Discrete Event System Specification (DEVS).
 * **Author of adevs**: Jim Nutaro <nutarojj@ornl.gov>
 * **Documentation**: http://pydevs.readthedocs.org
 * **Repository**: http://github.com/andsor/pydevs
+* **PyPI**: `pypi.python.org/pypi/devs <https://pypi.python.org/pypi/devs>`_
 
 Contents
 ========

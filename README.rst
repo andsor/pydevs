@@ -18,6 +18,7 @@ System Specification (DEVS).
 * **Documentation**: `pydevs.readthedocs.org <http://pydevs.readthedocs.org>`_
 * **Repository**: `github.com/andsor/pydevs <http://github.com/andsor/pydevs>`_
 * **Read the Docs**: `readthedocs.org/projects/pydevs <https://readthedocs.org/projects/pydevs>`_
+* **PyPI**: `pypi.python.org/pypi/devs <https://pypi.python.org/pypi/devs>`_
 
 Requirements and Python 2/3 compatibility
 =========================================
