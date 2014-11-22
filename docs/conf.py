@@ -18,7 +18,7 @@ __location__ = os.path.join(os.getcwd(), os.path.dirname(
     inspect.getfile(inspect.currentframe())))
 
 output_dir = os.path.join(__location__, "../docs/_rst")
-module_dir = os.path.join(__location__, "../devs")
+module_dir = os.path.join(__location__, "../pydevs")
 cmd_line_template = "sphinx-apidoc -f -o {outputdir} {moduledir}"
 cmd_line = cmd_line_template.format(outputdir=output_dir, moduledir=module_dir)
 subprocess.call(cmd_line, shell=True)
@@ -143,7 +143,7 @@ if not on_rtd:  # only import and set the theme if we're building docs locally
 # The name for this set of Sphinx documents.  If None, it defaults to
 # "<project> v<release> documentation".
 try:
-    from devs import __version__ as version
+    from pydevs import __version__ as version
 except ImportError:
     pass
 else:
@@ -208,7 +208,7 @@ html_show_copyright = False
 # html_file_suffix = None
 
 # Output file base name for HTML help builder.
-htmlhelp_basename = 'devs-doc'
+htmlhelp_basename = 'pydevs-doc'
 
 
 # -- Options for LaTeX output -------------------------------------------------

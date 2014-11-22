@@ -90,7 +90,7 @@ Run ::
     
 to retrieve the current `PEP440`_-compliant version.
 This version will be used when building a package and is also accessible
-through ``devs.__version__``.
+through ``pydevs.__version__``.
 The version will be ``unknown`` until you have added a first tag.
 
 .. _PEP440: http://www.python.org/dev/peps/pep-0440

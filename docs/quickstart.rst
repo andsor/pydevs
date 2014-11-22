@@ -11,7 +11,7 @@ Digraph model) in Python.
 .. code:: python
 
     import logging
-    import devs
+    import pydevs as devs
 .. code:: python
 
     logger = logging.getLogger('quickstart')

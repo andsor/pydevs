@@ -1,7 +1,7 @@
-import devs
+import pydevs
 import pytest
 
 
 def test_creation_and_deletion():
-    model = devs.AtomicBase()
+    model = pydevs.AtomicBase()
     del model
