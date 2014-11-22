@@ -1,10 +1,10 @@
-import pydevs
+import devs
 import pytest
 
 
 @pytest.fixture
 def digraph():
-    return pydevs.Digraph()
+    return devs.Digraph()
 
 
 def test_digraph_creation_and_deletion(digraph):
@@ -16,7 +16,7 @@ def test_empty_list(digraph):
 
 
 def test_add_model_memory_management(digraph):
-    model = pydevs.AtomicBase()
+    model = devs.AtomicBase()
 
     digraph.add(model)
     del digraph
@@ -25,7 +25,7 @@ def test_add_model_memory_management(digraph):
 
 
 def test_add_model(digraph):
-    model = pydevs.AtomicBase()
+    model = devs.AtomicBase()
 
     digraph.add(model)
     assert len(list(digraph)) == 1
@@ -33,7 +33,7 @@ def test_add_model(digraph):
 
 
 def test_add_and_couple_two_models(digraph):
-    models = [ pydevs.AtomicBase() for _ in range(2) ]
+    models = [ devs.AtomicBase() for _ in range(2) ]
     for model in models:
         digraph.add(model)
 

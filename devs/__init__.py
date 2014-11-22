@@ -27,6 +27,6 @@ from ._version import get_versions
 __version__ = get_versions()['version']
 del get_versions
 
-from pydevs.devs import (
+from devs.devs import (
     infinity, AtomicBase, Digraph, Simulator
 )

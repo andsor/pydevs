@@ -2,6 +2,6 @@ include versioneer.py
 include LICENSE
 include *.rst
 include *.txt
-include pydevs/_version.py
+include devs/_version.py
 include vendor/adevs/include/*.h
 include vendor/adevs/copyright.txt

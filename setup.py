@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
 """
-    Setup file for pydevs.
+    Setup file for devs.
 
     This file was generated with PyScaffold 1.2, a tool that easily
     puts up a scaffold for your new Python project. Learn more under:
@@ -25,7 +25,7 @@ __location__ = os.path.join(os.getcwd(), os.path.dirname(
     inspect.getfile(inspect.currentframe())))
 
 # Change these settings according to your needs
-MAIN_PACKAGE = "pydevs"
+MAIN_PACKAGE = "devs"
 DESCRIPTION = (
     "A Python implementation of the Discrete Event System Specification (DEVS)"
     " based on adevs"
@@ -186,8 +186,8 @@ def setup_package():
     # extensions
     extensions = [
         Extension(
-            "pydevs.devs",
-            sources=['pydevs/devs.cpp'],
+            "devs.devs",
+            sources=['devs/devs.cpp'],
             language='c++',
             include_dirs=['vendor/adevs/include', ],
             extra_compile_args=['--std=c++11', ],
