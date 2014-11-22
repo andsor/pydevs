@@ -4,3 +4,4 @@ include *.rst
 include *.txt
 include devs/_version.py
 include vendor/adevs/include/*.h
+include vendor/adevs/copyright.txt
