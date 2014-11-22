@@ -27,8 +27,8 @@ __location__ = os.path.join(os.getcwd(), os.path.dirname(
 # Change these settings according to your needs
 MAIN_PACKAGE = "devs"
 DESCRIPTION = (
-    "A Python implementation of the Discrete Event System Specification (DEVS)"
-    " based on adevs"
+    "A Python wrapper of adevs, a C++ library implementing the Discrete Event "
+    "System Specification (DEVS)"
 )
 LICENSE = "apache"
 URL = "http://github.com/andsor/pydevs"
