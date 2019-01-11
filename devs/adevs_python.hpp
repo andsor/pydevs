@@ -88,12 +88,12 @@ public:
 		bool isDefined = this->pythonObject_ && this->deltaIntFunc_;
 		if (isDefined){
 			this->deltaIntFunc_ (this->pythonObject_);
-            if (PyErr_Occurred())
-            {
-                std::string error_message = get_PyExceptionAsString();
-			    throw std::runtime_error(error_message);
-            }
-        }
+			if (PyErr_Occurred())
+			{
+				std::string error_message = get_PyExceptionAsString();
+				throw std::runtime_error(error_message);
+			}
+		}
 		else
 			throw std::bad_function_call();
 
@@ -106,12 +106,12 @@ public:
 		bool isDefined = this->pythonObject_ && this->deltaExtFunc_;
 		if (isDefined){
 			this->deltaExtFunc_ (this->pythonObject_, e, xb);
-            if (PyErr_Occurred())
-            {
-                std::string error_message = get_PyExceptionAsString();
-			    throw std::runtime_error(error_message);
-            }
-        }
+			if (PyErr_Occurred())
+			{
+				std::string error_message = get_PyExceptionAsString();
+				throw std::runtime_error(error_message);
+			}
+		}
 		else
 			throw std::bad_function_call();
 
@@ -124,12 +124,12 @@ public:
 		bool isDefined = this->pythonObject_ && this->deltaConfFunc_;
 		if (isDefined){
 			this->deltaConfFunc_ (this->pythonObject_, xb);
-            if (PyErr_Occurred())
-            {
-                std::string error_message = get_PyExceptionAsString();
-			    throw std::runtime_error(error_message);
-            }
-        }
+			if (PyErr_Occurred())
+			{
+				std::string error_message = get_PyExceptionAsString();
+				throw std::runtime_error(error_message);
+			}
+		}
 		else
 			throw std::bad_function_call();
 	}
@@ -140,18 +140,18 @@ public:
 
 		bool isDefined = this->pythonObject_ && this->outputFunc_;
 		if (isDefined)
-        {
-    		this->outputFunc_ (this->pythonObject_, yb);
-            if (PyErr_Occurred())
-            {
-                std::string error_message = get_PyExceptionAsString();
-			    throw std::runtime_error(error_message);
-            }
-        }
+		{
+			this->outputFunc_ (this->pythonObject_, yb);
+			if (PyErr_Occurred())
+			{
+				std::string error_message = get_PyExceptionAsString();
+				throw std::runtime_error(error_message);
+			}
+		}
 		else
-        {
+		{
 			throw std::bad_function_call();
-        }
+		}
 
 	}
 
@@ -191,26 +191,26 @@ public:
 	}
 
 
-    std::string get_PyExceptionAsString()
-    {
-        // now we will try to get the python traceback.
-        // see https://stackoverflow.com/questions/1796510/accessing-a-python-traceback-from-the-c-api
-        // for longer discussion on how to do it.
-        PyObject *ptype, *pvalue, *ptraceback;
-        PyObject *pystr, *pystr_unic;
+	std::string get_PyExceptionAsString()
+	{
+		// now we will try to get the python traceback.
+		// see https://stackoverflow.com/questions/1796510/accessing-a-python-traceback-from-the-c-api
+		// for longer discussion on how to do it.
+		PyObject *ptype, *pvalue, *ptraceback;
+		PyObject *pystr, *pystr_unic;
 
-        PyErr_Fetch(&ptype, &pvalue, &ptraceback);
-        pystr = PyObject_Str(pvalue);
-        pystr_unic = PyUnicode_AsEncodedString(pystr, "utf-8", "~E~");
-        std::string error_desc {PyBytes_AsString(pystr_unic)};
-        Py_XDECREF(ptype);
-        Py_XDECREF(pvalue);
-        Py_XDECREF(ptraceback);
-        Py_XDECREF(pystr);
-        Py_XDECREF(pystr_unic);
+		PyErr_Fetch(&ptype, &pvalue, &ptraceback);
+		pystr = PyObject_Str(pvalue);
+		pystr_unic = PyUnicode_AsEncodedString(pystr, "utf-8", "~E~");
+		std::string error_desc {PyBytes_AsString(pystr_unic)};
+		Py_XDECREF(ptype);
+		Py_XDECREF(pvalue);
+		Py_XDECREF(ptraceback);
+		Py_XDECREF(pystr);
+		Py_XDECREF(pystr_unic);
 
-        return error_desc;
-    }
+		return error_desc;
+	}
 
 private:
 
