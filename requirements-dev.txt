@@ -1,4 +1,3 @@
-cython
 ipython[notebook,nbconvert]
 memory_profiler
 psutil

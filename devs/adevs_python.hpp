@@ -198,7 +198,6 @@ public:
         // for longer discussion on how to do it.
         PyObject *ptype, *pvalue, *ptraceback;
         PyObject *pystr, *pystr_unic;
-        std::string full_backtrace;
 
         PyErr_Fetch(&ptype, &pvalue, &ptraceback);
         pystr = PyObject_Str(pvalue);
