@@ -24,7 +24,7 @@
 #include <Python.h>
 
 #include "adevs.h"
-
+#include<iostream>
 
 
 namespace pydevs {
@@ -127,11 +127,23 @@ public:
 
 		bool isDefined = this->pythonObject_ && this->outputFunc_;
 		if (isDefined)
-			this->outputFunc_ (
-				this->pythonObject_, yb
-			);
+        {
+            try
+            {
+    			this->outputFunc_ (
+	    			this->pythonObject_, yb
+		    	);
+            }
+            catch(...)
+            {
+                cerr<<"caught exception"<<endl;
+			    throw std::bad_function_call();
+            }
+        }
 		else
+        {
 			throw std::bad_function_call();
+        }
 
 	}
 

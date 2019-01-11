@@ -264,7 +264,11 @@ cdef class AtomicBase:
 cdef void cy_delta_int(PyObject* object) except *:
     logger.debug('Cython delta_int helper function')
     cdef AtomicBase atomic_base = <AtomicBase>object
-    atomic_base.delta_int()
+    try:
+        atomic_base.delta_int()
+    except:
+        print("raising:")
+#        raise ValueError("Exception Raised in devs.pyx")
 
 
 cdef void cy_delta_ext(
