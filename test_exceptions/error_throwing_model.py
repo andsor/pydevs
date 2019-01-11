@@ -31,13 +31,16 @@ class Source(devs.AtomicBase):
         return self.inter_arrival_time
 
     def delta_int(self):
+        if random.random() > 0.5:
+            raise ValueError("Arbitrary Error in delta_int")
+
         self.job_id += 1
         self.inter_arrival_time = random.expovariate(self.arrival_rate)
 
     def output_func(self):
         self.logger.info('Generate job {}'.format(self.job_id))
-        if self.job_id == 3:
-            raise ValueError("Feel like raising some error")
+        if random.random() > 0.5:
+            raise ValueError("Arbitrary Error in output_func")
         return self.arrival_port, self.job_id
 
 
@@ -78,6 +81,9 @@ class Server(devs.AtomicBase):
             self.job_in_service = None
 
     def delta_ext(self, e, xb):
+        if random.random() > 0.5:
+            raise ValueError("Arbitrary Error in delta_ext")
+
         if self.job_in_service is not None:
             self.remaining_service_time -= e
 
@@ -140,4 +146,4 @@ digraph.couple(source, source.arrival_port, observer, observer.arrival_port)
 digraph.couple(server, server.departure_port, observer, observer.departure_port)
 
 simulator = devs.Simulator(digraph)
-simulator.execute_until(5.0)
+simulator.execute_until(15.0)
