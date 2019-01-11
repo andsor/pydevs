@@ -14,11 +14,13 @@
    See the License for the specific language governing permissions and
    limitations under the License.
 
+NOTE:
+    compile this file with:
+    cython --cplus -X language_level=3 devs.pyx
 '''
-
 from cpython.ref cimport PyObject, Py_INCREF, Py_XINCREF, Py_CLEAR, Py_DECREF
 cimport cython.operator as co
-cimport cadevs
+cimport devs.cadevs as cadevs
 import logging
 import sys
 import warnings
