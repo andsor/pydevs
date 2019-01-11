@@ -128,16 +128,32 @@ public:
 		bool isDefined = this->pythonObject_ && this->outputFunc_;
 		if (isDefined)
         {
-            try
+    		this->outputFunc_ (this->pythonObject_, yb);
+
+            if (PyErr_Occurred())
             {
-    			this->outputFunc_ (
-	    			this->pythonObject_, yb
-		    	);
-            }
-            catch(...)
-            {
-                cerr<<"caught exception"<<endl;
-			    throw std::bad_function_call();
+                PyObject *ptype, *pvalue, *ptraceback;
+                PyObject *pyrepr_extype, *pyunicode_extype;
+
+                PyErr_Fetch(&ptype, &pvalue, &ptraceback);
+                // get the exception type
+                pyrepr_extype = PyObject_Repr(pvalue);
+                pyunicode_extype = PyUnicode_AsEncodedString(pyrepr_extype, "utf-8", "~E~");
+                std::string cppstr_ex_type (PyBytes_AS_STRING(pyunicode_extype));
+
+                // free all memory
+                Py_XDECREF(ptype);
+                Py_XDECREF(pvalue);
+                Py_XDECREF(ptraceback);
+                Py_XDECREF(pyrepr_extype);
+                Py_XDECREF(pyunicode_extype);
+                //Py_XDECREF();
+
+
+                // construct a useful error message
+                std::string errmsg = cppstr_ex_type;
+
+			    throw std::runtime_error(errmsg);
             }
         }
 		else

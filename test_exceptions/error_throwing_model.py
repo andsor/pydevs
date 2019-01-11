@@ -36,7 +36,8 @@ class Source(devs.AtomicBase):
 
     def output_func(self):
         self.logger.info('Generate job {}'.format(self.job_id))
-        raise ValueError("Feel like raising some error")
+        if self.job_id == 3:
+            raise ValueError("Feel like raising some error")
         return self.arrival_port, self.job_id
 
 
