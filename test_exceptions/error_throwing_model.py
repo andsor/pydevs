@@ -28,6 +28,7 @@ class Source(devs.AtomicBase):
 
     def ta(self):
         self.logger.debug('Next arrival in {} time units'.format(self.inter_arrival_time))
+#        raise ValueError("Arbitrary Error in ta()")
         return self.inter_arrival_time
 
     def delta_int(self):
