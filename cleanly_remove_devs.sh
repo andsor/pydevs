@@ -14,5 +14,3 @@ cd ../
 python setup.py clean
 # delete installed module form virtualenv
 rm -rf $VIRTUAL_ENV/lib/python*/site-packages/devs*
-# now install
-python setup.py install
