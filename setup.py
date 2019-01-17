@@ -214,7 +214,9 @@ def setup_package():
           include_package_data=True,  # include everything in source control
           # but exclude these files
           exclude_package_data={'': ['.gitignore']},
-          ext_modules=cythonize(devs_extension),
+          ext_modules=cythonize(devs_extension,
+              compiler_directives={'language_level': 3,
+                                   'unraisable_tracebacks': True}),
           )
 
 if __name__ == "__main__":
