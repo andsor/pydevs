@@ -147,4 +147,7 @@ digraph.couple(source, source.arrival_port, observer, observer.arrival_port)
 digraph.couple(server, server.departure_port, observer, observer.departure_port)
 
 simulator = devs.Simulator(digraph)
-simulator.execute_until(15.0)
+try:
+    simulator.execute_until(15.0)
+except Exception as e:
+    x = e
