@@ -199,45 +199,24 @@ public:
 		PyObject *ptype, *pvalue, *ptraceback;
 		PyObject *pystr, *pystr_unic;
 
+        std::string error_desc;
 		PyErr_Fetch(&ptype, &pvalue, &ptraceback);
-		pystr = PyObject_Str(pvalue);
-		pystr_unic = PyUnicode_AsEncodedString(pystr, "utf-8", "~E~");
-		std::string error_desc {PyBytes_AsString(pystr_unic)};
-		Py_XDECREF(pystr);
-		Py_XDECREF(pystr_unic);
-
-        // try to get traceback as per https://stackoverflow.com/a/15907460
-
-        /* See if we can get a full traceback */
-        std::string full_backtrace = "";
-        PyObject *pyth_module, *pyth_func;
-        pyth_module = PyImport_ImportModule("traceback");
-        if (pyth_module == NULL) {
-            full_backtrace = "";
+        if (pvalue == NULL){
+            error_desc = {"No information on the occured exception available"};
         }
         else {
+    		pystr = PyObject_Str(pvalue);
+	    	pystr_unic = PyUnicode_AsEncodedString(pystr, "utf-8", "ignore");
+		    error_desc = {PyBytes_AsString(pystr_unic)};
 
-        pyth_func = PyObject_GetAttrString(pyth_module, "format_exception");
-        if (pyth_func && PyCallable_Check(pyth_func)) {
-            PyObject *pyth_val;
-
-            pyth_val = PyObject_CallFunctionObjArgs(pyth_func, ptype, pvalue, ptraceback, NULL);
-
-            pystr = PyObject_Str(pyth_val);
-            pystr_unic = PyUnicode_AsEncodedString(pystr, "utf-8", "~E~");
-            full_backtrace = {PyBytes_AsString(pystr_unic)};
-
-            Py_XDECREF(pyth_val);
-            Py_XDECREF(pyth_func);
-    		Py_XDECREF(pystr);
+            Py_XDECREF(pystr);
 	    	Py_XDECREF(pystr_unic);
+        }
 		Py_XDECREF(ptype);
 		Py_XDECREF(pvalue);
 		Py_XDECREF(ptraceback);
 
-            }
-        }
-		return error_desc + full_backtrace;
+		return "Python traceback follows:\n" + error_desc;
 	}
 
 private:

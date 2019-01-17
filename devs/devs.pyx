@@ -283,7 +283,7 @@ cdef void cy_delta_ext(
         atomic_base.delta_ext(e, list(input_bag))
     except Exception as ex:
         emsg = traceback.format_exception(type(ex), ex, ex.__traceback__)
-        print(''.join(emsg))
+        emsg = ''.join(emsg)
         raise ValueError(emsg)
 
 
