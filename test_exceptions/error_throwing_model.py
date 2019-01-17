@@ -32,16 +32,16 @@ class Source(devs.AtomicBase):
         return self.inter_arrival_time
 
     def delta_int(self):
-        if random.random() > 0.5:
-            raise ValueError("Arbitrary Error in delta_int")
+#        if random.random() > 0.5:
+#            raise ValueError("Arbitrary Error in delta_int")
 
         self.job_id += 1
         self.inter_arrival_time = random.expovariate(self.arrival_rate)
 
     def output_func(self):
         self.logger.info('Generate job {}'.format(self.job_id))
-        if random.random() > 0.5:
-            raise ValueError("Arbitrary Error in output_func")
+#        if random.random() > 0.5:
+#            raise ValueError("Arbitrary Error in output_func")
         return self.arrival_port, self.job_id
 
 

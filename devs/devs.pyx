@@ -24,6 +24,7 @@ cimport devs.cadevs as cadevs
 import logging
 import sys
 import warnings
+import traceback
 
 logger = logging.getLogger(__name__)
 
@@ -278,8 +279,13 @@ cdef void cy_delta_ext(
 
     # wrap the C++ Bag in a Python Wrapper Bag class
     cdef InputBag input_bag = CreateInputBag(&xb)
+    try:
+        atomic_base.delta_ext(e, list(input_bag))
+    except Exception as ex:
+        emsg = traceback.format_exception(type(ex), ex, ex.__traceback__)
+        print(''.join(emsg))
+        raise ValueError(emsg)
 
-    atomic_base.delta_ext(e, list(input_bag))
 
 
 cdef void cy_delta_conf(
