@@ -41,7 +41,7 @@ class Source(devs.AtomicBase):
     def output_func(self):
         self.logger.info('Generate job {}'.format(self.job_id))
 #        if random.random() > 0.5:
-#            raise ValueError("Arbitrary Error in output_func")
+        raise ValueError("Arbitrary Error in Source output_func")
         return self.arrival_port, self.job_id
 
 
