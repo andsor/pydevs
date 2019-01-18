@@ -252,3 +252,31 @@ def test_delta_conf(mocker):
     assert len(obs_delta_ext.call_args[0][1]) == 2
     assert (0, 1) in obs_delta_ext.call_args[0][1]
     assert (0, 2) in obs_delta_ext.call_args[0][1]
+
+
+class Source(devs.AtomicBase):
+    arrival_port = 0
+    def delta_int(self):
+        pass
+
+    def delta_ext(self, e, xb):
+        pass
+
+    def delta_conf(self, xb):
+        pass
+
+    def output_func(self):
+        return self.arrival_port, True
+
+    def ta(self):
+        return 1
+
+def test_simulator_exception_handled():
+    source = Source()
+
+    digraph = devs.Digraph()
+    digraph.add(source)
+
+    simulator = devs.Simulator(digraph)
+    simulator.execute_next_event()
+
