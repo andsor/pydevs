@@ -267,9 +267,12 @@ cdef class AtomicBase:
 cdef void cy_delta_int(PyObject* object) except *:
     logger.debug('Cython delta_int helper function')
     cdef AtomicBase atomic_base = <AtomicBase>object
-    atomic_base.delta_int()
-#        raise ValueError("Exception Raised in devs.pyx")
-
+    try:
+        atomic_base.delta_int()
+    except Exception as ex:
+        emsg = traceback.format_exception(type(ex), ex, ex.__traceback__)
+        emsg = ''.join(emsg)
+        raise ValueError(emsg)
 
 cdef void cy_delta_ext(
     PyObject* object, cadevs.Time e, const cadevs.IOBag& xb
@@ -296,8 +299,13 @@ cdef void cy_delta_conf(
 
     # wrap the C++ Bag in a Python Wrapper Bag class
     cdef InputBag input_bag = CreateInputBag(&xb)
+    try:
+        atomic_base.delta_conf(list(input_bag))
+    except Exception as ex:
+        emsg = traceback.format_exception(type(ex), ex, ex.__traceback__)
+        emsg = ''.join(emsg)
+        raise ValueError(emsg)
 
-    atomic_base.delta_conf(list(input_bag))
 
 
 cdef void cy_output_func(
@@ -309,7 +317,12 @@ cdef void cy_output_func(
     # wrap the C++ Bag in a Python Wrapper Bag class
     cdef OutputBag output_bag = CreateOutputBag(&yb)
 
-    output = atomic_base.output_func()
+    try:
+        output = atomic_base.output_func()
+    except Exception as ex:
+        emsg = traceback.format_exception(type(ex), ex, ex.__traceback__)
+        emsg = ''.join(emsg)
+        raise ValueError(emsg)
 
     if output is None:
         logger.debug('output_func returns None')
@@ -341,8 +354,12 @@ cdef Time cy_ta(
     logger.debug('Cython ta helper function')
     cdef AtomicBase atomic_base = <AtomicBase>object
 
-    return atomic_base.ta()
-
+    try:
+        return atomic_base.ta()
+    except Exception as ex:
+        emsg = traceback.format_exception(type(ex), ex, ex.__traceback__)
+        emsg = ''.join(emsg)
+        raise ValueError(emsg)
 
 cdef class Digraph:
     """
