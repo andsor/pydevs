@@ -199,19 +199,19 @@ public:
 		PyObject *ptype, *pvalue, *ptraceback;
 		PyObject *pystr, *pystr_unic;
 
-        std::string error_desc;
+		std::string error_desc;
 		PyErr_Fetch(&ptype, &pvalue, &ptraceback);
-        if (pvalue == NULL){
-            error_desc = {"No information on the occured exception available"};
-        }
-        else {
-    		pystr = PyObject_Str(pvalue);
-	    	pystr_unic = PyUnicode_AsEncodedString(pystr, "utf-8", "ignore");
-		    error_desc = {PyBytes_AsString(pystr_unic)};
+		if (pvalue == NULL){
+			error_desc = {"No information on the occured exception available"};
+		}
+		else {
+			pystr = PyObject_Str(pvalue);
+			pystr_unic = PyUnicode_AsEncodedString(pystr, "utf-8", "ignore");
+			error_desc = {PyBytes_AsString(pystr_unic)};
 
-            Py_XDECREF(pystr);
-	    	Py_XDECREF(pystr_unic);
-        }
+			Py_XDECREF(pystr);
+			Py_XDECREF(pystr_unic);
+		}
 		Py_XDECREF(ptype);
 		Py_XDECREF(pvalue);
 		Py_XDECREF(ptraceback);
