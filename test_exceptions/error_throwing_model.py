@@ -1,15 +1,14 @@
 import logging
 import devs
 
-logger = logging.getLogger('quickstart')
-logger.setLevel(logging.INFO)
-logging.getLogger('devs').setLevel(logging.INFO)
+for logger_name in ('quickstart', 'devs.devs'):
+    logger = logging.getLogger(logger_name)
+    logger.setLevel(logging.INFO)
 
-
-ch = logging.StreamHandler()
-ch.setLevel(logging.DEBUG)
-formatter = logging.Formatter('%(asctime)s - %(name)s - %(levelname)s - %(message)s')
-logger.addHandler(ch)
+    ch = logging.StreamHandler()
+    ch.setLevel(logging.DEBUG)
+    formatter = logging.Formatter('%(asctime)s - %(name)s - %(levelname)s - %(message)s')
+    logger.addHandler(ch)
 
 
 import collections
