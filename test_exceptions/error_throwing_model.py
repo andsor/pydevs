@@ -1,9 +1,9 @@
 import logging
 import devs
 
-for logger_name in ('quickstart', 'devs.devs'):
+for logger_name in ('quickstart', 'devs.devs', 'devs.devs.Simulator'):
     logger = logging.getLogger(logger_name)
-    logger.setLevel(logging.INFO)
+    logger.setLevel(logging.DEBUG)
 
     ch = logging.StreamHandler()
     ch.setLevel(logging.DEBUG)

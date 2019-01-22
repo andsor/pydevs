@@ -233,7 +233,7 @@ cdef class AtomicBase:
             logger.debug('AtomicBase: Deallocated internal pointer.')
 
     def _reset_base_ptr(self):
-        self._logger.debug('Reset internal pointer')
+        self._logger.debug('AtomicBase: Reset internal pointer')
         self.base_ptr_ = NULL
 
     def delta_int(self):
@@ -391,27 +391,27 @@ cdef class Digraph:
     def __init__(self):
         logger.debug('Set up logging for new Digraph instance...')
         self.logger = logging.getLogger(__name__ + '.Digraph')
-        self.logger.debug('Set up logging.')
+        self.logger.debug('Digraph: Set up logging.')
 
     def __dealloc__(self):
-        self.logger.debug('Temporarily store the Python objects')
+        self.logger.debug('Digraph: Temporarily store the Python objects')
         components = list(self)
-        self.logger.debug('Deallocate internal pointer...')
+        self.logger.debug('Digraph: Deallocate internal pointer...')
         # this deletes all C++ Atomic models (and in turn, the references to
         # the Python objects)
         del self._thisptr
-        self.logger.debug('Deallocated internal pointer.')
-        self.logger.debug('Decrease reference counts of all Python objects')
+        self.logger.debug('Digraph: Deallocated internal pointer.')
+        self.logger.debug('Digraph: Decrease reference counts of all Python objects')
         for component in components:
             Py_DECREF(component)
             component._reset_base_ptr()
 
     cpdef add(self, AtomicBase model):
-        self.logger.debug('Add model...')
-        self.logger.debug('Increase reference counter to Python object')
+        self.logger.debug('Digraph: Add model...')
+        self.logger.debug('Digraph: Increase reference counter to Python object')
         Py_INCREF(model)
         self._thisptr.add(model.base_ptr_)
-        self.logger.debug('Added model.')
+        self.logger.debug('Digraph: Added model.')
 
     cpdef couple(
         self,
@@ -432,7 +432,7 @@ cdef class Digraph:
         Return AtomicBase Python objects upon each iteration
         """
 
-        self.logger.debug("Start iteration")
+        self.logger.debug("Digraph: Start iteration")
         cdef CComponents components
         self._thisptr.getComponents(components)
 
@@ -445,15 +445,15 @@ cdef class Digraph:
         cdef object python_object
 
         while it != end:
-            self.logger.debug("Retrieve next component")
+            self.logger.debug("Digraph: Retrieve next component")
             component = <cadevs.Atomic*>(co.dereference(it))
-            self.logger.debug("Get C Python object")
+            self.logger.debug("Digraph: Get C Python object")
             c_python_object = <PyObject*>(component.getPythonObject())
-            self.logger.debug("Cast to Python object")
+            self.logger.debug("Digraph: Cast to Python object")
             python_object = <object>c_python_object
-            self.logger.debug("Yield Python object")
+            self.logger.debug("Digraph: Yield Python object")
             yield python_object
-            self.logger.debug("Increment iterator")
+            self.logger.debug("Digraph: Increment iterator")
             co.preincrement(it)
 
         self.logger.debug("Stop iteration")
@@ -504,20 +504,24 @@ cdef class Simulator:
         self.logger.debug('Set up logging.')
 
     def __dealloc__(self):
-        self.logger.debug('Deallocate internal pointer...')
-        del self._thisptr
-        self.logger.debug('Deallocated internal pointer.')
+        self.logger.debug('Simulator: Deallocate internal pointer...')
+
+        if self._thisptr is NULL:
+            self.logger.debug('Simulator: Internal pointer already cleared')
+        else:
+            del self._thisptr
+            self.logger.debug('Simulator: Deallocated internal pointer.')
 
     def next_event_time(self):
-        self.logger.debug('Compute time of next event')
+        self.logger.debug('Simulator: Compute time of next event')
         return self._thisptr.nextEventTime()
 
     def execute_next_event(self):
-        self.logger.info('Execute next event')
+        self.logger.info('Simulator: Execute next event')
         self._thisptr.executeNextEvent()
 
     def execute_until(self, Time t_end):
-        self.logger.info('Execute until time {}'.format(t_end))
+        self.logger.info('Simulator: Execute until time {}'.format(t_end))
         self._thisptr.executeUntil(t_end)
 
 
