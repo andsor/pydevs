@@ -270,6 +270,8 @@ cdef void cy_delta_int(PyObject* object) except *:
     try:
         atomic_base.delta_int()
     except Exception as ex:
+        # TODO: in py2, tracebacks must be obtained differently, see:
+        # https://docs.python.org/2/library/traceback.html?highlight=traceback#traceback-examples
         emsg = traceback.format_exception(type(ex), ex, ex.__traceback__)
         emsg = ''.join(emsg)
         raise ValueError(emsg)
