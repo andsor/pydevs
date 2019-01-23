@@ -205,7 +205,7 @@ public:
 			error_desc = {"No information on the occured exception available"};
 		}
 		else {
-			pystr = PyObject_Str(pvalue);
+			pystr = PyObject_Unicode(pvalue);
 			pystr_unic = PyUnicode_AsEncodedString(pystr, "utf-8", "ignore");
 			error_desc = {PyBytes_AsString(pystr_unic)};
 

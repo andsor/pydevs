@@ -18,7 +18,7 @@ class Source(devs.AtomicBase):
     arrival_port = 0
 
     def __init__(self, arrival_rate=1.0, **kwds):
-        super().__init__(**kwds)
+        devs.AtomicBase.__init__(self, **kwds)
         self.logger = logging.getLogger('quickstart.Source')
         self.logger.info('Initialize source with arrival rate {}'.format(arrival_rate))
         self.arrival_rate = arrival_rate
@@ -49,7 +49,7 @@ class Server(devs.AtomicBase):
     departure_port = 1
 
     def __init__(self, service_rate=1.0, **kwds):
-        super().__init__(**kwds)
+        devs.AtomicBase.__init__(self, **kwds)
         self.logger = logging.getLogger('quickstart.Server')
         self.logger.info('Initialize server with service rate {}'.format(service_rate))
         self.service_rate = service_rate
@@ -115,7 +115,7 @@ class Observer(devs.AtomicBase):
     departure_port = 1
 
     def __init__(self, time=0.0, **kwds):
-        super().__init__(**kwds)
+        devs.AtomicBase.__init__(self, **kwds)
         self.logger = logging.getLogger('quickstart.Observer')
         self.logger.info('Initialize observer at time {}'.format(time))
         self.time = time

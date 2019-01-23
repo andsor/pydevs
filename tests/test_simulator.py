@@ -1,5 +1,17 @@
 import devs
 import pytest
+import logging 
+
+for logger_name in ('quickstart', 'devs.devs', 'devs.devs.Simulator'):
+    logger = logging.getLogger(logger_name)
+    logger.setLevel(logging.DEBUG)
+
+    ch = logging.StreamHandler()
+    ch.setLevel(logging.DEBUG)
+    formatter = logging.Formatter('%(asctime)s - %(name)s - %(levelname)s - %(message)s')
+    logger.addHandler(ch)
+
+
 
 
 class TestAtomic(devs.AtomicBase):
@@ -289,8 +301,8 @@ def test_simulator_exception_handled():
     try:
         simulator.execute_next_event()
     except Exception as e:
-        del simulator
         ex = e
+        del simulator
     assert isinstance(ex, RuntimeError)
     exception_msg = str(ex)
     assert exception_msg.startswith("Python traceback follows:")
