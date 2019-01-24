@@ -1,15 +1,14 @@
 import logging
 import devs
 
-logger = logging.getLogger('quickstart')
-logger.setLevel(logging.INFO)
-logging.getLogger('devs').setLevel(logging.INFO)
+for logger_name in ('quickstart', 'devs.devs', 'devs.devs.Simulator'):
+    logger = logging.getLogger(logger_name)
+    logger.setLevel(logging.DEBUG)
 
-
-ch = logging.StreamHandler()
-ch.setLevel(logging.DEBUG)
-formatter = logging.Formatter('%(asctime)s - %(name)s - %(levelname)s - %(message)s')
-logger.addHandler(ch)
+    ch = logging.StreamHandler()
+    ch.setLevel(logging.DEBUG)
+    formatter = logging.Formatter('%(asctime)s - %(name)s - %(levelname)s - %(message)s')
+    logger.addHandler(ch)
 
 
 import collections
@@ -19,7 +18,7 @@ class Source(devs.AtomicBase):
     arrival_port = 0
 
     def __init__(self, arrival_rate=1.0, **kwds):
-        super().__init__(**kwds)
+        devs.AtomicBase.__init__(self, **kwds)
         self.logger = logging.getLogger('quickstart.Source')
         self.logger.info('Initialize source with arrival rate {}'.format(arrival_rate))
         self.arrival_rate = arrival_rate
@@ -32,16 +31,16 @@ class Source(devs.AtomicBase):
         return self.inter_arrival_time
 
     def delta_int(self):
-        if random.random() > 0.5:
-            raise ValueError("Arbitrary Error in delta_int")
+#        if random.random() > 0.5:
+#            raise ValueError("Arbitrary Error in delta_int")
 
         self.job_id += 1
         self.inter_arrival_time = random.expovariate(self.arrival_rate)
 
     def output_func(self):
         self.logger.info('Generate job {}'.format(self.job_id))
-        if random.random() > 0.5:
-            raise ValueError("Arbitrary Error in output_func")
+#        if random.random() > 0.5:
+        raise ValueError("Arbitrary Error in Source output_func")
         return self.arrival_port, self.job_id
 
 
@@ -50,7 +49,7 @@ class Server(devs.AtomicBase):
     departure_port = 1
 
     def __init__(self, service_rate=1.0, **kwds):
-        super().__init__(**kwds)
+        devs.AtomicBase.__init__(self, **kwds)
         self.logger = logging.getLogger('quickstart.Server')
         self.logger.info('Initialize server with service rate {}'.format(service_rate))
         self.service_rate = service_rate
@@ -116,7 +115,7 @@ class Observer(devs.AtomicBase):
     departure_port = 1
 
     def __init__(self, time=0.0, **kwds):
-        super().__init__(**kwds)
+        devs.AtomicBase.__init__(self, **kwds)
         self.logger = logging.getLogger('quickstart.Observer')
         self.logger.info('Initialize observer at time {}'.format(time))
         self.time = time
@@ -147,4 +146,7 @@ digraph.couple(source, source.arrival_port, observer, observer.arrival_port)
 digraph.couple(server, server.departure_port, observer, observer.departure_port)
 
 simulator = devs.Simulator(digraph)
-simulator.execute_until(15.0)
+try:
+    simulator.execute_until(15.0)
+except Exception as e:
+    x = e
