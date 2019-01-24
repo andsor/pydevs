@@ -80,13 +80,11 @@ def test_atomic_raises_error_if_returns_tuple_not_length_2(atomic, mocker):
     mocker.patch.object(atomic, 'output_func', return_value=(1, 2, 3))
     mocker.patch.object(atomic, 'ta', return_value=1.0)
     simulator = devs.Simulator(atomic)
-    try:
+    with pytest.raises(RuntimeError) as ex:
         simulator.execute_next_event()
-    except Exception as e:
-        del simulator
-        ex = e
-    assert isinstance(ex, RuntimeError)
-    exception_msg = str(ex)
+    del simulator
+    assert isinstance(ex.value, RuntimeError)
+    exception_msg = str(ex.value)
     assert exception_msg.startswith("Python traceback follows:")
     assert "output_func needs to return tuple of length 2, got length 3" in exception_msg
 
@@ -298,12 +296,10 @@ def test_simulator_exception_handled():
     digraph.add(source)
 
     simulator = devs.Simulator(digraph)
-    try:
+    with pytest.raises(RuntimeError) as ex:
         simulator.execute_next_event()
-    except Exception as e:
-        ex = e
-        del simulator
-    assert isinstance(ex, RuntimeError)
-    exception_msg = str(ex)
+    del simulator
+    assert isinstance(ex.value, RuntimeError)
+    exception_msg = str(ex.value)
     assert exception_msg.startswith("Python traceback follows:")
     assert "Intentinal error in delta_int" in exception_msg
