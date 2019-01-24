@@ -263,6 +263,17 @@ cdef class AtomicBase:
         warnings.warn(warn_msg)
         return infinity
 
+def _backward_compatible_traceback(ex):
+    """
+    Returns the traceback of an exception. Works for both python2 and python 3.
+    """
+    if sys.version_info.major >= 3:
+        emsg = traceback.format_exception(type(ex), ex, ex.__traceback__)
+    else:
+        exc_type, exc_value, exc_traceback = sys.exc_info()
+        emsg = traceback.format_exception(exc_type, exc_value, exc_traceback)
+    emsg = ''.join(emsg)
+    return emsg
 
 cdef void cy_delta_int(PyObject* object) except *:
     logger.debug('Cython delta_int helper function')
@@ -270,11 +281,7 @@ cdef void cy_delta_int(PyObject* object) except *:
     try:
         atomic_base.delta_int()
     except Exception as ex:
-        # TODO: in py2, tracebacks must be obtained differently, see:
-        # https://docs.python.org/2/library/traceback.html?highlight=traceback#traceback-examples
-        emsg = traceback.format_exception(type(ex), ex, ex.__traceback__)
-        emsg = ''.join(emsg)
-        raise ValueError(emsg)
+        raise ValueError(_backward_compatible_traceback(ex))
 
 cdef void cy_delta_ext(
     PyObject* object, cadevs.Time e, const cadevs.IOBag& xb
@@ -287,10 +294,7 @@ cdef void cy_delta_ext(
     try:
         atomic_base.delta_ext(e, list(input_bag))
     except Exception as ex:
-        emsg = traceback.format_exception(type(ex), ex, ex.__traceback__)
-        emsg = ''.join(emsg)
-        raise ValueError(emsg)
-
+        raise ValueError(_backward_compatible_traceback(ex))
 
 
 cdef void cy_delta_conf(
@@ -304,10 +308,7 @@ cdef void cy_delta_conf(
     try:
         atomic_base.delta_conf(list(input_bag))
     except Exception as ex:
-        emsg = traceback.format_exception(type(ex), ex, ex.__traceback__)
-        emsg = ''.join(emsg)
-        raise ValueError(emsg)
-
+        raise ValueError(_backward_compatible_traceback(ex))
 
 
 cdef void cy_output_func(
@@ -322,9 +323,7 @@ cdef void cy_output_func(
     try:
         output = atomic_base.output_func()
     except Exception as ex:
-        emsg = traceback.format_exception(type(ex), ex, ex.__traceback__)
-        emsg = ''.join(emsg)
-        raise ValueError(emsg)
+        raise ValueError(_backward_compatible_traceback(ex))
 
     if output is None:
         logger.debug('output_func returns None')
@@ -359,9 +358,7 @@ cdef Time cy_ta(
     try:
         return atomic_base.ta()
     except Exception as ex:
-        emsg = traceback.format_exception(type(ex), ex, ex.__traceback__)
-        emsg = ''.join(emsg)
-        raise ValueError(emsg)
+        raise ValueError(_backward_compatible_traceback(ex))
 
 cdef class Digraph:
     """

@@ -205,9 +205,15 @@ public:
 			error_desc = {"No information on the occured exception available"};
 		}
 		else {
-			pystr = PyObject_Unicode(pvalue); // PyObject_Str in py2
+            #if PY_MAJOR_VERSION < 3
+			pystr = PyObject_Unicode(pvalue);
 			pystr_unic = PyUnicode_AsEncodedString(pystr, "utf-8", "ignore"); // same in py2 and py3
-			error_desc = {PyBytes_AsString(pystr_unic)}; // PyString_AsString in py2
+			error_desc = {PyBytes_AsString(pystr_unic)};
+            #else
+			pystr = PyObject_Str(pvalue);
+			pystr_unic = PyUnicode_AsEncodedString(pystr, "utf-8", "ignore");
+			error_desc = {PyBytes_AsString(pystr_unic)};
+            #endif
 
 			Py_XDECREF(pystr);
 			Py_XDECREF(pystr_unic);
