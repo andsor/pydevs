@@ -275,7 +275,7 @@ def _backward_compatible_traceback(ex):
     emsg = ''.join(emsg)
     return emsg
 
-cdef void cy_delta_int(PyObject* object) except +:
+cdef void cy_delta_int(PyObject* object) except *:
     logger.debug('Cython delta_int helper function')
     cdef AtomicBase atomic_base = <AtomicBase>object
     try:
@@ -285,7 +285,7 @@ cdef void cy_delta_int(PyObject* object) except +:
 
 cdef void cy_delta_ext(
     PyObject* object, cadevs.Time e, const cadevs.IOBag& xb
-) except +:
+) except *:
     logger.debug('Cython delta_ext helper function')
     cdef AtomicBase atomic_base = <AtomicBase>object
 
@@ -299,7 +299,7 @@ cdef void cy_delta_ext(
 
 cdef void cy_delta_conf(
     PyObject* object, const cadevs.IOBag& xb
-) except +:
+) except *:
     logger.debug('Cython delta_conf helper function')
     cdef AtomicBase atomic_base = <AtomicBase>object
 
@@ -313,7 +313,7 @@ cdef void cy_delta_conf(
 
 cdef void cy_output_func(
     PyObject* object, cadevs.IOBag& yb
-) except +:
+) except *:
     logger.debug('Cython output_func helper function')
     cdef AtomicBase atomic_base = <AtomicBase>object
 
