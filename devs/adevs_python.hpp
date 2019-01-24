@@ -24,7 +24,6 @@
 #include <Python.h>
 
 #include "adevs.h"
-#include<iostream>
 
 
 namespace pydevs {
