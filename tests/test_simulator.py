@@ -1,5 +1,17 @@
 import devs
 import pytest
+import logging 
+
+for logger_name in ('quickstart', 'devs.devs', 'devs.devs.Simulator'):
+    logger = logging.getLogger(logger_name)
+    logger.setLevel(logging.DEBUG)
+
+    ch = logging.StreamHandler()
+    ch.setLevel(logging.DEBUG)
+    formatter = logging.Formatter('%(asctime)s - %(name)s - %(levelname)s - %(message)s')
+    logger.addHandler(ch)
+
+
 
 
 class TestAtomic(devs.AtomicBase):
@@ -68,9 +80,13 @@ def test_atomic_raises_error_if_returns_tuple_not_length_2(atomic, mocker):
     mocker.patch.object(atomic, 'output_func', return_value=(1, 2, 3))
     mocker.patch.object(atomic, 'ta', return_value=1.0)
     simulator = devs.Simulator(atomic)
-    with pytest.raises(ValueError):
+    with pytest.raises(RuntimeError) as ex:
         simulator.execute_next_event()
-
+    del simulator
+    assert isinstance(ex.value, RuntimeError)
+    exception_msg = str(ex.value)
+    assert exception_msg.startswith("Python traceback follows:")
+    assert "output_func needs to return tuple of length 2, got length 3" in exception_msg
 
 def test_atomic_calls_output_func(atomic, mocker):
     output_func = mocker.patch.object(
@@ -252,3 +268,38 @@ def test_delta_conf(mocker):
     assert len(obs_delta_ext.call_args[0][1]) == 2
     assert (0, 1) in obs_delta_ext.call_args[0][1]
     assert (0, 2) in obs_delta_ext.call_args[0][1]
+
+
+class Source(devs.AtomicBase):
+    arrival_port = 0
+    def delta_int(self):
+        raise ValueError("Intentinal error in delta_int")
+        pass
+
+    def delta_ext(self, e, xb):
+        raise ValueError("Intentinal error in delta_ext")
+
+    def delta_conf(self, xb):
+        raise ValueError("Intentinal error in delta_conf")
+        pass
+
+    def output_func(self):
+        return self.arrival_port, True
+
+    def ta(self):
+        return 1
+
+def test_simulator_exception_handled():
+    source = Source()
+
+    digraph = devs.Digraph()
+    digraph.add(source)
+
+    simulator = devs.Simulator(digraph)
+    with pytest.raises(RuntimeError) as ex:
+        simulator.execute_next_event()
+    del simulator
+    assert isinstance(ex.value, RuntimeError)
+    exception_msg = str(ex.value)
+    assert exception_msg.startswith("Python traceback follows:")
+    assert "Intentinal error in delta_int" in exception_msg

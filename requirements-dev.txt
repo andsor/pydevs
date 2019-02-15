@@ -1,8 +1,7 @@
-cython
 ipython[notebook,nbconvert]
 memory_profiler
 psutil
+pytest
 pytest-mock
 pytest-cov
-pytest
 ipdb

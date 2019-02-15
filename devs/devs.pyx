@@ -14,14 +14,17 @@
    See the License for the specific language governing permissions and
    limitations under the License.
 
+NOTE:
+    compile this file with:
+    cython --cplus -X language_level=3 devs.pyx
 '''
-
 from cpython.ref cimport PyObject, Py_INCREF, Py_XINCREF, Py_CLEAR, Py_DECREF
 cimport cython.operator as co
-cimport cadevs
+cimport devs.cadevs as cadevs
 import logging
 import sys
 import warnings
+import traceback
 
 logger = logging.getLogger(__name__)
 
@@ -230,7 +233,7 @@ cdef class AtomicBase:
             logger.debug('AtomicBase: Deallocated internal pointer.')
 
     def _reset_base_ptr(self):
-        self._logger.debug('Reset internal pointer')
+        self._logger.debug('AtomicBase: Reset internal pointer')
         self.base_ptr_ = NULL
 
     def delta_int(self):
@@ -260,12 +263,25 @@ cdef class AtomicBase:
         warnings.warn(warn_msg)
         return infinity
 
+def _backward_compatible_traceback(ex):
+    """
+    Returns the traceback of an exception. Works for both python2 and python 3.
+    """
+    if sys.version_info.major >= 3:
+        emsg = traceback.format_exception(type(ex), ex, ex.__traceback__)
+    else:
+        exc_type, exc_value, exc_traceback = sys.exc_info()
+        emsg = traceback.format_exception(exc_type, exc_value, exc_traceback)
+    emsg = ''.join(emsg)
+    return emsg
 
 cdef void cy_delta_int(PyObject* object) except *:
     logger.debug('Cython delta_int helper function')
     cdef AtomicBase atomic_base = <AtomicBase>object
-    atomic_base.delta_int()
-
+    try:
+        atomic_base.delta_int()
+    except Exception as ex:
+        raise ValueError(_backward_compatible_traceback(ex))
 
 cdef void cy_delta_ext(
     PyObject* object, cadevs.Time e, const cadevs.IOBag& xb
@@ -275,8 +291,10 @@ cdef void cy_delta_ext(
 
     # wrap the C++ Bag in a Python Wrapper Bag class
     cdef InputBag input_bag = CreateInputBag(&xb)
-
-    atomic_base.delta_ext(e, list(input_bag))
+    try:
+        atomic_base.delta_ext(e, list(input_bag))
+    except Exception as ex:
+        raise ValueError(_backward_compatible_traceback(ex))
 
 
 cdef void cy_delta_conf(
@@ -287,8 +305,10 @@ cdef void cy_delta_conf(
 
     # wrap the C++ Bag in a Python Wrapper Bag class
     cdef InputBag input_bag = CreateInputBag(&xb)
-
-    atomic_base.delta_conf(list(input_bag))
+    try:
+        atomic_base.delta_conf(list(input_bag))
+    except Exception as ex:
+        raise ValueError(_backward_compatible_traceback(ex))
 
 
 cdef void cy_output_func(
@@ -300,7 +320,10 @@ cdef void cy_output_func(
     # wrap the C++ Bag in a Python Wrapper Bag class
     cdef OutputBag output_bag = CreateOutputBag(&yb)
 
-    output = atomic_base.output_func()
+    try:
+        output = atomic_base.output_func()
+    except Exception as ex:
+        raise ValueError(_backward_compatible_traceback(ex))
 
     if output is None:
         logger.debug('output_func returns None')
@@ -332,8 +355,10 @@ cdef Time cy_ta(
     logger.debug('Cython ta helper function')
     cdef AtomicBase atomic_base = <AtomicBase>object
 
-    return atomic_base.ta()
-
+    try:
+        return atomic_base.ta()
+    except Exception as ex:
+        raise ValueError(_backward_compatible_traceback(ex))
 
 cdef class Digraph:
     """
@@ -365,27 +390,27 @@ cdef class Digraph:
     def __init__(self):
         logger.debug('Set up logging for new Digraph instance...')
         self.logger = logging.getLogger(__name__ + '.Digraph')
-        self.logger.debug('Set up logging.')
+        self.logger.debug('Digraph: Set up logging.')
 
     def __dealloc__(self):
-        self.logger.debug('Temporarily store the Python objects')
+        self.logger.debug('Digraph: Temporarily store the Python objects')
         components = list(self)
-        self.logger.debug('Deallocate internal pointer...')
+        self.logger.debug('Digraph: Deallocate internal pointer...')
         # this deletes all C++ Atomic models (and in turn, the references to
         # the Python objects)
         del self._thisptr
-        self.logger.debug('Deallocated internal pointer.')
-        self.logger.debug('Decrease reference counts of all Python objects')
+        self.logger.debug('Digraph: Deallocated internal pointer.')
+        self.logger.debug('Digraph: Decrease reference counts of all Python objects')
         for component in components:
             Py_DECREF(component)
             component._reset_base_ptr()
 
     cpdef add(self, AtomicBase model):
-        self.logger.debug('Add model...')
-        self.logger.debug('Increase reference counter to Python object')
+        self.logger.debug('Digraph: Add model...')
+        self.logger.debug('Digraph: Increase reference counter to Python object')
         Py_INCREF(model)
         self._thisptr.add(model.base_ptr_)
-        self.logger.debug('Added model.')
+        self.logger.debug('Digraph: Added model.')
 
     cpdef couple(
         self,
@@ -406,7 +431,7 @@ cdef class Digraph:
         Return AtomicBase Python objects upon each iteration
         """
 
-        self.logger.debug("Start iteration")
+        self.logger.debug("Digraph: Start iteration")
         cdef CComponents components
         self._thisptr.getComponents(components)
 
@@ -419,15 +444,15 @@ cdef class Digraph:
         cdef object python_object
 
         while it != end:
-            self.logger.debug("Retrieve next component")
+            self.logger.debug("Digraph: Retrieve next component")
             component = <cadevs.Atomic*>(co.dereference(it))
-            self.logger.debug("Get C Python object")
+            self.logger.debug("Digraph: Get C Python object")
             c_python_object = <PyObject*>(component.getPythonObject())
-            self.logger.debug("Cast to Python object")
+            self.logger.debug("Digraph: Cast to Python object")
             python_object = <object>c_python_object
-            self.logger.debug("Yield Python object")
+            self.logger.debug("Digraph: Yield Python object")
             yield python_object
-            self.logger.debug("Increment iterator")
+            self.logger.debug("Digraph: Increment iterator")
             co.preincrement(it)
 
         self.logger.debug("Stop iteration")
@@ -478,20 +503,24 @@ cdef class Simulator:
         self.logger.debug('Set up logging.')
 
     def __dealloc__(self):
-        self.logger.debug('Deallocate internal pointer...')
-        del self._thisptr
-        self.logger.debug('Deallocated internal pointer.')
+        self.logger.debug('Simulator: Deallocate internal pointer...')
+
+        if self._thisptr is NULL:
+            self.logger.debug('Simulator: Internal pointer already cleared')
+        else:
+            del self._thisptr
+            self.logger.debug('Simulator: Deallocated internal pointer.')
 
     def next_event_time(self):
-        self.logger.debug('Compute time of next event')
+        self.logger.debug('Simulator: Compute time of next event')
         return self._thisptr.nextEventTime()
 
     def execute_next_event(self):
-        self.logger.info('Execute next event')
+        self.logger.info('Simulator: Execute next event')
         self._thisptr.executeNextEvent()
 
     def execute_until(self, Time t_end):
-        self.logger.info('Execute until time {}'.format(t_end))
+        self.logger.info('Simulator: Execute until time {}'.format(t_end))
         self._thisptr.executeUntil(t_end)
 
 

@@ -103,5 +103,6 @@ cdef extern from "adevs_python.hpp" namespace "pydevs":
         Simulator(Atomic*) except +
         Simulator(Digraph*) except +
         Time nextEventTime() except *
-        void executeNextEvent() except *
-        void executeUntil(Time) except *
+        void executeNextEvent() except +* # the +* signifies this can raise
+                                          # both python and c++ exceptions
+        void executeUntil(Time) except +*
