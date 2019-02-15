@@ -273,14 +273,14 @@ def test_delta_conf(mocker):
 class Source(devs.AtomicBase):
     arrival_port = 0
     def delta_int(self):
-        raise ValueError("Intentinal error in delta_int")
+        raise ValueError("Intentional error in delta_int")
         pass
 
     def delta_ext(self, e, xb):
-        raise ValueError("Intentinal error in delta_ext")
+        raise ValueError("Intentional error in delta_ext")
 
     def delta_conf(self, xb):
-        raise ValueError("Intentinal error in delta_conf")
+        raise ValueError("Intentional error in delta_conf")
         pass
 
     def output_func(self):
@@ -302,4 +302,4 @@ def test_simulator_exception_handled():
     assert isinstance(ex.value, RuntimeError)
     exception_msg = str(ex.value)
     assert exception_msg.startswith("Python traceback follows:")
-    assert "Intentinal error in delta_int" in exception_msg
+    assert "Intentional error in delta_int" in exception_msg
